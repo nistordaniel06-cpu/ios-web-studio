@@ -1,0 +1,13 @@
+{
+  "name": "PureStone",
+  "short_name": "PureStone",
+  "description": "Catalog, simulator și cereri de ofertă pentru blaturi premium.",
+  "start_url": "./purestone.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4efe7",
+  "theme_color": "#f4efe7",
+  "icons": [
+    {"src":"./purestone-mark.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
