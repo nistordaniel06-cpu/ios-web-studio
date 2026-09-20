@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /ios-web-studio/purestone.html
+Allow: /ios-web-studio/catalog.html
+Allow: /ios-web-studio/product.html
+Allow: /ios-web-studio/quote.html
+Allow: /ios-web-studio/privacy.html
+Allow: /ios-web-studio/terms.html
+Disallow: /ios-web-studio/purestone-admin.html
+Disallow: /ios-web-studio/purestone-dashboard.html
+Disallow: /ios-web-studio/purestone-products-admin.html
+Disallow: /ios-web-studio/purestone-leads.html
+Disallow: /ios-web-studio/purestone-analytics.html
+
+Sitemap: https://nistordaniel06-cpu.github.io/ios-web-studio/sitemap.xml
