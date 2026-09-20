@@ -38,8 +38,17 @@ window.PURESTONE_DEFAULT_CONTENT = {
   }
 };
 
+window.PURESTONE_SUPABASE = {
+  url: "https://bcedyacdepzhqwleizfl.supabase.co",
+  publishableKey: "sb_publishable_vrnEsnBHspLzL9pBxMuBzw_DBZ-1mgx",
+  table: "purestone_content",
+  rowId: "site"
+};
+
 window.PureStoneCMS = (() => {
   const KEY = "purestone-site-content-v1";
+  const cfg = window.PURESTONE_SUPABASE;
+  let remoteCache = null;
   const clone = value => JSON.parse(JSON.stringify(value));
   const merge = (base, override) => {
     if (!override || typeof override !== "object") return base;
@@ -51,17 +60,19 @@ window.PureStoneCMS = (() => {
     });
     return base;
   };
-  const get = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(KEY) || "null");
-      return merge(clone(window.PURESTONE_DEFAULT_CONTENT), saved || {});
-    } catch (_) {
-      return clone(window.PURESTONE_DEFAULT_CONTENT);
-    }
+  const local = () => {
+    try { return JSON.parse(localStorage.getItem(KEY) || "null"); }
+    catch (_) { return null; }
   };
+  const get = () => {
+    const base = clone(window.PURESTONE_DEFAULT_CONTENT);
+    if (remoteCache) return merge(base, clone(remoteCache));
+    return merge(base, local() || {});
+  };
+  const emit = content => window.dispatchEvent(new CustomEvent("purestone-content-updated", { detail: content }));
   const save = content => {
     localStorage.setItem(KEY, JSON.stringify(content));
-    window.dispatchEvent(new CustomEvent("purestone-content-updated", { detail: content }));
+    emit(content);
   };
   const reset = () => localStorage.removeItem(KEY);
   const exportJSON = () => JSON.stringify(get(), null, 2);
@@ -70,5 +81,71 @@ window.PureStoneCMS = (() => {
     save(parsed);
     return parsed;
   };
-  return { get, save, reset, exportJSON, importJSON, key: KEY };
+  const headers = token => ({
+    apikey: cfg.publishableKey,
+    Authorization: `Bearer ${token || cfg.publishableKey}`,
+    "Content-Type": "application/json"
+  });
+  const loadRemote = async () => {
+    try {
+      const r = await fetch(`${cfg.url}/rest/v1/${cfg.table}?id=eq.${encodeURIComponent(cfg.rowId)}&select=content`, { headers: headers() });
+      if (!r.ok) return null;
+      const rows = await r.json();
+      if (rows && rows[0] && rows[0].content) {
+        remoteCache = rows[0].content;
+        emit(get());
+        return remoteCache;
+      }
+    } catch (_) {}
+    return null;
+  };
+  const saveRemote = async (content, accessToken) => {
+    if (!accessToken) throw new Error("Admin authentication required");
+    const r = await fetch(`${cfg.url}/rest/v1/${cfg.table}?id=eq.${encodeURIComponent(cfg.rowId)}`, {
+      method: "PATCH",
+      headers: { ...headers(accessToken), Prefer: "return=representation" },
+      body: JSON.stringify({ content, updated_at: new Date().toISOString() })
+    });
+    if (!r.ok) throw new Error(await r.text() || "Supabase save failed");
+    remoteCache = content;
+    save(content);
+    return r.json();
+  };
+  const signInWithPassword = async (email, password) => {
+    const r = await fetch(`${cfg.url}/auth/v1/token?grant_type=password`, {
+      method: "POST",
+      headers: { apikey: cfg.publishableKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    if (!r.ok) throw new Error("Autentificare nereușită");
+    return r.json();
+  };
+  const ready = loadRemote();
+  return { get, save, reset, exportJSON, importJSON, loadRemote, saveRemote, signInWithPassword, ready, key: KEY };
+})();
+
+/* PureStone editorial photo remaster — non-destructive, preserves real stone colour/veining. */
+(() => {
+  const style = document.createElement("style");
+  style.id = "purestone-magazine-grade";
+  style.textContent = `
+    .hero-media img,.collection img,.studio-stage>img,.product-media img,.project img,.showroom-img img,.showroom-photo img,.team-photo img{
+      filter:saturate(.88) contrast(1.085) brightness(1.035) sepia(.035) !important;
+      image-rendering:auto;
+    }
+    .hero-media:before,.collection:before,.project:before,.showroom-img:before,.showroom-photo:before{
+      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(145deg,rgba(255,248,238,.13),transparent 42%,rgba(45,31,22,.08));
+      mix-blend-mode:soft-light;
+    }
+    .hero-media img{object-position:center 54%;transform:scale(1.012)}
+    .collection img{object-position:center center}
+    .project img{object-position:center 48%}
+    .product-media img{object-position:center center}
+    @media(max-width:760px){
+      .hero-media img{object-position:center 52%;transform:scale(1.02)}
+      .collection img{filter:saturate(.9) contrast(1.07) brightness(1.04) sepia(.025)!important}
+    }
+  `;
+  document.head.appendChild(style);
 })();
