@@ -1,0 +1,36 @@
+name: PureStone smoke test
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'purestone*.html'
+      - 'catalog.html'
+      - 'product.html'
+      - 'compare.html'
+      - 'kitchen-visualizer.html'
+      - 'booking.html'
+      - 'b2b.html'
+      - 'offer.html'
+      - 'quote.html'
+      - 'purestone-*.js'
+      - 'scripts/purestone-smoke.mjs'
+      - '.github/workflows/purestone-smoke.yml'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Serve site
+        run: |
+          python3 -m http.server 4173 >/tmp/purestone-http.log 2>&1 &
+          sleep 2
+      - name: Browser smoke test
+        run: node scripts/purestone-smoke.mjs
