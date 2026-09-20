@@ -49,6 +49,40 @@
     }).filter(x => x.is_active !== false).sort((a,b) => Number(a.sort_order || 0) - Number(b.sort_order || 0));
   }
 
+  function proxiedImage(src, name = 'PureStone') {
+    try {
+      const u = new URL(src, location.href);
+      if (!['top-blat.ro','www.top-blat.ro'].includes(u.hostname) || !u.pathname.startsWith('/wp-content/uploads/')) return src;
+      return `${SUPABASE_URL}/functions/v1/purestone-image?src=${encodeURIComponent(u.href)}&name=${encodeURIComponent(name)}`;
+    } catch { return src; }
+  }
+
+  function proxyImages(root = document) {
+    root.querySelectorAll?.('img[src]').forEach(img => {
+      const current = img.getAttribute('src') || '';
+      const next = proxiedImage(current, img.alt || 'PureStone');
+      if (next !== current) img.setAttribute('src', next);
+    });
+  }
+
+  function observeImages() {
+    proxyImages(document);
+    const observer = new MutationObserver(list => {
+      for (const m of list) {
+        m.addedNodes.forEach(node => {
+          if (!(node instanceof Element)) return;
+          if (node.matches?.('img[src]')) {
+            const current = node.getAttribute('src') || '';
+            const next = proxiedImage(current, node.getAttribute('alt') || 'PureStone');
+            if (next !== current) node.setAttribute('src', next);
+          }
+          proxyImages(node);
+        });
+      }
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
   function injectLegalLinks() {
     document.querySelectorAll('footer').forEach(footer => {
       if (footer.querySelector('[data-purestone-legal]')) return;
@@ -79,6 +113,7 @@
   function init() {
     injectLegalLinks();
     showConsent(false);
+    observeImages();
     document.addEventListener('click', e => {
       const settings = e.target.closest?.('[data-cookie-settings]');
       if (settings) showConsent(true);
@@ -90,6 +125,6 @@
     if (analyticsAllowed()) track('page_view', { title: document.title });
   }
 
-  window.PureStoneRuntime = { SUPABASE_URL, PUBLISHABLE_KEY, consent, analyticsAllowed, track, loadOverrides, mergeCatalog, showConsent, init };
+  window.PureStoneRuntime = { SUPABASE_URL, PUBLISHABLE_KEY, consent, analyticsAllowed, track, loadOverrides, mergeCatalog, proxiedImage, proxyImages, showConsent, init };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
 })();
