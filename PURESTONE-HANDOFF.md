@@ -1,70 +1,97 @@
-# PureStone — Client Handoff / Production Checklist
+# PureStone V4 — Client Handoff / Production Checklist
 
 ## Linkuri publice
 - Site: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone.html
 - Catalog: https://nistordaniel06-cpu.github.io/ios-web-studio/catalog.html
+- Compară materiale: https://nistordaniel06-cpu.github.io/ios-web-studio/compare.html
+- Vezi în bucătăria mea: https://nistordaniel06-cpu.github.io/ios-web-studio/kitchen-visualizer.html
+- Programări: https://nistordaniel06-cpu.github.io/ios-web-studio/booking.html
 - Cerere ofertă / favorite: https://nistordaniel06-cpu.github.io/ios-web-studio/quote.html
+- Portal B2B arhitecți/designeri: https://nistordaniel06-cpu.github.io/ios-web-studio/b2b.html
 - Politică de confidențialitate: https://nistordaniel06-cpu.github.io/ios-web-studio/privacy.html
 - Termeni: https://nistordaniel06-cpu.github.io/ios-web-studio/terms.html
 
 ## Administrare privată
-- Dashboard: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-dashboard.html
-- Content CMS autentificat: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-content-admin-auth.html
+- Dashboard V4: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-dashboard-v4.html
+- URL vechi Dashboard redirecționează automat la V4.
+- Content CMS: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-content-admin-auth.html
 - Produse: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-products-admin.html
 - Lead CRM: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-leads.html
+- Offer Builder: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-offer-builder.html
+- B2B / programări admin: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-b2b-admin.html
 - Analytics: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-analytics.html
 
 Paginile private nu sunt linkuite în site-ul public și sunt excluse din robots.txt.
 
-## Prima configurare a contului de administrator
-1. Deschide `purestone-dashboard.html`.
-2. Extinde „Prima configurare a contului”.
-3. Introdu cheia veche de administrare o singură dată.
-4. Alege emailul și o parolă de minimum 12 caractere.
-5. Apasă „Creează contul”.
-6. Din acel moment folosește email + parolă. Cheia veche rămâne doar fallback de urgență.
-
-## Ce este funcțional
-- Homepage premium responsive, loading screen și logo PureStone.
+## PureStone V4 — ce este funcțional
+- Homepage premium responsive, loading screen, logo PureStone și tratament editorial al imaginilor.
 - Catalog cu aproximativ 286 materiale, căutare, branduri, filtre și favorite.
-- Pagini individuale de material cu informații și cerere de ofertă.
+- Pagini individuale de material.
+- Image gateway/cache PureStone pentru imaginile externe.
+- Simulator homepage cu maparea corectată pentru Desert Silver și Arte Black.
+- Comparare simultană pentru până la trei materiale.
+- „Vezi în bucătăria mea”: fotografia este procesată local; utilizatorul marchează cele patru colțuri ale blatului, iar materialul este proiectat pe suprafață în canvas. Include intensitate, before/after și export imagine.
 - Favorite → o singură cerere pentru mai multe materiale.
-- Upload PDF / fotografie în cererea de ofertă (max. 10 MB).
-- Lead CRM: status, notițe, valoare estimată, fișiere private, apel, WhatsApp și export CSV.
-- Content CMS: hero, showroom, echipă, contact și imagini.
-- Product Admin: nume, brand, material, nuanță, preț orientativ, finisaj, grosime, dimensiune placă, imagine, featured, activ/inactiv și ordine.
-- Supabase Storage pentru imagini administrate și fișierele private ale lead-urilor.
-- Image gateway/cache PureStone pentru imaginile Top-Blat, cu fallback vizual dacă sursa externă cade.
-- Analytics first-party cu consimțământ: page views, produse, favorite, simulator, WhatsApp, căutări și cereri.
-- Preferințe cookies / analytics, Politică de confidențialitate și Termeni.
-- sitemap.xml, robots.txt, webmanifest și logo vectorial.
+- Upload PDF / fotografie în cererea de ofertă.
+- Programări pentru showroom, măsurători și consultație de design.
+- Lead CRM cu status, notițe, valoare estimată, fișiere private, apel, WhatsApp și CSV.
+- Offer Builder cu linii, cantitate, UM, preț, TVA, total și valabilitate.
+- Ofertă publică securizată prin id + token, acceptare client și Print / Save PDF din browser.
+- Portal B2B Supabase Auth pentru arhitecți/designeri.
+- B2B: profil, proiecte, materiale salvate, solicitări de mostre, fișiere private, oferte și istoric/programări.
+- Admin B2B: aprobare/blocare conturi, proiecte, status mostre, programări și oferte.
+- Fișierele B2B sunt într-un bucket privat și se deschid prin signed URL temporar.
+- Content CMS și Product Admin.
+- Analytics first-party cu consimțământ.
+- Privacy/terms/cookie preferences.
+- Trust strip pe homepage cu brandurile materialelor din catalog și workflow măsurători → producție → montaj.
+- SEO static automat: GitHub Action generează `/materiale/<slug>/` pentru fiecare produs și reconstruiește sitemap-ul când se schimbă manifestul.
+- webmanifest, logo SVG, robots.txt și structured data.
 
-## Demo recomandat clientului
-1. Deschide homepage-ul pe telefon și arată intro-ul + hero-ul.
-2. Intră în Catalog și caută un material.
-3. Salvează 2–3 materiale la Favorite.
-4. Apasă „Ofertă selecție” și arată că poți atașa un plan sau o fotografie.
-5. Trimite o cerere de test.
-6. Intră în Dashboard → Lead CRM și arată că lead-ul apare cu produsele și fișierul.
-7. Schimbă statusul sau adaugă notiță / valoare estimată.
-8. Dashboard → Produse: modifică un câmp sau o fotografie și salvează.
-9. Dashboard → Conținut: schimbă un text / membru al echipei și publică.
-10. Arată Analytics pentru flow-ul complet.
+## Prima configurare Admin
+1. Deschide Dashboard V4.
+2. Extinde „Prima configurare / recuperare”.
+3. Folosește cheia legacy o singură dată pentru bootstrap.
+4. Alege email și parolă de minimum 12 caractere.
+5. După bootstrap folosește contul Supabase Auth.
 
-## Ce trebuie completat cu date reale înainte de lansarea comercială definitivă
-- Membrii reali ai echipei: nume, rol, telefon, fotografie.
-- Datele juridice complete ale operatorului în Politica de confidențialitate / Termeni și documentele comerciale.
-- Confirmarea telefonului, WhatsApp și datelor showroom-ului.
-- Specificațiile tehnice și prețurile trebuie introduse numai din surse/producători confirmați; unde nu sunt confirmate, site-ul afișează formulări de tip „La cerere / La ofertare”.
-- Încarcă fotografiile originale de cea mai bună calitate în Product Admin / Content CMS pentru produsele prioritare.
+## Demo recomandat
+1. Homepage → zona Instrumente PureStone.
+2. „Vezi în bucătăria mea”: folosește imagine demo, marchează cele 4 colțuri, schimbă materialul și glisează comparația Original / Material.
+3. Compară trei materiale.
+4. Catalog → produs → favorite → ofertă.
+5. Trimite o programare de test.
+6. Trimite un lead cu plan/fotografie.
+7. Dashboard → Lead CRM.
+8. Offer Builder → generează oferta → deschide linkul client → Print/PDF → Accept oferta.
+9. Portal B2B: creează cont, proiect, adaugă materiale, solicită mostră și încarcă un fișier.
+10. Dashboard → B2B & programări: gestionează contul, mostra și programarea.
+11. Content CMS / Product Admin → modifică un câmp și arată publicarea.
+12. Analytics.
+
+## Date reale de completat înainte de lansarea comercială definitivă
+- Numele, rolurile, telefoanele și fotografiile reale ale echipei.
+- Datele juridice complete ale operatorului în Privacy / Terms / ofertă.
+- Adresa și programul real al showroom-ului.
+- Prețurile și specificațiile tehnice trebuie confirmate din surse/producători.
+- Pentru look editorial maxim, încarcă originalele high-resolution în CMS / Product Admin; AI remasterul real trebuie făcut pornind de la fișierele originale, nu din hotlink-uri comprimate.
+
+## SEO
+Workflow: `.github/workflows/purestone-seo.yml`.
+Generator: `scripts/generate-purestone-seo.mjs`.
+Generatorul produce pagini statice pentru toate materialele și `sitemap.xml`.
+
+## Backend / Storage
+- Conținut: `purestone_content`.
+- Override-uri produse: `purestone_product_overrides`.
+- Lead-uri: `purestone_leads`.
+- Analytics: `purestone_events`.
+- B2B: `purestone_b2b_profiles`, `purestone_b2b_projects`, `purestone_b2b_project_materials`, `purestone_b2b_samples`, `purestone_b2b_files`.
+- Programări: `purestone_appointments`.
+- Oferte: `purestone_offers`.
+- Imagini publice: bucket `purestone-media`.
+- Lead files: bucket privat `purestone-lead-files`.
+- B2B files: bucket privat `purestone-b2b-files`.
 
 ## Domeniul
-Domeniul personalizat este singurul pas de infrastructură amânat intenționat. Când este ales domeniul final, se actualizează canonical, sitemap, Search Console, adresele de email și eventual redirecturile din GitHub Pages.
-
-## Backup / recuperare
-- Conținutul principal este în Supabase `purestone_content`.
-- Personalizările produselor sunt în `purestone_product_overrides`.
-- Lead-urile sunt în `purestone_leads` și pot fi exportate CSV din CRM.
-- Imaginile administrate sunt în bucket-ul `purestone-media`.
-- Fișierele lead-urilor sunt în bucket privat `purestone-lead-files`.
-- Codul și manifestul catalogului sunt versionate în GitHub.
+Domeniul personalizat rămâne singurul pas de infrastructură amânat intenționat. La mutare se actualizează canonical, sitemap, Search Console, emailurile și redirecturile.
