@@ -16,7 +16,7 @@
 - URL vechi Dashboard redirecționează automat la V4.
 - Content CMS: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-content-admin-auth.html
 - Produse: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-products-admin.html
-- Lead CRM: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-leads.html
+- Lead CRM: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-leads-v4.html
 - Offer Builder: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-offer-builder.html
 - B2B / programări admin: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-b2b-admin.html
 - Analytics: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone-analytics.html
@@ -48,12 +48,12 @@ Paginile private nu sunt linkuite în site-ul public și sunt excluse din robots
 - SEO static automat: GitHub Action generează `/materiale/<slug>/` pentru fiecare produs și reconstruiește sitemap-ul când se schimbă manifestul.
 - webmanifest, logo SVG, robots.txt și structured data.
 
-## Prima configurare Admin
-1. Deschide Dashboard V4.
-2. Extinde „Prima configurare / recuperare”.
-3. Folosește cheia legacy o singură dată pentru bootstrap.
-4. Alege email și parolă de minimum 12 caractere.
-5. După bootstrap folosește contul Supabase Auth.
+## Acces administrator
+- Administrarea folosește exclusiv Supabase Auth cu email + parolă.
+- Există deja un cont PureStone Admin în Supabase Auth.
+- Cheia legacy / bootstrap a fost dezactivată în backend și nu mai trebuie folosită sau transmisă.
+- Dashboard, Content CMS, Product Admin, CRM, ofertare, B2B Admin și Analytics folosesc sesiunea autentificată.
+- Dacă accesul la cont se pierde, recuperarea trebuie făcută prin fluxul Supabase Auth, nu prin cheia veche.
 
 ## Demo recomandat
 1. Homepage → zona Instrumente PureStone.
@@ -80,6 +80,10 @@ Paginile private nu sunt linkuite în site-ul public și sunt excluse din robots
 Workflow: `.github/workflows/purestone-seo.yml`.
 Generator: `scripts/generate-purestone-seo.mjs`.
 Generatorul produce pagini statice pentru toate materialele și `sitemap.xml`.
+
+## QA automat
+Workflow: `.github/workflows/purestone-smoke.yml`.
+Rulează Chromium pe desktop, Android-size și iPhone-size pentru homepage, catalog, comparație, visualizer, programări, B2B și o pagină SEO.
 
 ## Backend / Storage
 - Conținut: `purestone_content`.
