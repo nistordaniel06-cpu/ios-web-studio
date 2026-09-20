@@ -17,6 +17,7 @@ Disallow: /ios-web-studio/purestone-dashboard.html
 Disallow: /ios-web-studio/purestone-dashboard-v4.html
 Disallow: /ios-web-studio/purestone-products-admin.html
 Disallow: /ios-web-studio/purestone-leads.html
+Disallow: /ios-web-studio/purestone-leads-v4.html
 Disallow: /ios-web-studio/purestone-analytics.html
 Disallow: /ios-web-studio/purestone-b2b-admin.html
 Disallow: /ios-web-studio/purestone-offer-builder.html
