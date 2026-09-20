@@ -78,6 +78,28 @@
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
+  function fixVisualizerSwap() {
+    const chips = document.querySelector('#materialChips');
+    const stage = document.querySelector('#studioImage');
+    if (!chips || !stage || chips.dataset.purestoneMappingFix === '1') return;
+    chips.dataset.purestoneMappingFix = '1';
+    const correctedScenes = {
+      'Desert Silver': 'https://top-blat.ro/wp-content/uploads/2024/05/Blaturi-de-bucatarii-Blaturi-de-Baie-quartz-compozit-Blaturidebucatarii.ro-117-1024x768.avif',
+      'Arte Black': 'https://top-blat.ro/wp-content/uploads/2024/05/Blaturi-de-bucatarii-Blaturi-de-Baie-quartz-compozit-Blaturidebucatarii.ro-269-1024x497.avif'
+    };
+    chips.addEventListener('click', event => {
+      const chip = event.target.closest('.chip');
+      if (!chip) return;
+      const name = chip.querySelector('b')?.textContent?.trim();
+      const src = correctedScenes[name];
+      if (!src) return;
+      setTimeout(() => {
+        stage.src = proxiedImage(src, name);
+        stage.alt = `${name} • PureStone`;
+      }, 160);
+    });
+  }
+
   function ensureHeadAssets() {
     if (!document.querySelector('link[rel="manifest"]')) {
       const l = document.createElement('link'); l.rel = 'manifest'; l.href = './site.webmanifest'; document.head.appendChild(l);
@@ -130,7 +152,7 @@
   }
 
   function init() {
-    ensureHeadAssets(); injectLegalLinks(); showConsent(false); observeImages(); injectStructuredData();
+    ensureHeadAssets(); injectLegalLinks(); showConsent(false); observeImages(); fixVisualizerSwap(); injectStructuredData();
     document.addEventListener('click', e => {
       const settings = e.target.closest?.('[data-cookie-settings]'); if (settings) showConsent(true);
       const wa = e.target.closest?.('a[href*="wa.me"],a[href*="api.whatsapp.com"]'); if (wa) track('open_whatsapp', { text:(wa.textContent||'').trim().slice(0,100) });
