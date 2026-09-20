@@ -106,15 +106,6 @@
 </head>
 <body class="selection:bg-blue-600 selection:text-white pb-32">
 
-    <!-- Dynamic Island Header Top Notification -->
-    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
-        <div id="island" onclick="toggleIsland()" class="dynamic-island cursor-pointer px-4 py-2 flex items-center gap-3 shadow-2xl hover:border-blue-500/50">
-            <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-            <span id="island-text" class="text-xs font-medium tracking-wide">Titanium Pro • Lansare Oficială</span>
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i>
-        </div>
-    </div>
-
     <!-- Navigation Bar -->
     <nav class="sticky top-0 z-40 ios-glass py-3.5 px-6">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -150,10 +141,10 @@
                 Design monolitic din titan de grad aerospațial, ecran Super Retina XDR de 120Hz și putere fără precedent.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-                <button onclick="openModal()" class="ios-btn-primary px-8 py-3.5 text-sm font-semibold shadow-lg shadow-blue-500/25">
+                <button onclick="openModal()" class="ios-btn-primary px-8 py-3.5 text-sm font-semibold shadow-lg shadow-blue-500/25 whitespace-nowrap">
                     Configurează acum
                 </button>
-                <a href="#specs" class="ios-btn-secondary px-8 py-3.5 text-sm font-semibold flex items-center gap-2">
+                <a href="#specs" class="ios-btn-secondary px-8 py-3.5 text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
                     Vezi specificațiile <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </a>
             </div>
@@ -381,19 +372,20 @@
             triggerHaptic();
         }
 
-        function toggleIsland() {
-            const island = document.getElementById('island');
-            const text = document.getElementById('island-text');
-            if (island.classList.contains('px-8')) {
-                island.classList.remove('px-8', 'py-3.5', 'border-blue-500');
-                island.classList.add('px-4', 'py-2');
-                text.innerText = 'Titanium Pro • Lansare Oficială';
-            } else {
-                island.classList.remove('px-4', 'py-2');
-                island.classList.add('px-8', 'py-3.5', 'border-blue-500');
-                text.innerText = '✨ Precomenzile se livrează în 48 de ore!';
-            }
+        function showToast(msg) {
+            const existing = document.getElementById('ios-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.id = 'ios-toast';
+            toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-stone-900/95 text-white border border-white/20 text-xs font-semibold shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 transition-all';
+            toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>${msg}</span>`;
+            document.body.appendChild(toast);
             triggerHaptic();
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
         }
 
         function openModal() {
@@ -412,16 +404,7 @@
         function handleOrderSubmit(e) {
             e.preventDefault();
             closeModal();
-            const island = document.getElementById('island');
-            const text = document.getElementById('island-text');
-            island.classList.add('px-8', 'py-3.5', 'border-green-500');
-            text.innerText = '🎉 Rezervare Confirmată cu Succes!';
-            triggerHaptic();
-            setTimeout(() => {
-                island.classList.remove('px-8', 'py-3.5', 'border-green-500');
-                island.classList.add('px-4', 'py-2');
-                text.innerText = 'Titanium Pro • Lansare Oficială';
-            }, 4000);
+            showToast('🎉 Rezervare Confirmată cu Succes!');
         }
 
         function openWhatsApp() {

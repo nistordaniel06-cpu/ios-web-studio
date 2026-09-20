@@ -196,15 +196,6 @@
 </head>
 <body class="selection:bg-blue-600 selection:text-white pb-36">
 
-    <!-- Top Dynamic Island Interactive Notification -->
-    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
-        <div id="dynamic-island" onclick="expandIsland()" class="dynamic-island cursor-pointer px-4 py-2 flex items-center gap-3 shadow-2xl hover:border-blue-500/60 transition-all">
-            <div id="island-dot" class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></div>
-            <span id="island-text" class="text-xs font-semibold tracking-wide text-white">iOS Web Studio Pro • Online</span>
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i>
-        </div>
-    </div>
-
     <!-- Navigation Header -->
     <header class="sticky top-0 z-40 ios-glass px-6 py-4">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -644,37 +635,23 @@
 
         function setThemeAccent(hex) {
             document.documentElement.style.setProperty('--accent-color', hex);
-            document.getElementById('island-dot').style.backgroundColor = hex;
             if (navigator.vibrate) navigator.vibrate(8);
         }
 
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                icon.setAttribute('data-lucide', 'moon');
-            } else {
-                html.classList.add('dark');
-                icon.setAttribute('data-lucide', 'sun');
-            }
-            lucide.createIcons();
-            if (navigator.vibrate) navigator.vibrate(8);
-        }
-
-        function expandIsland() {
-            const island = document.getElementById('dynamic-island');
-            const text = document.getElementById('island-text');
-            if (island.classList.contains('px-8')) {
-                island.classList.remove('px-8', 'py-3.5');
-                island.classList.add('px-4', 'py-2');
-                text.innerText = 'iOS Web Studio Pro • Online';
-            } else {
-                island.classList.remove('px-4', 'py-2');
-                island.classList.add('px-8', 'py-3.5');
-                text.innerText = '✨ 4 Sisteme Profesionale Active pe Localhost!';
-            }
-            if (navigator.vibrate) navigator.vibrate(8);
+        function showToast(msg) {
+            const existing = document.getElementById('ios-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.id = 'ios-toast';
+            toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full bg-stone-900/95 text-white border border-white/20 text-xs font-semibold shadow-2xl backdrop-blur-2xl flex items-center gap-2.5 transition-all';
+            toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>${msg}</span>`;
+            document.body.appendChild(toast);
+            if (navigator.vibrate) navigator.vibrate(10);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
         }
 
         function handleSwDemo(el) {
@@ -806,16 +783,8 @@ input:checked + .ios-slider:before { transform: translateX(20px); }
                     a.download = brand.toLowerCase().replace(/\s+/g, '-') + '.html';
                     a.click();
 
-                    const island = document.getElementById('dynamic-island');
-                    const text = document.getElementById('island-text');
-                    island.classList.add('px-8', 'py-3.5', 'border-green-500');
-                    text.innerText = `🎉 Site-ul "${brand}" a fost descărcat cu succes!`;
-                    if (navigator.vibrate) navigator.vibrate(10);
-                    setTimeout(() => {
-                        island.classList.remove('px-8', 'py-3.5', 'border-green-500');
-                        island.classList.add('px-4', 'py-2');
-                        text.innerText = 'iOS Web Studio Pro • Online';
-                    }, 4000);
+                    showToast(`Site-ul "${brand}" a fost descărcat cu succes!`);
+
                 });
         }
     </script>
