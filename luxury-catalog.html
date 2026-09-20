@@ -1,510 +1,292 @@
 <!DOCTYPE html>
-<html lang="ro" class="dark">
+<html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top-Blat & PureStone • Luxury Asset Catalog & Furniture Pairings</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            background-color: #0b0c10;
-            color: #e5e7eb;
-        }
-        .font-serif-luxury {
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-        .luxury-card {
-            background: linear-gradient(180deg, rgba(26, 29, 38, 0.7) 0%, rgba(17, 19, 26, 0.9) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .luxury-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(212, 175, 55, 0.15);
-        }
-        .gold-badge {
-            background: rgba(212, 175, 55, 0.12);
-            color: #e6ca65;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        .glass-dock {
-            background: rgba(18, 20, 28, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0c10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #232733;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #c5a880;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PureStone • Catalog materiale premium</title>
+  <meta name="description" content="Catalog PureStone: quartz, ceramică și suprafețe premium cu produse reale, filtre și vizualizare rapidă.">
+  <meta name="theme-color" content="#f4efe7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{--bg:#f4efe7;--paper:#fbf8f3;--ink:#201d19;--muted:#7b7369;--line:rgba(32,29,25,.12);--gold:#a48058;--dark:#211e1a;--shadow:0 22px 70px rgba(58,47,35,.11)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer}img{display:block;width:100%}.wrap{width:min(1280px,calc(100% - 36px));margin:auto}.serif{font-family:"Playfair Display",serif;letter-spacing:-.035em}.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+    header{position:sticky;top:0;z-index:60;background:rgba(244,239,231,.88);backdrop-filter:blur(22px);border-bottom:1px solid rgba(32,29,25,.07)}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px}.mark{width:35px;height:35px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-family:"Playfair Display";font-size:17px}.brand strong{font-family:"Playfair Display";letter-spacing:.16em;font-size:15px}.brand small{display:block;font-size:8px;letter-spacing:.2em;color:var(--muted);margin-top:2px}.links{display:flex;align-items:center;gap:24px;font-size:12px;color:#625b53}.links a[aria-current="page"]{color:var(--ink);font-weight:700}.actions{display:flex;align-items:center;gap:9px}.btn{border:0;border-radius:999px;padding:12px 18px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-dark{background:var(--dark);color:white}.btn-light{background:rgba(255,255,255,.58);border:1px solid var(--line)}.menu-btn{display:none;border:0;background:transparent;padding:9px}.mobile-menu{position:fixed;inset:0;z-index:100;background:rgba(247,242,234,.98);backdrop-filter:blur(24px);opacity:0;pointer-events:none;transition:.24s}.mobile-menu.open{opacity:1;pointer-events:auto}.mobile-inner{height:100%;padding:20px 22px max(30px,env(safe-area-inset-bottom));display:flex;flex-direction:column}.mobile-top{display:flex;align-items:center;justify-content:space-between}.close-btn{width:42px;height:42px;border:0;border-radius:50%;background:#ebe2d6;display:grid;place-items:center}.mobile-links{display:flex;flex-direction:column;margin:auto 0;gap:3px}.mobile-links a{font-family:"Playfair Display";font-size:40px;padding:9px 0;border-bottom:1px solid var(--line)}.mobile-foot{display:flex;gap:8px;flex-wrap:wrap}
+    .hero{padding:46px 0 30px}.hero-grid{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px}.hero h1{font-size:clamp(46px,6vw,78px);line-height:.95;margin:10px 0 17px;max-width:820px}.hero p{max-width:640px;color:var(--muted);line-height:1.7;font-size:14px;margin:0}.hero-stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:rgba(255,255,255,.5);border:1px solid var(--line);border-radius:18px;padding:13px 15px;min-width:130px}.stat b{font-family:"Playfair Display";font-size:24px;display:block}.stat span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.11em}
+    .controls-wrap{position:sticky;top:74px;z-index:40;padding:12px 0;background:linear-gradient(var(--bg) 72%,rgba(244,239,231,0))}.controls{background:rgba(251,248,243,.92);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:13px;box-shadow:0 12px 40px rgba(57,47,36,.07)}.control-top{display:grid;grid-template-columns:1fr auto auto;gap:9px}.search{position:relative}.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;color:var(--muted)}.search input,.select{width:100%;border:1px solid var(--line);background:white;border-radius:14px;padding:12px 14px;color:var(--ink);outline:none}.search input{padding-left:42px}.select{min-width:175px}.view-switch{display:flex;background:#eee5d9;border:1px solid var(--line);border-radius:14px;padding:3px}.view-btn{border:0;background:transparent;border-radius:11px;padding:9px 12px;font-size:10px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}.view-btn.active{background:var(--dark);color:white}.view-btn svg{width:15px;height:15px}.filters{display:flex;gap:7px;overflow:auto;padding-top:10px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{flex:none;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 12px;font-size:10px;font-weight:700;color:#625b53}.filter.active{background:var(--gold);border-color:var(--gold);color:white}
+    .result-line{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:26px 0 16px;color:var(--muted);font-size:11px}.result-line b{color:var(--ink)}.catalog{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-bottom:90px}.card{background:rgba(255,255,255,.48);border:1px solid var(--line);border-radius:23px;overflow:hidden;transition:.25s;cursor:pointer}.card:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(52,42,31,.09)}.media{height:235px;background:#d8cec0;overflow:hidden;position:relative}.media img{height:100%;object-fit:cover;filter:saturate(.92) contrast(1.045);transition:.4s}.card:hover .media img{transform:scale(1.02)}.badge{position:absolute;top:12px;left:12px;border-radius:999px;padding:6px 9px;font-size:8px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;background:rgba(251,248,243,.88);backdrop-filter:blur(12px)}.heart{position:absolute;right:11px;top:11px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(251,248,243,.9);display:grid;place-items:center}.heart svg{width:16px;height:16px}.heart.saved{background:var(--dark);color:white}.card-body{padding:17px}.meta{display:flex;justify-content:space-between;gap:10px;font-size:8px;text-transform:uppercase;letter-spacing:.11em;color:var(--muted)}.card h3{font-family:"Playfair Display";font-size:23px;margin:7px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card p{font-size:10px;color:var(--muted);line-height:1.55;margin:0;min-height:31px}.card-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:10px}.card-foot span:last-child{color:var(--gold);font-weight:700}
+    .catalog.textures{grid-template-columns:repeat(5,1fr)}.catalog.textures .media{height:190px}.catalog.textures .card-body{padding:13px}.catalog.textures .card p{display:none}.catalog.textures .card h3{font-size:18px}.catalog.textures .card-foot{margin-top:9px;padding-top:9px}
+    .empty{display:none;text-align:center;padding:80px 20px;color:var(--muted)}.empty.show{display:block}.empty h3{font-family:"Playfair Display";font-size:30px;color:var(--ink);margin:0 0 8px}
+    .modal{position:fixed;inset:0;z-index:120;background:rgba(20,17,14,.58);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-card{width:min(820px,100%);max-height:min(88vh,760px);overflow:auto;background:var(--paper);border-radius:28px;box-shadow:0 32px 90px rgba(0,0,0,.25)}.modal-grid{display:grid;grid-template-columns:1.05fr .95fr}.modal-photo{min-height:500px;background:#d8cec0;position:relative}.modal-photo img{height:100%;object-fit:cover;position:absolute;inset:0}.modal-copy{padding:31px;display:flex;flex-direction:column}.modal-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.modal-copy h2{font-size:38px;line-height:1;margin:8px 0 14px}.modal-copy p{font-size:12px;color:var(--muted);line-height:1.7}.detail-list{margin:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.detail{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);font-size:10px}.detail:last-child{border-bottom:0}.detail span{color:var(--muted)}.modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.icon-btn{width:40px;height:40px;border:0;border-radius:50%;background:#eee5d9;display:grid;place-items:center;flex:none}
+    .dock{display:none;position:fixed;z-index:70;left:50%;transform:translateX(-50%);bottom:max(13px,env(safe-area-inset-bottom));padding:7px;background:rgba(251,248,243,.93);backdrop-filter:blur(22px);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 45px rgba(41,33,25,.16)}.dock a{min-width:72px;padding:7px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:8px;font-weight:700;color:#6a625a}.dock svg{width:17px;height:17px}.dock a.active{color:var(--gold)}
+    @media(max-width:1080px){.links{display:none}.menu-btn{display:block}.catalog{grid-template-columns:repeat(3,1fr)}.catalog.textures{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:760px){.wrap{width:min(100% - 24px,1280px)}header{height:66px}.nav{height:66px}.brand small{display:none}.actions .btn{display:none}.hero{padding:28px 0 18px}.hero-grid{display:block}.hero h1{font-size:47px}.hero-stats{margin-top:22px}.stat{min-width:105px;padding:11px 12px}.controls-wrap{top:66px;padding:9px 0}.controls{padding:10px;border-radius:20px}.control-top{grid-template-columns:1fr auto}.select{grid-column:1/3;min-width:0}.view-btn span{display:none}.view-btn{padding:9px}.catalog{grid-template-columns:repeat(2,1fr);gap:10px}.catalog.textures{grid-template-columns:repeat(2,1fr)}.media,.catalog.textures .media{height:190px}.card-body{padding:13px}.card h3{font-size:19px}.card p{display:none}.meta{font-size:7px}.result-line{margin-top:18px}.modal-grid{grid-template-columns:1fr}.modal-photo{min-height:330px}.modal-copy{padding:24px}.modal-copy h2{font-size:34px}.dock{display:flex}.mobile-links a{font-size:37px}}
+    @media(max-width:400px){.catalog,.catalog.textures{grid-template-columns:1fr}.media,.catalog.textures .media{height:280px}.dock a{min-width:66px}}
+  </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
-
-    <!-- Top Header -->
-    <header class="sticky top-0 z-30 bg-[#0b0c10]/90 backdrop-blur-xl border-b border-white/10 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 flex items-center justify-center text-black font-extrabold shadow-lg shadow-amber-500/20">
-                    <i data-lucide="gem" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h1 class="text-lg font-bold text-white tracking-wide">Top-Blat <span class="text-amber-400">&</span> PureStone</h1>
-                        <span class="gold-badge text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Luxury Asset Hub</span>
-                    </div>
-                    <p class="text-xs text-gray-400">Baza de Date & Imagini Îmbunătățite pentru Mobilă de Lux la Comandă</p>
-                </div>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="flex items-center gap-3 text-xs">
-                <div class="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-gray-300"><strong id="stat-products" class="text-white">286</strong> Produse Mapped</span>
-                </div>
-                <div class="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span class="text-gray-300"><strong id="stat-projects" class="text-white">123</strong> Proiecte Reale</span>
-                </div>
-                <a href="./manifest/products_manifest.csv" download class="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 font-semibold transition-colors flex items-center gap-1.5">
-                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Controls & Filters Bar -->
-    <section class="max-w-7xl mx-auto px-6 pt-6 pb-2 w-full space-y-4">
-        <!-- Search & View Toggle -->
-        <div class="flex flex-col sm:flex-row items-center gap-3">
-            <div class="relative flex-1 w-full">
-                <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                <input type="text" id="search-input" oninput="applyFilters()" placeholder="Caută după nume (ex: Calacatta, Taj Mahal, Nero, Elysee) sau brand..." class="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-amber-400/60 focus:bg-white/[0.08] transition-all">
-            </div>
-
-            <!-- View Switcher -->
-            <div class="flex items-center gap-1 p-1 bg-white/5 border border-white/10 rounded-2xl shrink-0">
-                <button onclick="setViewMode('cards', this)" class="view-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500/20 text-white border border-amber-500/30 transition-all flex items-center gap-1.5">
-                    <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-amber-400"></i> Carduri Prezentare
-                </button>
-                <button onclick="setViewMode('textures', this)" class="view-btn px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
-                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> Texturi Piatră
-                </button>
-                <button onclick="setViewMode('projects', this)" class="view-btn px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
-                    <i data-lucide="camera" class="w-3.5 h-3.5"></i> Proiecte Reale (123)
-                </button>
-            </div>
-        </div>
-
-        <!-- Brand & Material Filter Pills -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs">
-            <span class="text-gray-500 text-[11px] uppercase tracking-wider font-bold shrink-0">Brand:</span>
-            <button onclick="setBrandFilter('all', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-amber-500/40 bg-amber-500/20 text-white font-bold whitespace-nowrap">Toate Brandurile</button>
-            <button onclick="setBrandFilter('Atlas Plan', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Atlas Plan (Italia)</button>
-            <button onclick="setBrandFilter('Silestone', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Silestone (Cosentino)</button>
-            <button onclick="setBrandFilter('Technistone', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Technistone (Cehia)</button>
-            <button onclick="setBrandFilter('Coante', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Coante</button>
-            <button onclick="setBrandFilter('Laminam', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Laminam (Ceramică)</button>
-            <button onclick="setBrandFilter('Cimstone', this)" class="brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">Cimstone</button>
-        </div>
-
-        <!-- Color Family Pills -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs">
-            <span class="text-gray-500 text-[11px] uppercase tracking-wider font-bold shrink-0">Gamă:</span>
-            <button onclick="setColorFilter('all', this)" class="color-pill px-2.5 py-1 rounded-lg border border-amber-500/40 bg-amber-500/20 text-white font-bold whitespace-nowrap">Toate</button>
-            <button onclick="setColorFilter('Calacatta', this)" class="color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">🤍 Alb & Calacatta Gold</button>
-            <button onclick="setColorFilter('Negru', this)" class="color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">🖤 Negru Obsidian & Marquina</button>
-            <button onclick="setColorFilter('Bej', this)" class="color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">🤎 Bej Cald & Nisipiu</button>
-            <button onclick="setColorFilter('Gri', this)" class="color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">🩶 Gri Beton & Ardezie</button>
-            <button onclick="setColorFilter('Special', this)" class="color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap">💙 Albastru & Nuanțe Statement</button>
-        </div>
-    </section>
-
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-6 py-6 flex-1 w-full">
-        <!-- Results Counter & Info -->
-        <div class="flex items-center justify-between text-xs text-gray-400 mb-6 pb-3 border-b border-white/5">
-            <div>
-                Afișare: <span id="results-count" class="font-bold text-white">286</span> materiale găsite
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-[11px] text-gray-500">Click pe orice card pentru cod direct & previzualizare mobilier</span>
-            </div>
-        </div>
-
-        <!-- Products Grid Container -->
-        <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Dynamic JavaScript Render -->
-        </div>
-
-        <!-- Empty State -->
-        <div id="empty-state" class="hidden text-center py-20 space-y-4">
-            <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-gray-500">
-                <i data-lucide="frown" class="w-8 h-8"></i>
-            </div>
-            <div class="text-white font-bold text-lg">Niciun material nu corespunde filtrelor tale</div>
-            <p class="text-xs text-gray-400 max-w-sm mx-auto">Încearcă să resetezi filtrele sau să cauți un alt termen.</p>
-            <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">Resetează Filtrele</button>
-        </div>
-    </main>
-
-    <!-- Detail & Integration Modal -->
-    <div id="detail-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-        <div class="w-full max-w-3xl bg-[#12141c] border border-amber-500/30 rounded-3xl overflow-hidden shadow-2xl space-y-0">
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-white/10 flex items-center justify-between">
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span id="modal-brand" class="gold-badge text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">ATLAS PLAN</span>
-                        <span id="modal-material" class="text-xs text-gray-400">Ceramică Sinterizată</span>
-                    </div>
-                    <h3 id="modal-title" class="text-xl font-bold text-white mt-1">Calacatta Gold</h3>
-                </div>
-                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-
-            <!-- Modal Body (Two Columns) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-                <!-- Left: Image Preview with Toggle -->
-                <div class="space-y-3">
-                    <div class="rounded-2xl overflow-hidden border border-white/10 relative h-64 bg-black/40">
-                        <img id="modal-img" src="" class="w-full h-full object-cover" alt="Preview material">
-                        <div class="absolute bottom-2 right-2 flex gap-1.5">
-                            <span id="modal-img-badge" class="px-2 py-1 rounded-lg bg-black/70 backdrop-blur-md text-[10px] font-bold text-amber-300 border border-amber-500/30">Luxury Enhanced WebP</span>
-                        </div>
-                    </div>
-                    
-                    <!-- View switcher for image -->
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <button onclick="switchModalImage('luxury')" id="btn-toggle-lux" class="py-2 px-3 rounded-xl border border-amber-500/40 bg-amber-500/20 text-white font-semibold text-center">
-                            ✨ Luxury Enhanced
-                        </button>
-                        <button onclick="switchModalImage('card')" id="btn-toggle-card" class="py-2 px-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 font-semibold text-center">
-                            🖼️ Card Prezentare
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Right: Bespoke Furniture Pairing & 1-Click Code -->
-                <div class="space-y-4 text-xs">
-                    <div class="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-2">
-                        <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                            <i data-lucide="armchair" class="w-3.5 h-3.5"></i> Recomandare Mobilă de Lux la Comandă
-                        </div>
-                        <div id="modal-furniture" class="text-sm font-semibold text-white leading-snug">
-                            Mobilier bucătărie cu fronturi Nuc American & Insulă masivă monolit
-                        </div>
-                        <div id="modal-category" class="text-[11px] text-gray-400">
-                            Categorie: Bucătării Luxury & Insule Centrale
-                        </div>
-                    </div>
-
-                    <!-- Direct Code Snippets (Ready to copy) -->
-                    <div class="space-y-2">
-                        <div class="text-[11px] text-gray-400 font-semibold">Copiază Codul pentru Situl Tău:</div>
-                        
-                        <!-- Snippet 1: WebP Path -->
-                        <div class="flex items-center gap-2 bg-black/40 border border-white/10 p-2 rounded-xl">
-                            <input type="text" id="copy-path" readonly class="bg-transparent text-gray-300 font-mono text-[11px] flex-1 focus:outline-none select-all">
-                            <button onclick="copyToClipboard('copy-path', this)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium shrink-0 flex items-center gap-1">
-                                <i data-lucide="copy" class="w-3 h-3"></i> Cale
-                            </button>
-                        </div>
-
-                        <!-- Snippet 2: HTML tag -->
-                        <div class="flex items-center gap-2 bg-black/40 border border-white/10 p-2 rounded-xl">
-                            <input type="text" id="copy-html" readonly class="bg-transparent text-gray-300 font-mono text-[11px] flex-1 focus:outline-none select-all">
-                            <button onclick="copyToClipboard('copy-html', this)" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 font-medium shrink-0 flex items-center gap-1">
-                                <i data-lucide="code" class="w-3 h-3"></i> HTML
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- External Link to top-blat.ro -->
-                    <div class="pt-2">
-                        <a id="modal-remote-link" href="#" target="_blank" class="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold flex items-center justify-center gap-2 transition-colors">
-                            <i data-lucide="external-link" class="w-3.5 h-3.5 text-amber-400"></i> Deschide Pagina Produsului pe top-blat.ro
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="./purestone.html"><span class="mark">P</span><span><strong>PURESTONE</strong><small>NATURAL ELEGANCE • ROMÂNIA</small></span></a>
+    <nav class="links">
+      <a href="./purestone.html#collections">Colecții</a>
+      <a href="./purestone.html#visualizer">Simulator</a>
+      <a href="./luxury-catalog.html" aria-current="page">Catalog</a>
+      <a href="./purestone.html#calculator">Configurator</a>
+      <a href="./purestone.html#portfolio">Proiecte</a>
+      <a href="./purestone.html#contact">Contact</a>
+    </nav>
+    <div class="actions">
+      <a class="btn btn-light" href="./purestone.html">← Înapoi</a>
+      <a class="btn btn-dark" href="./purestone.html#calculator">Solicită ofertă</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Deschide meniul"><i data-lucide="menu"></i></button>
     </div>
+  </div>
+</header>
 
-    <!-- Load Generated Manifest JavaScript -->
-    <script src="./top-blat-assets/manifest/products_manifest.js"></script>
-    <script>
-        if (typeof TOP_BLAT_CATALOG === 'undefined') {
-            document.write('<script src="./manifest/products_manifest.js"><\\/script>');
-        }
-    </script>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-inner">
+    <div class="mobile-top">
+      <a class="brand" href="./purestone.html"><span class="mark">P</span><strong>PURESTONE</strong></a>
+      <button class="close-btn" id="closeMenu" aria-label="Închide meniul"><i data-lucide="x"></i></button>
+    </div>
+    <nav class="mobile-links">
+      <a href="./purestone.html">Acasă</a>
+      <a href="./purestone.html#collections">Colecții</a>
+      <a href="./purestone.html#visualizer">Simulator</a>
+      <a href="./luxury-catalog.html">Catalog</a>
+      <a href="./purestone.html#calculator">Configurator</a>
+      <a href="./purestone.html#portfolio">Proiecte</a>
+      <a href="./purestone.html#contact">Contact</a>
+    </nav>
+    <div class="mobile-foot"><a class="btn btn-dark" href="./purestone.html#calculator">Solicită ofertă</a><a class="btn btn-light" target="_blank" rel="noopener" href="https://wa.me/40733250220">WhatsApp</a></div>
+  </div>
+</div>
 
-    <script>
-        let currentView = 'cards'; // 'cards' | 'textures' | 'projects'
-        let currentBrand = 'all';
-        let currentColor = 'all';
-        let activeModalProduct = null;
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Catalog PureStone</div>
+        <h1 class="serif">Alege materialul care schimbă întregul spațiu.</h1>
+        <p>Produsele reale din catalog, într-o prezentare simplă și premium. Caută, filtrează, compară textura și deschide materialul pentru detalii.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b id="productCount">—</b><span>materiale</span></div>
+        <div class="stat"><b id="visibleCount">—</b><span>afișate</span></div>
+      </div>
+    </div>
+  </section>
 
-        // Fallback demo data in case manifest is still writing
-        let catalog = (typeof TOP_BLAT_CATALOG !== 'undefined') ? TOP_BLAT_CATALOG : [];
-        let projects = (typeof TOP_BLAT_PROJECTS !== 'undefined') ? TOP_BLAT_PROJECTS : [];
+  <div class="controls-wrap">
+    <div class="wrap controls">
+      <div class="control-top">
+        <label class="search"><i data-lucide="search"></i><input id="searchInput" type="search" placeholder="Caută Taj Mahal, Calacatta, Silestone..." autocomplete="off"></label>
+        <select class="select" id="brandSelect"><option value="all">Toate brandurile</option></select>
+        <div class="view-switch">
+          <button class="view-btn active" data-view="cards"><i data-lucide="layout-grid"></i><span>Carduri</span></button>
+          <button class="view-btn" data-view="textures"><i data-lucide="layers"></i><span>Texturi</span></button>
+        </div>
+      </div>
+      <div class="filters" id="materialFilters">
+        <button class="filter active" data-material="all">Toate</button>
+        <button class="filter" data-material="Cuarț">Quartz</button>
+        <button class="filter" data-material="Ceramic">Ceramică</button>
+        <button class="filter" data-material="Marm">Marble look</button>
+        <button class="filter" data-material="Negru">Dark</button>
+      </div>
+    </div>
+  </div>
 
-        function initCatalog() {
-            if (document.getElementById('stat-products')) {
-                document.getElementById('stat-products').innerText = catalog.length;
-            }
-            if (document.getElementById('stat-projects')) {
-                document.getElementById('stat-projects').innerText = projects.length;
-            }
-            renderGrid();
-            lucide.createIcons();
-        }
+  <section class="wrap">
+    <div class="result-line"><div><b id="resultLabel">Catalog complet</b> • click pe produs pentru detalii</div><a href="./purestone.html#visualizer">Vezi și Simulatorul →</a></div>
+    <div class="catalog" id="catalogGrid"></div>
+    <div class="empty" id="emptyState"><h3>N-am găsit materialul.</h3><p>Schimbă filtrul sau caută după nume / brand.</p><button class="btn btn-dark" id="resetFilters">Resetează filtrele</button></div>
+  </section>
+</main>
 
-        function setViewMode(mode, btn) {
-            currentView = mode;
-            document.querySelectorAll('.view-btn').forEach(b => {
-                b.className = 'view-btn px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition-all flex items-center gap-1.5';
-            });
-            btn.className = 'view-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500/20 text-white border border-amber-500/30 transition-all flex items-center gap-1.5';
-            renderGrid();
-        }
+<nav class="dock">
+  <a href="./purestone.html"><i data-lucide="home"></i>Acasă</a>
+  <a class="active" href="./luxury-catalog.html"><i data-lucide="grid-2x2"></i>Catalog</a>
+  <a href="./purestone.html#visualizer"><i data-lucide="camera"></i>Simulator</a>
+  <a href="./purestone.html#calculator"><i data-lucide="message-circle"></i>Ofertă</a>
+</nav>
 
-        function setBrandFilter(brand, btn) {
-            currentBrand = brand;
-            document.querySelectorAll('.brand-pill').forEach(b => {
-                b.className = 'brand-pill px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap';
-            });
-            btn.className = 'brand-pill px-3 py-1.5 rounded-xl border border-amber-500/40 bg-amber-500/20 text-white font-bold whitespace-nowrap';
-            renderGrid();
-        }
+<div class="modal" id="productModal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-grid">
+      <div class="modal-photo"><img id="modalImage" alt=""></div>
+      <div class="modal-copy">
+        <div class="modal-top"><div><div class="eyebrow" id="modalBrand">PureStone</div><h2 class="serif" id="modalTitle">Material</h2></div><button class="icon-btn" id="closeModal" aria-label="Închide"><i data-lucide="x"></i></button></div>
+        <p id="modalPairing"></p>
+        <div class="detail-list">
+          <div class="detail"><span>Material</span><b id="modalMaterial"></b></div>
+          <div class="detail"><span>Gamă cromatică</span><b id="modalColor"></b></div>
+          <div class="detail"><span>Utilizare recomandată</span><b id="modalCategory"></b></div>
+        </div>
+        <div class="modal-actions">
+          <a class="btn btn-dark" id="productLink" target="_blank" rel="noopener">Pagina produsului</a>
+          <a class="btn btn-light" id="quoteLink" target="_blank" rel="noopener">Cere ofertă</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        function setColorFilter(color, btn) {
-            currentColor = color;
-            document.querySelectorAll('.color-pill').forEach(b => {
-                b.className = 'color-pill px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:border-white/30 whitespace-nowrap';
-            });
-            btn.className = 'color-pill px-2.5 py-1 rounded-lg border border-amber-500/40 bg-amber-500/20 text-white font-bold whitespace-nowrap';
-            renderGrid();
-        }
+<script src="./manifest/products_manifest.js"></script>
+<script>
+(() => {
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const grid = $('#catalogGrid');
+  const empty = $('#emptyState');
+  const searchInput = $('#searchInput');
+  const brandSelect = $('#brandSelect');
+  const productCount = $('#productCount');
+  const visibleCount = $('#visibleCount');
+  const resultLabel = $('#resultLabel');
+  const modal = $('#productModal');
+  let view = 'cards';
+  let material = 'all';
+  let catalog = [];
+  let favorites = new Set(JSON.parse(localStorage.getItem('purestone-favorites') || '[]'));
 
-        function applyFilters() {
-            renderGrid();
-        }
+  const safe = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const primaryImage = p => p.primary_card_webp || p.primary_luxury_webp || (p.remote_images && p.remote_images[0]) || '';
+  const fallbackImage = p => (p.remote_images && p.remote_images[0]) || '';
 
-        function resetFilters() {
-            document.getElementById('search-input').value = '';
-            currentBrand = 'all';
-            currentColor = 'all';
-            currentView = 'cards';
-            renderGrid();
-        }
+  function initMenu(){
+    const open = () => { $('#mobileMenu').classList.add('open'); document.body.classList.add('menu-open'); };
+    const close = () => { $('#mobileMenu').classList.remove('open'); document.body.classList.remove('menu-open'); };
+    $('#menuBtn').addEventListener('click', open);
+    $('#closeMenu').addEventListener('click', close);
+    $$('.mobile-links a').forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if(e.key === 'Escape'){ close(); closeProduct(); } });
+  }
 
-        function renderGrid() {
-            const container = document.getElementById('catalog-grid');
-            const empty = document.getElementById('empty-state');
-            const search = document.getElementById('search-input').value.toLowerCase().trim();
+  function buildBrands(){
+    const brands = [...new Set(catalog.map(p => p.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ro'));
+    brandSelect.innerHTML = '<option value="all">Toate brandurile</option>' + brands.map(b => `<option value="${safe(b)}">${safe(b)}</option>`).join('');
+  }
 
-            if (currentView === 'projects') {
-                // Render Project Photos
-                let filteredProj = projects.filter(p => {
-                    return !search || p.alt.toLowerCase().includes(search);
-                });
+  function filterProducts(){
+    const q = searchInput.value.trim().toLowerCase();
+    const brand = brandSelect.value;
+    const data = catalog.filter(p => {
+      const haystack = [p.title,p.slug,p.brand,p.material,p.color_family].filter(Boolean).join(' ').toLowerCase();
+      const matchesSearch = !q || haystack.includes(q);
+      const matchesBrand = brand === 'all' || p.brand === brand;
+      let matchesMaterial = true;
+      if(material !== 'all'){
+        const materialText = `${p.material || ''} ${p.color_family || ''}`.toLowerCase();
+        matchesMaterial = materialText.includes(material.toLowerCase());
+      }
+      return matchesSearch && matchesBrand && matchesMaterial;
+    });
+    render(data);
+  }
 
-                document.getElementById('results-count').innerText = filteredProj.length;
-                if (filteredProj.length === 0) {
-                    container.innerHTML = '';
-                    empty.classList.remove('hidden');
-                    return;
-                }
-                empty.classList.add('hidden');
+  function render(data){
+    visibleCount.textContent = data.length;
+    resultLabel.textContent = data.length === catalog.length ? 'Catalog complet' : `${data.length} rezultate`;
+    grid.classList.toggle('textures', view === 'textures');
+    empty.classList.toggle('show', data.length === 0);
+    grid.innerHTML = data.map(p => {
+      const img = primaryImage(p);
+      const fallback = fallbackImage(p);
+      const saved = favorites.has(p.slug);
+      return `<article class="card" data-slug="${safe(p.slug)}">
+        <div class="media">
+          <img src="${safe(img)}" data-fallback="${safe(fallback)}" loading="lazy" decoding="async" alt="${safe(p.title)}">
+          <span class="badge">${safe(p.brand || 'PureStone')}</span>
+          <button class="heart ${saved ? 'saved' : ''}" data-favorite="${safe(p.slug)}" aria-label="Salvează ${safe(p.title)}"><i data-lucide="heart"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="meta"><span>${safe(p.material || '')}</span><span>${safe(p.color_family || '')}</span></div>
+          <h3>${safe(p.title)}</h3>
+          <p>${safe(p.furniture_pairing || 'Potrivit pentru proiecte premium realizate la comandă.')}</p>
+          <div class="card-foot"><span>Vezi materialul</span><span>Detalii →</span></div>
+        </div>
+      </article>`;
+    }).join('');
+    grid.querySelectorAll('img[data-fallback]').forEach(img => {
+      img.addEventListener('error', () => {
+        const fallback = img.dataset.fallback;
+        if(fallback && img.src !== fallback) img.src = fallback;
+      }, {once:true});
+    });
+    if(window.lucide) lucide.createIcons();
+  }
 
-                container.innerHTML = filteredProj.map(p => `
-                    <div class="luxury-card overflow-hidden group cursor-pointer" onclick="openProjectModal(${p.id})">
-                        <div class="h-60 overflow-hidden relative">
-                            <img src="${p.remote_url}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.alt}">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                            <span class="gold-badge text-[10px] font-bold px-2 py-0.5 rounded-full absolute top-3 right-3">Montaj Real Top-Blat</span>
-                            <div class="absolute bottom-3 left-3 right-3 text-left">
-                                <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Proiect #${p.id}</div>
-                                <h4 class="font-bold text-white text-xs line-clamp-1">${p.alt || 'Bucătărie / Baie Luxury Quartz'}</h4>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-                lucide.createIcons();
-                return;
-            }
+  function openProduct(slug){
+    const p = catalog.find(x => x.slug === slug);
+    if(!p) return;
+    const img = primaryImage(p);
+    const fallback = fallbackImage(p);
+    const modalImg = $('#modalImage');
+    modalImg.src = img;
+    modalImg.alt = p.title || '';
+    modalImg.onerror = () => { if(fallback) modalImg.src = fallback; modalImg.onerror = null; };
+    $('#modalBrand').textContent = p.brand || 'PureStone';
+    $('#modalTitle').textContent = p.title || 'Material';
+    $('#modalPairing').textContent = p.furniture_pairing || 'Material selectat pentru proiecte premium.';
+    $('#modalMaterial').textContent = p.material || '—';
+    $('#modalColor').textContent = p.color_family || '—';
+    $('#modalCategory').textContent = p.furniture_category || 'Bucătării și băi premium';
+    $('#productLink').href = p.url || '#';
+    $('#quoteLink').href = 'https://wa.me/40733250220?text=' + encodeURIComponent(`Bună ziua! Doresc o ofertă pentru materialul ${p.title || ''} (${p.brand || 'PureStone'}).`);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+  }
+  function closeProduct(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
 
-            // Render Products
-            let filtered = catalog.filter(p => {
-                const matchesBrand = (currentBrand === 'all') || (p.brand.toLowerCase() === currentBrand.toLowerCase());
-                const matchesColor = (currentColor === 'all') || (p.color_family.toLowerCase().includes(currentColor.toLowerCase()));
-                const matchesSearch = !search || 
-                    p.title.toLowerCase().includes(search) || 
-                    p.slug.toLowerCase().includes(search) || 
-                    p.brand.toLowerCase().includes(search);
-                return matchesBrand && matchesColor && matchesSearch;
-            });
+  grid.addEventListener('click', e => {
+    const fav = e.target.closest('[data-favorite]');
+    if(fav){
+      e.stopPropagation();
+      const slug = fav.dataset.favorite;
+      favorites.has(slug) ? favorites.delete(slug) : favorites.add(slug);
+      localStorage.setItem('purestone-favorites', JSON.stringify([...favorites]));
+      fav.classList.toggle('saved', favorites.has(slug));
+      return;
+    }
+    const card = e.target.closest('.card');
+    if(card) openProduct(card.dataset.slug);
+  });
 
-            document.getElementById('results-count').innerText = filtered.length;
+  searchInput.addEventListener('input', filterProducts);
+  brandSelect.addEventListener('change', filterProducts);
+  $$('.filter').forEach(btn => btn.addEventListener('click', () => {
+    material = btn.dataset.material;
+    $$('.filter').forEach(b => b.classList.toggle('active', b === btn));
+    filterProducts();
+  }));
+  $$('.view-btn').forEach(btn => btn.addEventListener('click', () => {
+    view = btn.dataset.view;
+    $$('.view-btn').forEach(b => b.classList.toggle('active', b === btn));
+    filterProducts();
+  }));
+  $('#resetFilters').addEventListener('click', () => {
+    searchInput.value = ''; brandSelect.value = 'all'; material = 'all';
+    $$('.filter').forEach((b,i)=>b.classList.toggle('active',i===0)); filterProducts();
+  });
+  $('#closeModal').addEventListener('click', closeProduct);
+  modal.addEventListener('click', e => { if(e.target === modal) closeProduct(); });
 
-            if (filtered.length === 0) {
-                container.innerHTML = '';
-                empty.classList.remove('hidden');
-                return;
-            }
-            empty.classList.add('hidden');
-
-            container.innerHTML = filtered.map(p => {
-                const imgUrl = (currentView === 'cards') ? (p.primary_card_webp || p.remote_images[0]) : (p.primary_luxury_webp || p.remote_images[0]);
-                return `
-                    <div class="luxury-card overflow-hidden group cursor-pointer flex flex-col justify-between" onclick="openProductModal('${p.slug}')">
-                        <div>
-                            <div class="h-52 overflow-hidden relative bg-black/40">
-                                <img src="${imgUrl}" onerror="this.onerror=null; this.src='${p.remote_images[0]}';" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${p.title}">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
-                                <span class="gold-badge text-[10px] font-bold px-2.5 py-0.5 rounded-full absolute top-3 left-3">${p.brand}</span>
-                                <span class="text-[10px] font-medium text-gray-300 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-lg border border-white/10 absolute top-3 right-3">${p.material}</span>
-                            </div>
-
-                            <div class="p-4 space-y-2">
-                                <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">${p.color_family}</div>
-                                <h3 class="font-bold text-white text-sm line-clamp-1 group-hover:text-amber-300 transition-colors">${p.title}</h3>
-                                <p class="text-[11px] text-gray-400 line-clamp-2">${p.furniture_pairing}</p>
-                            </div>
-                        </div>
-
-                        <div class="px-4 pb-4 pt-2 border-t border-white/5 flex items-center justify-between text-xs text-gray-400">
-                            <span class="text-[10px] text-amber-400/80 font-mono">slug: ${p.slug}</span>
-                            <span class="text-white font-semibold flex items-center gap-1 group-hover:text-amber-300 text-[11px]">
-                                Detalii <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                            </span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            lucide.createIcons();
-        }
-
-        function openProductModal(slug) {
-            const p = catalog.find(item => item.slug === slug);
-            if (!p) return;
-            activeModalProduct = p;
-
-            document.getElementById('modal-title').innerText = p.title;
-            document.getElementById('modal-brand').innerText = p.brand;
-            document.getElementById('modal-material').innerText = p.material;
-            document.getElementById('modal-furniture').innerText = p.furniture_pairing;
-            document.getElementById('modal-category').innerText = `Categorie: ${p.furniture_category}`;
-            document.getElementById('modal-remote-link').href = p.url;
-
-            // Set images
-            switchModalImage('luxury');
-
-            // Set Snippets
-            const localPath = p.primary_luxury_webp || p.remote_images[0];
-            document.getElementById('copy-path').value = localPath;
-            document.getElementById('copy-html').value = `<img src="${localPath}" alt="${p.title} - ${p.brand}" class="luxury-stone-img">`;
-
-            document.getElementById('detail-modal').classList.remove('hidden');
-            document.getElementById('detail-modal').classList.add('flex');
-            lucide.createIcons();
-        }
-
-        function switchModalImage(type) {
-            if (!activeModalProduct) return;
-            const p = activeModalProduct;
-            const img = document.getElementById('modal-img');
-            const badge = document.getElementById('modal-img-badge');
-            const btnLux = document.getElementById('btn-toggle-lux');
-            const btnCard = document.getElementById('btn-toggle-card');
-
-            if (type === 'luxury') {
-                img.src = p.primary_luxury_webp || p.remote_images[0];
-                badge.innerText = 'Luxury Enhanced WebP';
-                btnLux.className = 'py-2 px-3 rounded-xl border border-amber-500/40 bg-amber-500/20 text-white font-semibold text-center';
-                btnCard.className = 'py-2 px-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 font-semibold text-center';
-            } else {
-                img.src = p.primary_card_webp || p.remote_images[0];
-                badge.innerText = 'Card Prezentare Oficial';
-                btnCard.className = 'py-2 px-3 rounded-xl border border-amber-500/40 bg-amber-500/20 text-white font-semibold text-center';
-                btnLux.className = 'py-2 px-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 font-semibold text-center';
-            }
-        }
-
-        function openProjectModal(id) {
-            const p = projects.find(item => item.id === id);
-            if (!p) return;
-            activeModalProduct = null;
-
-            document.getElementById('modal-title').innerText = p.alt || `Proiect Finalizat #${p.id}`;
-            document.getElementById('modal-brand').innerText = 'TOP-BLAT';
-            document.getElementById('modal-material').innerText = 'Montaj Real';
-            document.getElementById('modal-furniture').innerText = 'Instalare completă bucătărie sau baie realizată de echipa Top-Blat';
-            document.getElementById('modal-category').innerText = 'Portofoliu Executat';
-            document.getElementById('modal-remote-link').href = 'https://top-blat.ro/proiecte-finalizate-baie-bucatarie/';
-
-            document.getElementById('modal-img').src = p.remote_url;
-            document.getElementById('modal-img-badge').innerText = 'Montaj Real';
-            document.getElementById('copy-path').value = p.remote_url;
-            document.getElementById('copy-html').value = `<img src="${p.remote_url}" alt="${p.alt}" class="luxury-project-img">`;
-
-            document.getElementById('detail-modal').classList.remove('hidden');
-            document.getElementById('detail-modal').classList.add('flex');
-            lucide.createIcons();
-        }
-
-        function closeModal() {
-            document.getElementById('detail-modal').classList.add('hidden');
-            document.getElementById('detail-modal').classList.remove('flex');
-        }
-
-        function copyToClipboard(elementId, btn) {
-            const input = document.getElementById(elementId);
-            input.select();
-            input.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(input.value);
-
-            const origHtml = btn.innerHTML;
-            btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-green-400"></i> Copiat!`;
-            lucide.createIcons();
-            setTimeout(() => {
-                btn.innerHTML = origHtml;
-                lucide.createIcons();
-            }, 1800);
-        }
-
-        // Close modal on Escape
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // Initialize when window loads
-        window.addEventListener('DOMContentLoaded', initCatalog);
-    </script>
+  initMenu();
+  if(typeof TOP_BLAT_CATALOG === 'undefined' || !Array.isArray(TOP_BLAT_CATALOG)){
+    grid.innerHTML = '<div style="grid-column:1/-1;padding:50px;text-align:center;background:rgba(255,255,255,.45);border:1px solid var(--line);border-radius:24px"><h3 class="serif" style="font-size:30px;margin:0 0 8px">Catalogul nu s-a încărcat.</h3><p style="color:var(--muted)">Reîncarcă pagina. Manifestul de produse nu este disponibil momentan.</p></div>';
+    productCount.textContent = '0'; visibleCount.textContent = '0';
+  } else {
+    catalog = TOP_BLAT_CATALOG;
+    productCount.textContent = catalog.length;
+    buildBrands();
+    render(catalog);
+  }
+  if(window.lucide) lucide.createIcons();
+})();
+</script>
 </body>
 </html>
