@@ -72,11 +72,13 @@ window.PureStoneCMS = (() => {
   return { get, save, reset, exportJSON, importJSON, loadRemote, ready, key: KEY };
 })();
 
-/* Editorial photo remaster — non-destructive and faithful to the real material. */
+/* Editorial photo remaster + cross-device layout hardening. */
 (() => {
   const style = document.createElement("style");
   style.id = "purestone-magazine-grade";
   style.textContent = `
+    html,body{max-width:100%;overflow-x:hidden}
+    footer a[href*="purestone-admin"]{display:none!important}
     .hero-media img,.collection img,.studio-stage>img,.product-media img,.project img,.showroom-img img,.showroom-photo img,.team-photo img{
       filter:saturate(.88) contrast(1.085) brightness(1.035) sepia(.035)!important;
       image-rendering:auto;
@@ -87,7 +89,83 @@ window.PureStoneCMS = (() => {
     }
     .hero-media img{object-position:center 54%;transform:scale(1.012)}
     .collection img{object-position:center center}.project img{object-position:center 48%}.product-media img{object-position:center center}
-    @media(max-width:760px){.hero-media img{object-position:center 52%;transform:scale(1.02)}.collection img{filter:saturate(.9) contrast(1.07) brightness(1.04) sepia(.025)!important}}
+    .studio,.studio-stage,.studio-card,.hero-card,.featured,.product,.section-head{min-width:0;max-width:100%}
+    .mobile-menu,.intro{min-height:100dvh}
+    @media(max-width:760px){
+      body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+      .wrap{width:calc(100% - 24px)!important;max-width:100%!important}
+      header{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+      .hero-media img{object-position:center 52%;transform:scale(1.02)}
+      .collection img{filter:saturate(.9) contrast(1.07) brightness(1.04) sepia(.025)!important}
+      .section{padding:62px 0!important}
+      .section-head{display:block!important;margin-bottom:22px!important}
+      .section-head p{margin-top:14px!important;max-width:100%!important}
+      .studio{width:100%!important;padding:12px!important;border-radius:24px!important;overflow:hidden!important}
+      .studio-copy{padding:18px 8px 10px!important}
+      .studio-stage{width:100%!important;min-width:0!important;min-height:430px!important;border-radius:20px!important;overflow:hidden!important}
+      .studio-stage>img{width:100%!important;height:100%!important;object-fit:cover!important}
+      .studio-card{left:12px!important;right:12px!important;bottom:12px!important;width:auto!important;max-width:none!important;padding:14px!important;border-radius:18px!important}
+      .studio-card h4{font-size:22px!important}
+      .studio-card p{font-size:9px!important}
+      .featured{grid-template-columns:1fr!important;width:100%!important;gap:14px!important}
+      .product{width:100%!important;overflow:hidden!important}
+      .product-media{height:260px!important;width:100%!important}
+      .product-media img{width:100%!important;height:100%!important;object-fit:cover!important}
+      .dock{
+        left:50%!important;right:auto!important;transform:translateX(-50%)!important;
+        width:calc(100% - 24px)!important;max-width:430px!important;
+        bottom:max(10px,env(safe-area-inset-bottom))!important;
+        display:flex!important;justify-content:space-around!important;gap:0!important;
+        padding:7px 6px!important;box-sizing:border-box!important;border-radius:21px!important;
+      }
+      .dock a{min-width:0!important;width:auto!important;flex:1 1 0!important;padding:7px 3px!important;font-size:8px!important;white-space:nowrap!important}
+      .dock svg{width:17px!important;height:17px!important}
+    }
+    @media(max-width:390px){
+      .dock{width:calc(100% - 18px)!important}
+      .dock a{font-size:7.5px!important}
+      .studio-stage{min-height:400px!important}
+      .product-media{height:235px!important}
+    }
   `;
   document.head.appendChild(style);
+
+  const realImage = p => (p && p.remote_images && p.remote_images[0]) || "";
+  const repairFeaturedImages = () => {
+    if (!Array.isArray(window.TOP_BLAT_CATALOG)) return;
+    document.querySelectorAll(".featured .product").forEach(card => {
+      const title = card.querySelector("h3")?.textContent?.trim();
+      const img = card.querySelector(".product-media img");
+      if (!title || !img) return;
+      const p = window.TOP_BLAT_CATALOG.find(x => String(x.title || "").trim() === title);
+      const src = realImage(p);
+      if (!src) return;
+      img.referrerPolicy = "no-referrer";
+      img.loading = "lazy";
+      if (img.src !== src) img.src = src;
+      img.onerror = () => {
+        img.onerror = null;
+        img.removeAttribute("src");
+        img.alt = `${title} — fotografie indisponibilă temporar`;
+        img.parentElement?.classList.add("image-unavailable");
+      };
+    });
+  };
+
+  const cleanupPublicAdminLinks = () => {
+    document.querySelectorAll('footer a[href*="purestone-admin"]').forEach(a => {
+      const parent = a.parentElement;
+      if (parent) parent.innerHTML = parent.innerHTML.replace(/\s*[•·]\s*<a[^>]*>Admin<\/a>/i, "");
+      else a.remove();
+    });
+  };
+
+  const runFixes = () => {
+    cleanupPublicAdminLinks();
+    repairFeaturedImages();
+    setTimeout(repairFeaturedImages, 350);
+    setTimeout(repairFeaturedImages, 1200);
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", runFixes, { once:true });
+  else runFixes();
 })();
