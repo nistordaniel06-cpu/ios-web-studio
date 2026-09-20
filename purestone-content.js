@@ -91,6 +91,8 @@ window.PureStoneCMS = (() => {
     .collection img{object-position:center center}.project img{object-position:center 48%}.product-media img{object-position:center center}
     .studio,.studio-stage,.studio-card,.hero-card,.featured,.product,.section-head{min-width:0;max-width:100%}
     .mobile-menu,.intro{min-height:100dvh}
+    .image-unavailable{position:relative;background:linear-gradient(145deg,#e8dfd3,#d8c8b5)}
+    .image-unavailable:after{content:"Imagine produs indisponibilă temporar";position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;font-size:11px;color:#746a5f;letter-spacing:.04em}
     @media(max-width:760px){
       body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
       .wrap{width:calc(100% - 24px)!important;max-width:100%!important}
@@ -130,7 +132,6 @@ window.PureStoneCMS = (() => {
   `;
   document.head.appendChild(style);
 
-  const realImage = p => (p && p.remote_images && p.remote_images[0]) || "";
   const repairFeaturedImages = () => {
     if (!Array.isArray(window.TOP_BLAT_CATALOG)) return;
     document.querySelectorAll(".featured .product").forEach(card => {
@@ -138,17 +139,24 @@ window.PureStoneCMS = (() => {
       const img = card.querySelector(".product-media img");
       if (!title || !img) return;
       const p = window.TOP_BLAT_CATALOG.find(x => String(x.title || "").trim() === title);
-      const src = realImage(p);
-      if (!src) return;
+      const candidates = Array.isArray(p?.remote_images) ? p.remote_images.filter(Boolean) : [];
+      if (!candidates.length) return;
+      let index = 0;
       img.referrerPolicy = "no-referrer";
       img.loading = "lazy";
-      if (img.src !== src) img.src = src;
-      img.onerror = () => {
-        img.onerror = null;
-        img.removeAttribute("src");
-        img.alt = `${title} — fotografie indisponibilă temporar`;
-        img.parentElement?.classList.add("image-unavailable");
+      const tryNext = () => {
+        if (index >= candidates.length) {
+          img.onerror = null;
+          img.removeAttribute("src");
+          img.alt = `${title} — fotografie indisponibilă temporar`;
+          img.parentElement?.classList.add("image-unavailable");
+          return;
+        }
+        img.src = candidates[index++];
       };
+      img.onload = () => img.parentElement?.classList.remove("image-unavailable");
+      img.onerror = tryNext;
+      tryNext();
     });
   };
 
