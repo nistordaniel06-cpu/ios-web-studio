@@ -5,7 +5,6 @@
   const SESSION_KEY = 'purestone-session-v1';
   let overridesCache = null;
 
-  const safeJSON = (value, fallback) => { try { return JSON.parse(value); } catch { return fallback; } };
   const sessionId = () => {
     let id = localStorage.getItem(SESSION_KEY);
     if (!id) { id = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; localStorage.setItem(SESSION_KEY, id); }
@@ -18,9 +17,7 @@
     if (!analyticsAllowed()) return;
     try {
       await fetch(`${SUPABASE_URL}/functions/v1/purestone-event`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
         body: JSON.stringify({ event_name, page: location.href, product_slug, session_id: sessionId(), metadata })
       });
     } catch (_) {}
@@ -68,19 +65,43 @@
   function observeImages() {
     proxyImages(document);
     const observer = new MutationObserver(list => {
-      for (const m of list) {
-        m.addedNodes.forEach(node => {
-          if (!(node instanceof Element)) return;
-          if (node.matches?.('img[src]')) {
-            const current = node.getAttribute('src') || '';
-            const next = proxiedImage(current, node.getAttribute('alt') || 'PureStone');
-            if (next !== current) node.setAttribute('src', next);
-          }
-          proxyImages(node);
-        });
-      }
+      for (const m of list) m.addedNodes.forEach(node => {
+        if (!(node instanceof Element)) return;
+        if (node.matches?.('img[src]')) {
+          const current = node.getAttribute('src') || '';
+          const next = proxiedImage(current, node.getAttribute('alt') || 'PureStone');
+          if (next !== current) node.setAttribute('src', next);
+        }
+        proxyImages(node);
+      });
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  function ensureHeadAssets() {
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const l = document.createElement('link'); l.rel = 'manifest'; l.href = './site.webmanifest'; document.head.appendChild(l);
+    }
+    if (!document.querySelector('link[rel~="icon"]')) {
+      const l = document.createElement('link'); l.rel = 'icon'; l.type = 'image/svg+xml'; l.href = './purestone-mark.svg'; document.head.appendChild(l);
+    }
+    if (!document.querySelector('meta[name="theme-color"]')) {
+      const m = document.createElement('meta'); m.name = 'theme-color'; m.content = '#f4efe7'; document.head.appendChild(m);
+    }
+  }
+
+  async function injectStructuredData() {
+    document.querySelectorAll('script[data-purestone-schema]').forEach(x => x.remove());
+    const add = data => { const s=document.createElement('script'); s.type='application/ld+json'; s.dataset.purestoneSchema='1'; s.textContent=JSON.stringify(data); document.head.appendChild(s); };
+    add({ '@context':'https://schema.org', '@type':'Organization', name:'PureStone', url:location.origin + location.pathname.replace(/[^/]+$/,'purestone.html'), logo:location.origin + location.pathname.replace(/[^/]+$/,'purestone-mark.svg'), contactPoint:{ '@type':'ContactPoint', telephone:'+40 733 250 220', contactType:'sales', areaServed:'RO', availableLanguage:['ro'] } });
+    if (!/product\.html$/i.test(location.pathname)) return;
+    const slug = new URLSearchParams(location.search).get('slug');
+    const base = (typeof TOP_BLAT_CATALOG !== 'undefined' && Array.isArray(TOP_BLAT_CATALOG)) ? TOP_BLAT_CATALOG : [];
+    if (!slug || !base.length) return;
+    const all = mergeCatalog(base, await loadOverrides());
+    const p = all.find(x => x.slug === slug); if (!p) return;
+    const raw = p.image_url || p.remote_images?.[0] || '';
+    add({ '@context':'https://schema.org', '@type':'Product', name:p.title, description:p.furniture_pairing || `${p.title} — material premium PureStone.`, category:p.material || 'Suprafață premium', brand:p.brand ? { '@type':'Brand', name:p.brand } : undefined, image:raw ? [proxiedImage(raw,p.title)] : undefined, url:location.href.split('#')[0] });
   }
 
   function injectLegalLinks() {
@@ -90,8 +111,7 @@
       wrap.dataset.purestoneLegal = '1';
       wrap.style.cssText = 'margin-top:16px;font-size:10px;display:flex;gap:14px;flex-wrap:wrap;opacity:.75';
       wrap.innerHTML = '<a href="./privacy.html">Confidențialitate</a><a href="./terms.html">Termeni</a><button type="button" data-cookie-settings style="border:0;background:none;padding:0;color:inherit;font:inherit;cursor:pointer">Preferințe cookies</button>';
-      const target = footer.querySelector('.wrap') || footer;
-      target.appendChild(wrap);
+      (footer.querySelector('.wrap') || footer).appendChild(wrap);
     });
   }
 
@@ -104,27 +124,21 @@
     el.innerHTML = '<div style="font-family:Playfair Display,serif;font-size:21px;margin-bottom:5px">Preferințe de confidențialitate</div><div style="font-size:11px;line-height:1.55;color:rgba(255,255,255,.72)">Folosim stocare esențială pentru funcționarea site-ului. Analytics first-party este opțional și ne ajută să înțelegem ce materiale sunt utile.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px"><button data-consent="essential" style="border:1px solid rgba(255,255,255,.22);background:transparent;color:white;border-radius:999px;padding:10px 13px;font-weight:700">Doar necesare</button><button data-consent="analytics" style="border:0;background:#a48058;color:white;border-radius:999px;padding:10px 13px;font-weight:700">Accept analytics</button><a href="./privacy.html" style="align-self:center;color:white;font-size:10px;margin-left:auto">Detalii</a></div>';
     document.body.appendChild(el);
     el.querySelectorAll('[data-consent]').forEach(btn => btn.addEventListener('click', () => {
-      localStorage.setItem(CONSENT_KEY, btn.dataset.consent);
-      el.remove();
+      localStorage.setItem(CONSENT_KEY, btn.dataset.consent); el.remove();
       if (btn.dataset.consent === 'analytics') track('page_view', { title: document.title });
     }));
   }
 
   function init() {
-    injectLegalLinks();
-    showConsent(false);
-    observeImages();
+    ensureHeadAssets(); injectLegalLinks(); showConsent(false); observeImages(); injectStructuredData();
     document.addEventListener('click', e => {
-      const settings = e.target.closest?.('[data-cookie-settings]');
-      if (settings) showConsent(true);
-      const wa = e.target.closest?.('a[href*="wa.me"],a[href*="api.whatsapp.com"]');
-      if (wa) track('open_whatsapp', { text: (wa.textContent || '').trim().slice(0,100) });
-      const sim = e.target.closest?.('a[href*="#visualizer"],a[href*="visualizer"]');
-      if (sim) track('open_simulator');
+      const settings = e.target.closest?.('[data-cookie-settings]'); if (settings) showConsent(true);
+      const wa = e.target.closest?.('a[href*="wa.me"],a[href*="api.whatsapp.com"]'); if (wa) track('open_whatsapp', { text:(wa.textContent||'').trim().slice(0,100) });
+      const sim = e.target.closest?.('a[href*="#visualizer"],a[href*="visualizer"]'); if (sim) track('open_simulator');
     });
     if (analyticsAllowed()) track('page_view', { title: document.title });
   }
 
   window.PureStoneRuntime = { SUPABASE_URL, PUBLISHABLE_KEY, consent, analyticsAllowed, track, loadOverrides, mergeCatalog, proxiedImage, proxyImages, showConsent, init };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true }); else init();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true }); else init();
 })();
