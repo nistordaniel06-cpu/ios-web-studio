@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Atelier Nobil • Mobilă la Comandă & Design Interior Cupertino</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            background-color: #0C0C0E;
+            color: #F5F5F7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-glass {
+            background: rgba(20, 20, 24, 0.78);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .ios-card {
+            background: rgba(28, 28, 34, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.35);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+        .ios-btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            color: #000000;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-btn-gold:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+        .ios-btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            color: #FFFFFF;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-btn-glass:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.18);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(180deg, #FFF6D6 0%, #D4AF37 50%, #8C6A0A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- Top Dynamic Island Notification -->
+    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50">
+        <div class="bg-black/90 border border-amber-500/30 px-4 py-2 rounded-full flex items-center gap-3 shadow-2xl backdrop-blur-xl">
+            <div class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></div>
+            <span class="text-xs font-semibold tracking-wide text-amber-200">Măsurători & Proiectare 3D Gratuite în București & Ilfov</span>
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 ios-glass py-4 px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center text-black font-bold shadow-lg shadow-amber-500/20">
+                    <i data-lucide="box" class="w-5 h-5 text-black"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-white">Atelier Nobil</span>
+                    <span class="text-[10px] block text-amber-400/90 tracking-widest uppercase -mt-0.5">Mobilier la Comandă</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8 text-xs font-medium text-gray-300">
+                <a href="#materials" class="hover:text-amber-300 transition-colors">Esențe de Lemn</a>
+                <a href="#collection" class="hover:text-amber-300 transition-colors">Portofoliu Camere</a>
+                <a href="#estimator" class="hover:text-amber-300 transition-colors">Configurator & Deviz</a>
+                <a href="#craft" class="hover:text-amber-300 transition-colors">Măiestrie</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="openConsultationModal()" class="ios-btn-gold px-5 py-2 text-xs font-bold shadow-lg shadow-amber-500/20">
+                    Cere Ofertă 3D
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center space-y-6">
+        <span class="text-xs font-bold tracking-widest uppercase text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/25">
+            Arhitectură de Interior & Lemn Nobil
+        </span>
+
+        <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight text-white leading-tight">
+            Mobilier fără compromis.<br>
+            <span class="gold-gradient-text">Sculptat pentru generații.</span>
+        </h1>
+
+        <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            De la bucătării monolitice din nuc american până la dressinguri iluminate inteligent. Feronerie premium Blum, îmbinări perfecte și finisaje tactile unice.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <button onclick="openConsultationModal()" class="ios-btn-gold px-8 py-3.5 text-sm font-bold shadow-xl shadow-amber-500/25">
+                Programează Consultanță Gratuită
+            </button>
+            <a href="#estimator" class="ios-btn-glass px-8 py-3.5 text-sm font-semibold flex items-center gap-2">
+                Calculează Deviz Estimativ <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+        <!-- Interactive Wood Finishes Showcase -->
+        <div class="mt-14 max-w-4xl mx-auto ios-card p-6 sm:p-10 relative overflow-hidden" id="materials">
+            <div class="flex flex-col items-center">
+                <div class="w-full h-72 sm:h-96 rounded-2xl relative overflow-hidden shadow-2xl border border-white/10 flex items-end p-6" id="wood-preview-box" style="background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="relative z-10 text-left space-y-1">
+                        <span class="badge text-[11px] font-bold bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-full uppercase">Finisaj Selectat</span>
+                        <h3 class="text-2xl font-bold text-white" id="wood-title">Nuc American Regal</h3>
+                        <p class="text-xs text-gray-300 max-w-md" id="wood-desc">Textură bogată cu fibre ondulate, tratat cu uleiuri naturale bio fără COV.</p>
+                    </div>
+                </div>
+
+                <!-- Wood Swatches -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full mt-6">
+                    <button onclick="setWoodFinish('nuc', 'Nuc American Regal', 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80', 'Textură bogată cu fibre ondulate, tratat cu uleiuri naturale bio fără COV.', this)" class="wood-chip p-3 rounded-2xl border-2 border-amber-400 bg-amber-500/10 text-left transition-all">
+                        <div class="w-8 h-8 rounded-full bg-[#5A3825] border border-white/20 mb-2"></div>
+                        <div class="text-xs font-bold text-white">Nuc American</div>
+                        <div class="text-[10px] text-gray-400">Eleganță clasică</div>
+                    </button>
+
+                    <button onclick="setWoodFinish('stejar', 'Stejar Masiv Scandinavian', 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80', 'Lemn deschis, luminos, finisat mat mătăsos cu rezistență sporită la umiditate.', this)" class="wood-chip p-3 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 text-left transition-all">
+                        <div class="w-8 h-8 rounded-full bg-[#C8A26E] border border-white/20 mb-2"></div>
+                        <div class="text-xs font-bold text-white">Stejar Natural</div>
+                        <div class="text-[10px] text-gray-400">Minimalism nordic</div>
+                    </button>
+
+                    <button onclick="setWoodFinish('afumat', 'Stejar Afumat & Oțel Negru', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', 'Contrast profund obținut prin tratament termic cu aburi la 180°C.', this)" class="wood-chip p-3 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 text-left transition-all">
+                        <div class="w-8 h-8 rounded-full bg-[#28221E] border border-white/20 mb-2"></div>
+                        <div class="text-xs font-bold text-white">Stejar Afumat</div>
+                        <div class="text-[10px] text-gray-400">Industrial modern</div>
+                    </button>
+
+                    <button onclick="setWoodFinish('marmura', 'Marmură Calacatta & Furnir', 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80', 'Compoziție hibridă între piatră nobilă italiană și carcasă de lemn masiv.', this)" class="wood-chip p-3 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 text-left transition-all">
+                        <div class="w-8 h-8 rounded-full bg-[#E5E5E5] border border-white/20 mb-2"></div>
+                        <div class="text-xs font-bold text-white">Marmură & Nuc</div>
+                        <div class="text-[10px] text-gray-400">Ultra-lux</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Categories Gallery -->
+    <section id="collection" class="max-w-6xl mx-auto px-6 py-14 space-y-8">
+        <div class="text-center space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Colecții la Comandă</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Spații Concepute cu Măiestrie</h2>
+            <p class="text-gray-400 text-sm max-w-xl mx-auto">Fiecare proiect este unicat, adaptat la milimetru după planul casei tale.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Room 1 -->
+            <div class="ios-card overflow-hidden group cursor-pointer" onclick="openRoomDetails('Bucătărie Monolitică')">
+                <div class="h-60 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Bucătărie">
+                    <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-amber-300">
+                        Bucătării
+                    </div>
+                </div>
+                <div class="p-5 space-y-2">
+                    <h3 class="text-base font-bold text-white">Bucătărie Monolitică cu Insulă</h3>
+                    <p class="text-xs text-gray-400">Insulă centrală cu inducție invizibilă, fronturi frezate fără mânere și iluminare LED caldă.</p>
+                </div>
+            </div>
+
+            <!-- Room 2 -->
+            <div class="ios-card overflow-hidden group cursor-pointer" onclick="openRoomDetails('Dressing Walk-in')">
+                <div class="h-60 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Dressing">
+                    <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-amber-300">
+                        Dressinguri
+                    </div>
+                </div>
+                <div class="p-5 space-y-2">
+                    <h3 class="text-base font-bold text-white">Dressing Walk-in cu Uși de Sticlă Fumé</h3>
+                    <p class="text-xs text-gray-400">Rame de aluminiu anodizat negru, rafturi îmbrăcate în piele eco și senzori de deschidere.</p>
+                </div>
+            </div>
+
+            <!-- Room 3 -->
+            <div class="ios-card overflow-hidden group cursor-pointer" onclick="openRoomDetails('Bibliotecă Living')">
+                <div class="h-60 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Living">
+                    <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-amber-300">
+                        Living
+                    </div>
+                </div>
+                <div class="p-5 space-y-2">
+                    <h3 class="text-base font-bold text-white">Bibliotecă Geomatică & Panotaj Perete</h3>
+                    <p class="text-xs text-gray-400">Rafturi asimetrice suspendate, panouri acustice din lamele de stejar și șemineu cu bioetanol.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Price & Dimensions Estimator -->
+    <section id="estimator" class="max-w-4xl mx-auto px-6 py-14">
+        <div class="ios-card p-8 sm:p-12 space-y-8 border-2 border-amber-500/30">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Calculator Estimativ</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Configurează Proiectul Tău</h2>
+                    <p class="text-xs text-gray-400">Prețul include proiectare 3D, producție, transport și montaj autorizat.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Deviz Estimativ</div>
+                    <div id="est-total" class="text-3xl sm:text-4xl font-black text-amber-400">3.850 €</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Tip Corp Mobilă -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Tip Lucrare</label>
+                    <select id="cfg-type" onchange="calculateFurnitureQuote()" class="w-full px-4 py-3 rounded-xl bg-[#1C1C1E] border border-white/10 text-white text-xs focus:outline-none focus:border-amber-500">
+                        <option value="bucatarie" data-base="1100">Bucătărie la Comandă (pe metru liniar)</option>
+                        <option value="dressing" data-base="850">Dressing / Dulap Încorporat (pe metru liniar)</option>
+                        <option value="living" data-base="750">Mobilier Living & Panotaj TV</option>
+                        <option value="baie" data-base="600">Mobilier Baie Lemn Tratat Hidrofug</option>
+                    </select>
+                </div>
+
+                <!-- Lungime Corp (Metri) -->
+                <div>
+                    <div class="flex justify-between text-xs font-bold uppercase text-gray-300 mb-2">
+                        <span>Lungime Proiect</span>
+                        <span id="cfg-length-val" class="text-amber-400">3.5 metri</span>
+                    </div>
+                    <input type="range" id="cfg-length" min="1.5" max="8" step="0.5" value="3.5" oninput="calculateFurnitureQuote()" class="w-full accent-amber-500 cursor-pointer">
+                </div>
+
+                <!-- Material Fronturi -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Esență / Finisaj Fronturi</label>
+                    <select id="cfg-material" onchange="calculateFurnitureQuote()" class="w-full px-4 py-3 rounded-xl bg-[#1C1C1E] border border-white/10 text-white text-xs focus:outline-none focus:border-amber-500">
+                        <option value="nuc" data-mult="1.35">Furnir Natural Nuc American (+35%)</option>
+                        <option value="stejar" data-mult="1.20">Furnir Stejar Masiv European (+20%)</option>
+                        <option value="mdf-vopsit" data-mult="1.00" selected>MDF Vopsit Mat Mătăsos (Standard)</option>
+                        <option value="lemn-masiv" data-mult="1.60">Lemn Masiv Integral Dublu-Strat (+60%)</option>
+                    </select>
+                </div>
+
+                <!-- Feronerie & Sisteme -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Pachet Feronerie</label>
+                    <select id="cfg-hardware" onchange="calculateFurnitureQuote()" class="w-full px-4 py-3 rounded-xl bg-[#1C1C1E] border border-white/10 text-white text-xs focus:outline-none focus:border-amber-500">
+                        <option value="blum-tip-on" data-cost="500">Blum Tip-On Blumotion (Deschidere la Atingere)</option>
+                        <option value="blum-soft" data-cost="300" selected>Blum Soft-Close Amortizare Silențioasă</option>
+                        <option value="grass-kinvaro" data-cost="750">Grass Kinvaro Sisteme Ridicare Electrice</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                <button onclick="sendFurnitureQuoteWhatsApp()" class="flex-1 ios-btn-gold py-4 text-center font-bold text-sm shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> Trimite Configurația pe WhatsApp
+                </button>
+                <button onclick="openConsultationModal()" class="ios-btn-glass px-8 py-4 font-semibold text-sm">
+                    Cere Vizită Măsurători
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Modal -->
+    <div id="mobila-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-[#1C1C1E] border border-amber-500/30 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-white">Consultanță & Măsurători 3D</h3>
+                    <p class="text-xs text-amber-400">Fără niciun cost sau obligație contractuală.</p>
+                </div>
+                <button onclick="closeConsultationModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-white/20">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleConsultationSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Nume & Prenume</label>
+                    <input type="text" id="m-client-name" required placeholder="ex. Florin Ionescu" value="Florin Ionescu" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Telefon</label>
+                    <input type="tel" id="m-client-phone" required placeholder="ex. 0722 000 000" value="0722000000" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Locație / Adresă Proiect</label>
+                    <input type="text" id="m-client-address" required placeholder="ex. București, Sector 1 sau Voluntari" value="București, Sector 1" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200">
+                    📐 Un arhitect din echipa Atelier Nobil va veni cu mostre de lemn și va măsura spațiul cu laser de înaltă precizie.
+                </div>
+
+                <button type="submit" class="w-full ios-btn-gold py-4 font-bold text-sm shadow-lg">
+                    Confirmă Solicitarea Gratuită
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function setWoodFinish(key, title, url, desc, btn) {
+            document.getElementById('wood-preview-box').style.background = `url('${url}') center/cover no-repeat`;
+            document.getElementById('wood-title').innerText = title;
+            document.getElementById('wood-desc').innerText = desc;
+            document.querySelectorAll('.wood-chip').forEach(b => {
+                b.className = 'wood-chip p-3 rounded-2xl border border-white/10 bg-white/5 hover:border-white/30 text-left transition-all';
+            });
+            btn.className = 'wood-chip p-3 rounded-2xl border-2 border-amber-400 bg-amber-500/10 text-left transition-all';
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function calculateFurnitureQuote() {
+            const typeSelect = document.getElementById('cfg-type');
+            const baseMeter = parseFloat(typeSelect.options[typeSelect.selectedIndex].getAttribute('data-base'));
+            const len = parseFloat(document.getElementById('cfg-length').value);
+            document.getElementById('cfg-length-val').innerText = `${len} metri`;
+
+            const matSelect = document.getElementById('cfg-material');
+            const matMult = parseFloat(matSelect.options[matSelect.selectedIndex].getAttribute('data-mult'));
+
+            const hardSelect = document.getElementById('cfg-hardware');
+            const hardCost = parseFloat(hardSelect.options[hardSelect.selectedIndex].getAttribute('data-cost'));
+
+            const total = Math.round((baseMeter * len * matMult) + hardCost);
+            document.getElementById('est-total').innerText = total.toLocaleString('ro-RO') + ' €';
+        }
+
+        function sendFurnitureQuoteWhatsApp() {
+            const typeText = document.getElementById('cfg-type').options[document.getElementById('cfg-type').selectedIndex].text;
+            const len = document.getElementById('cfg-length').value;
+            const matText = document.getElementById('cfg-material').options[document.getElementById('cfg-material').selectedIndex].text;
+            const total = document.getElementById('est-total').innerText;
+
+            const msg = `📐 *SOLICITARE OFERTĂ MOBILĂ ATELIER NOBIL*\n` +
+                        `🪑 Tip Lucrare: *${typeText}*\n` +
+                        `📏 Lungime Estimată: *${len} metri*\n` +
+                        `🪵 Finisaj Ales: *${matText}*\n` +
+                        `💰 Deviz Orientativ: *${total}*\n\n` +
+                        `Doresc să stabilim o vizită pentru măsurători 3D exacte.`;
+
+            window.open(`https://wa.me/40733250220?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function openConsultationModal() {
+            document.getElementById('mobila-modal').classList.remove('hidden');
+            document.getElementById('mobila-modal').classList.add('flex');
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function closeConsultationModal() {
+            document.getElementById('mobila-modal').classList.add('hidden');
+            document.getElementById('mobila-modal').classList.remove('flex');
+        }
+
+        function handleConsultationSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('m-client-name').value;
+            const phone = document.getElementById('m-client-phone').value;
+            const address = document.getElementById('m-client-address').value;
+            closeConsultationModal();
+
+            const msg = `🌟 *PROGRAMARE MĂSURĂTORI ATELIER NOBIL*\n` +
+                        `👤 Client: *${name}*\n` +
+                        `📞 Telefon: ${phone}\n` +
+                        `📍 Locație: ${address}\n` +
+                        `Vă rog să mă contactați pentru a alege data vizitei.`;
+
+            window.open(`https://wa.me/40733250220?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function openRoomDetails(roomName) {
+            openConsultationModal();
+        }
+
+        // Initialize calculation
+        calculateFurnitureQuote();
+    </script>
+</body>
+</html>

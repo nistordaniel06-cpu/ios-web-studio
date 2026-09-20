@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Alexandru • iOS Portfolio & Creative Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #030712 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-widget {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(24px) saturate(190%);
+            -webkit-backdrop-filter: blur(24px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-widget:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        .ios-app-icon {
+            border-radius: 22px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-app-icon:active {
+            transform: scale(0.92);
+        }
+    </style>
+</head>
+<body class="p-6 sm:p-12 flex flex-col items-center justify-center">
+
+    <div class="w-full max-w-2xl space-y-6">
+
+        <!-- Top Profile Widget (iOS Large Widget) -->
+        <div class="ios-widget p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" class="w-24 h-24 rounded-full border-2 border-white/20 object-cover shadow-xl">
+                <div class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-green-500 border-2 border-slate-900 flex items-center justify-center" title="Disponibil pentru proiecte noi">
+                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                </div>
+            </div>
+            <div class="space-y-1 flex-1">
+                <div class="flex items-center justify-center sm:justify-start gap-2">
+                    <h1 class="text-2xl font-bold tracking-tight">Alexandru Popa</h1>
+                    <i data-lucide="badge-check" class="w-5 h-5 text-blue-400"></i>
+                </div>
+                <p class="text-sm text-blue-300 font-medium">Senior Web & iOS Interface Designer</p>
+                <p class="text-xs text-gray-400">Construiesc experiențe digitale de clasă mondială, inspirate din designul Apple.</p>
+            </div>
+        </div>
+
+        <!-- Control Center Widgets Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <!-- Widget 1: Status -->
+            <div class="ios-widget p-4 flex flex-col justify-between">
+                <i data-lucide="zap" class="w-6 h-6 text-yellow-400"></i>
+                <div class="pt-4">
+                    <div class="text-xl font-bold">50+</div>
+                    <div class="text-[11px] text-gray-400">Website-uri Lansate</div>
+                </div>
+            </div>
+
+            <!-- Widget 2: Experiență -->
+            <div class="ios-widget p-4 flex flex-col justify-between">
+                <i data-lucide="award" class="w-6 h-6 text-indigo-400"></i>
+                <div class="pt-4">
+                    <div class="text-xl font-bold">7 Ani</div>
+                    <div class="text-[11px] text-gray-400">Design Experiență</div>
+                </div>
+            </div>
+
+            <!-- Widget 3: Rating -->
+            <div class="ios-widget p-4 flex flex-col justify-between">
+                <i data-lucide="star" class="w-6 h-6 text-amber-400"></i>
+                <div class="pt-4">
+                    <div class="text-xl font-bold">5.0 ★</div>
+                    <div class="text-[11px] text-gray-400">Satisfacție Clienți</div>
+                </div>
+            </div>
+
+            <!-- Widget 4: Local Time -->
+            <div class="ios-widget p-4 flex flex-col justify-between">
+                <i data-lucide="clock" class="w-6 h-6 text-green-400"></i>
+                <div class="pt-4">
+                    <div id="live-clock" class="text-xl font-bold">--:--</div>
+                    <div class="text-[11px] text-gray-400">București, RO</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Projects (iOS List) -->
+        <div class="ios-widget p-6 space-y-4">
+            <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Proiecte Recente</h2>
+
+            <div class="space-y-3">
+                <a href="/templates/apple-showcase.html" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                            <i data-lucide="smartphone" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold">Titanium Pro Keynote</div>
+                            <div class="text-xs text-gray-400">Prezentare ultra-luxury stil Apple</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+                </a>
+
+                <a href="/templates/local-booking.html" class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="scissors" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold">Atelier Cupertino Booking</div>
+                            <div class="text-xs text-gray-400">Sistem de rezervări cu WhatsApp</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Action Buttons (Contact / Social) -->
+        <div class="flex gap-4">
+            <a href="https://wa.me/40733250220" target="_blank" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-500/25 active:scale-95 transition-all">
+                <i data-lucide="message-circle" class="w-5 h-5"></i> Discută pe WhatsApp
+            </a>
+            <a href="mailto:alex@example.com" class="flex-1 bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 border border-white/10 active:scale-95 transition-all">
+                <i data-lucide="mail" class="w-5 h-5"></i> Trimite Email
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('ro-RO', {hour: '2-digit', minute: '2-digit'});
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Atelier Cupertino • Programări & Servicii Premium</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            background-color: #0B0B0E;
+            color: #F2F2F7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-glass {
+            background: rgba(22, 22, 26, 0.78);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .ios-card {
+            background: rgba(28, 28, 34, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        .ios-segmented {
+            background: rgba(118, 118, 128, 0.24);
+            border-radius: 12px;
+            padding: 3px;
+        }
+        .ios-segmented button {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-segmented button.active {
+            background: #636366;
+            color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+        .ios-btn-cta {
+            background: #34C759;
+            color: #FFFFFF;
+            border-radius: 16px;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-btn-cta:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="pb-28">
+
+    <!-- Top iOS Navigation Bar with Large Title -->
+    <header class="sticky top-0 z-40 ios-glass px-6 py-4">
+        <div class="max-w-xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/20">
+                    <i data-lucide="scissors" class="w-5 h-5 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight">Atelier Cupertino</h1>
+                    <p class="text-xs text-green-400 font-medium flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span> Deschis acum • Programări rapide
+                    </p>
+                </div>
+            </div>
+            <a href="tel:0733250220" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white active:scale-95 transition-transform">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-xl mx-auto px-4 pt-6 space-y-6">
+
+        <!-- iOS Segmented Switcher -->
+        <div class="ios-segmented flex">
+            <button onclick="switchTab('services')" id="tab-services" class="flex-1 py-2 text-xs font-semibold rounded-lg active">Servicii</button>
+            <button onclick="switchTab('team')" id="tab-team" class="flex-1 py-2 text-xs font-semibold rounded-lg text-gray-400">Echipa</button>
+            <button onclick="switchTab('reviews')" id="tab-reviews" class="flex-1 py-2 text-xs font-semibold rounded-lg text-gray-400">Recenzii (4.9★)</button>
+        </div>
+
+        <!-- Tab 1: Services List -->
+        <div id="content-services" class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Alege Serviciile Dorite</h2>
+
+            <!-- Service Item 1 -->
+            <div onclick="toggleService('Tuns Signature + Spălat & Styling', 90, this)" class="service-row ios-card p-4 flex items-center justify-between cursor-pointer border border-white/10 active:scale-[0.98] transition-transform">
+                <div class="space-y-1">
+                    <div class="font-bold text-sm text-white">Tuns Signature & Styling</div>
+                    <div class="text-xs text-gray-400">Consultanță formă cap, spălat relaxant, frizură personalizată.</div>
+                    <div class="text-xs text-green-400 font-semibold">45 minute</div>
+                </div>
+                <div class="text-right pl-4">
+                    <div class="font-extrabold text-base text-white">90 lei</div>
+                    <div class="check-box w-6 h-6 rounded-full border border-gray-500 mt-1 flex items-center justify-center ml-auto transition-colors">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-white opacity-0"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Item 2 -->
+            <div onclick="toggleService('Aranjat Barbă & Ritual Prosop Cald', 55, this)" class="service-row ios-card p-4 flex items-center justify-between cursor-pointer border border-white/10 active:scale-[0.98] transition-transform">
+                <div class="space-y-1">
+                    <div class="font-bold text-sm text-white">Aranjat Barbă & Prosop Cald</div>
+                    <div class="text-xs text-gray-400">Contur brici, tratament uleiuri esențiale, prosop cald cu aburi.</div>
+                    <div class="text-xs text-green-400 font-semibold">30 minute</div>
+                </div>
+                <div class="text-right pl-4">
+                    <div class="font-extrabold text-base text-white">55 lei</div>
+                    <div class="check-box w-6 h-6 rounded-full border border-gray-500 mt-1 flex items-center justify-center ml-auto transition-colors">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-white opacity-0"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Item 3 -->
+            <div onclick="toggleService('Pachet Complet VIP (Tuns + Barbă + Facial)', 135, this)" class="service-row ios-card p-4 flex items-center justify-between cursor-pointer border border-white/10 active:scale-[0.98] transition-transform">
+                <div class="space-y-1">
+                    <div class="font-bold text-sm text-white">Pachet Complet VIP</div>
+                    <div class="text-xs text-gray-400">Tuns complet + barbă + mască neagră facială detox + masaj capilar.</div>
+                    <div class="text-xs text-green-400 font-semibold">75 minute</div>
+                </div>
+                <div class="text-right pl-4">
+                    <div class="font-extrabold text-base text-white">135 lei</div>
+                    <div class="check-box w-6 h-6 rounded-full border border-gray-500 mt-1 flex items-center justify-center ml-auto transition-colors">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-white opacity-0"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date & Time Picker in iOS Cupertino Style -->
+            <div class="ios-card p-5 space-y-4 mt-6">
+                <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Selectează Ziua & Ora</div>
+                <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                    <button onclick="pickDate(this, 'Azi, 21 Sep')" class="date-chip px-4 py-2.5 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white shrink-0">Azi • 21 Sep</button>
+                    <button onclick="pickDate(this, 'Mâine, 22 Sep')" class="date-chip px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">Mâine • 22 Sep</button>
+                    <button onclick="pickDate(this, 'Miercuri, 23 Sep')" class="date-chip px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">Mie • 23 Sep</button>
+                    <button onclick="pickDate(this, 'Joi, 24 Sep')" class="date-chip px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">Joi • 24 Sep</button>
+                </div>
+
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="pickTime(this, '10:00')" class="time-chip py-2 rounded-lg border border-white/10 bg-white/5 text-xs font-medium hover:border-green-500 text-gray-300">10:00</button>
+                    <button onclick="pickTime(this, '12:30')" class="time-chip py-2 rounded-lg border border-green-500 bg-green-500/20 text-xs font-bold text-white">12:30</button>
+                    <button onclick="pickTime(this, '15:00')" class="time-chip py-2 rounded-lg border border-white/10 bg-white/5 text-xs font-medium hover:border-green-500 text-gray-300">15:00</button>
+                    <button onclick="pickTime(this, '17:30')" class="time-chip py-2 rounded-lg border border-white/10 bg-white/5 text-xs font-medium hover:border-green-500 text-gray-300">17:30</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Team (Hidden by default) -->
+        <div id="content-team" class="space-y-4 hidden">
+            <div class="ios-card p-4 flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-14 h-14 rounded-2xl object-cover" alt="Master Barber">
+                <div class="flex-1">
+                    <h3 class="font-bold text-sm">Andrei V. • Master Barber</h3>
+                    <p class="text-xs text-gray-400">8 ani experiență • Specializat în Skin Fade & Beard Sculpting</p>
+                    <div class="text-xs text-yellow-400 font-semibold mt-1">★ 4.98 (320 recenzii)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Reviews (Hidden by default) -->
+        <div id="content-reviews" class="space-y-4 hidden">
+            <div class="ios-card p-5 space-y-2">
+                <div class="flex items-center justify-between">
+                    <div class="font-bold text-sm">Mihai D.</div>
+                    <div class="text-xs text-yellow-400">★★★★★</div>
+                </div>
+                <p class="text-xs text-gray-300">"Cea mai bună experiență din oraș. Atmosferă relaxantă, cafea bună și atenție maximă la detalii."</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Sticky Bottom Bar (iOS Floating Bar) -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 ios-glass border-t border-white/10 z-30">
+        <div class="max-w-xl mx-auto flex items-center justify-between gap-4">
+            <div>
+                <div class="text-[11px] text-gray-400 uppercase tracking-wider">Total Servicii</div>
+                <div id="total-val" class="text-xl font-black text-white">90 lei</div>
+            </div>
+            <button onclick="confirmBooking()" class="ios-btn-cta px-6 py-3.5 font-bold text-sm flex items-center gap-2 shadow-lg shadow-green-500/25">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Rezervă pe WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        let selectedServices = ['Tuns Signature & Styling'];
+        let totalPrice = 90;
+        let chosenDate = 'Azi, 21 Sep';
+        let chosenTime = '12:30';
+
+        function switchTab(tab) {
+            ['services', 'team', 'reviews'].forEach(t => {
+                document.getElementById('content-' + t).classList.add('hidden');
+                document.getElementById('tab-' + t).classList.remove('active', 'text-white');
+                document.getElementById('tab-' + t).classList.add('text-gray-400');
+            });
+            document.getElementById('content-' + tab).classList.remove('hidden');
+            document.getElementById('tab-' + tab).classList.add('active', 'text-white');
+            document.getElementById('tab-' + tab).classList.remove('text-gray-400');
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function toggleService(name, price, el) {
+            const check = el.querySelector('.check-box');
+            const icon = check.querySelector('svg');
+            const idx = selectedServices.indexOf(name);
+
+            if (idx > -1) {
+                selectedServices.splice(idx, 1);
+                totalPrice -= price;
+                check.classList.remove('bg-green-500', 'border-green-500');
+                if (icon) icon.classList.add('opacity-0');
+            } else {
+                selectedServices.push(name);
+                totalPrice += price;
+                check.classList.add('bg-green-500', 'border-green-500');
+                if (icon) icon.classList.remove('opacity-0');
+            }
+
+            document.getElementById('total-val').innerText = totalPrice + ' lei';
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+
+        function pickDate(btn, date) {
+            document.querySelectorAll('.date-chip').forEach(b => {
+                b.className = 'date-chip px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0';
+            });
+            btn.className = 'date-chip px-4 py-2.5 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white shrink-0';
+            chosenDate = date;
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function pickTime(btn, time) {
+            document.querySelectorAll('.time-chip').forEach(b => {
+                b.className = 'time-chip py-2 rounded-lg border border-white/10 bg-white/5 text-xs font-medium hover:border-green-500 text-gray-300';
+            });
+            btn.className = 'time-chip py-2 rounded-lg border border-green-500 bg-green-500/20 text-xs font-bold text-white';
+            chosenTime = time;
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function confirmBooking() {
+            if (selectedServices.length === 0) {
+                alert('Vă rugăm să alegeți cel puțin un serviciu!');
+                return;
+            }
+            const sList = selectedServices.join(', ');
+            const msg = `Salut! Doresc o programare la Atelier Cupertino:\n✂ Servicii: ${sList}\n📅 Dată: ${chosenDate}\n⏰ Oră: ${chosenTime}\n💵 Total estimat: ${totalPrice} lei.`;
+            window.open(`https://wa.me/40733250220?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>

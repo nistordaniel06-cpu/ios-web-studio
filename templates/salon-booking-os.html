@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Salon & Barber OS • Sistem Complet de Programări, CRM & WhatsApp</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ios: {
+                            blue: '#007AFF',
+                            green: '#34C759',
+                            indigo: '#5856D6',
+                            purple: '#AF52DE',
+                            orange: '#FF9500',
+                            red: '#FF3B30',
+                            cardDark: 'rgba(28, 28, 32, 0.72)',
+                            cardLight: 'rgba(255, 255, 255, 0.85)',
+                            borderDark: 'rgba(255, 255, 255, 0.12)',
+                        }
+                    },
+                    fontFamily: {
+                        sf: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            background-color: #090A0D;
+            color: #F5F5F7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-glass {
+            background: rgba(18, 19, 24, 0.82);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .ios-card {
+            background: rgba(26, 27, 33, 0.72);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-card:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+        .ios-segmented {
+            background: rgba(118, 118, 128, 0.24);
+            border-radius: 14px;
+            padding: 3px;
+            display: flex;
+        }
+        .ios-segmented button {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-segmented button.active {
+            background: #636366;
+            color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+        .ios-btn {
+            border-radius: 14px;
+            font-weight: 600;
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .ios-btn:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+        .badge-pill {
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- Top Floating Dynamic Island Header -->
+    <header class="sticky top-0 z-40 ios-glass px-5 py-3.5">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-green-500 via-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-green-500/20">
+                    <i data-lucide="scissors" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                        Atelier Barber & Salon OS
+                        <span class="badge-pill bg-green-500/20 text-green-400 border border-green-500/30 text-[10px]">LIVE</span>
+                    </h1>
+                    <p class="text-[11px] text-gray-400">Programări WhatsApp • CRM Clienți • Calendar Sync</p>
+                </div>
+            </div>
+
+            <!-- Switch Mode: Client View vs Admin CRM -->
+            <div class="flex items-center gap-2">
+                <div class="ios-segmented p-1">
+                    <button onclick="setAppMode('client')" id="btn-mode-client" class="px-3 py-1.5 text-xs font-semibold rounded-lg active">
+                        <i data-lucide="user" class="w-3.5 h-3.5 inline mr-1"></i> Programare
+                    </button>
+                    <button onclick="setAppMode('admin')" id="btn-mode-admin" class="px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-400">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 inline mr-1"></i> CRM Salon
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- VIEW 1: CLIENT BOOKING FLOW (Programare Client)              -->
+    <!-- ============================================================ -->
+    <main id="view-client" class="max-w-2xl mx-auto px-4 pt-6 space-y-6">
+
+        <!-- Progress Steps -->
+        <div class="flex items-center justify-between px-2 text-xs text-gray-400">
+            <div class="flex items-center gap-1.5 text-green-400 font-bold" id="step-ind-1">
+                <span class="w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center text-[10px] font-black">1</span> Specialist
+            </div>
+            <div class="w-8 h-0.5 bg-white/10" id="line-1"></div>
+            <div class="flex items-center gap-1.5 text-gray-400" id="step-ind-2">
+                <span class="w-5 h-5 rounded-full bg-white/10 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</span> Servicii
+            </div>
+            <div class="w-8 h-0.5 bg-white/10" id="line-2"></div>
+            <div class="flex items-center gap-1.5 text-gray-400" id="step-ind-3">
+                <span class="w-5 h-5 rounded-full bg-white/10 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</span> Dată & Oră
+            </div>
+            <div class="w-8 h-0.5 bg-white/10" id="line-3"></div>
+            <div class="flex items-center gap-1.5 text-gray-400" id="step-ind-4">
+                <span class="w-5 h-5 rounded-full bg-white/10 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</span> Finalizare
+            </div>
+        </div>
+
+        <!-- STEP 1: Select Specialist -->
+        <section id="step-1" class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Pasul 1: Alege Specialistul</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div onclick="selectSpecialist('Andrei V. • Master Barber', 'Skin Fade & Beard Sculpting', this)" class="spec-card ios-card p-4 text-center cursor-pointer border-2 border-green-500 bg-green-500/10 active:scale-95 transition-all">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" class="w-16 h-16 rounded-2xl mx-auto object-cover shadow-md mb-2 border border-white/20">
+                    <div class="text-xs font-bold text-white">Andrei V.</div>
+                    <div class="text-[10px] text-gray-400">Master Barber</div>
+                    <div class="text-[10px] text-yellow-400 font-bold mt-1">★ 4.99 (410)</div>
+                </div>
+
+                <div onclick="selectSpecialist('Elena M. • Hair & Colorist', 'Styling Modern & Tratamente', this)" class="spec-card ios-card p-4 text-center cursor-pointer border border-white/10 hover:border-white/30 active:scale-95 transition-all">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&q=80" class="w-16 h-16 rounded-2xl mx-auto object-cover shadow-md mb-2 border border-white/20">
+                    <div class="text-xs font-bold text-white">Elena M.</div>
+                    <div class="text-[10px] text-gray-400">Top Colorist</div>
+                    <div class="text-[10px] text-yellow-400 font-bold mt-1">★ 4.95 (280)</div>
+                </div>
+
+                <div onclick="selectSpecialist('Mihai R. • Senior Stylist', 'Tuns Clasic & Texturizat', this)" class="spec-card ios-card p-4 text-center cursor-pointer border border-white/10 hover:border-white/30 active:scale-95 transition-all">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80" class="w-16 h-16 rounded-2xl mx-auto object-cover shadow-md mb-2 border border-white/20">
+                    <div class="text-xs font-bold text-white">Mihai R.</div>
+                    <div class="text-[10px] text-gray-400">Senior Stylist</div>
+                    <div class="text-[10px] text-yellow-400 font-bold mt-1">★ 4.92 (190)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: Select Services -->
+        <section id="step-2" class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Pasul 2: Alege Serviciile</h2>
+            <div class="space-y-2.5">
+                <!-- Svc 1 -->
+                <div onclick="toggleService('Tuns Signature + Spălat & Styling', 90, 45, this)" class="svc-item ios-card p-4 flex items-center justify-between cursor-pointer border border-green-500 bg-green-500/10">
+                    <div>
+                        <div class="font-bold text-sm text-white">Tuns Signature + Spălat & Styling</div>
+                        <div class="text-xs text-gray-400">Consultare formă cap, tuns personalizat, styling cu ceară mată.</div>
+                        <div class="text-[11px] text-green-400 font-medium mt-0.5">⏱ 45 minute</div>
+                    </div>
+                    <div class="text-right pl-3 shrink-0">
+                        <div class="text-base font-extrabold text-white">90 lei</div>
+                        <div class="svc-check w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center mt-1 ml-auto">
+                            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Svc 2 -->
+                <div onclick="toggleService('Aranjat Barbă & Ritual Prosop Cald', 55, 30, this)" class="svc-item ios-card p-4 flex items-center justify-between cursor-pointer border border-white/10 hover:border-white/30">
+                    <div>
+                        <div class="font-bold text-sm text-white">Aranjat Barbă & Prosop Cald</div>
+                        <div class="text-xs text-gray-400">Contur precis brici, uleiuri nutritive organice, prosop cald cu aburi.</div>
+                        <div class="text-[11px] text-green-400 font-medium mt-0.5">⏱ 30 minute</div>
+                    </div>
+                    <div class="text-right pl-3 shrink-0">
+                        <div class="text-base font-extrabold text-white">55 lei</div>
+                        <div class="svc-check w-5 h-5 rounded-full border border-gray-600 flex items-center justify-center mt-1 ml-auto">
+                            <i data-lucide="check" class="w-3.5 h-3.5 opacity-0"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Svc 3 -->
+                <div onclick="toggleService('Tratament Facial Detox Mască Neagră', 60, 25, this)" class="svc-item ios-card p-4 flex items-center justify-between cursor-pointer border border-white/10 hover:border-white/30">
+                    <div>
+                        <div class="font-bold text-sm text-white">Tratament Facial Detox Mască Neagră</div>
+                        <div class="text-xs text-gray-400">Curățare profundă pori, puncte negre, hidratare intensivă.</div>
+                        <div class="text-[11px] text-green-400 font-medium mt-0.5">⏱ 25 minute</div>
+                    </div>
+                    <div class="text-right pl-3 shrink-0">
+                        <div class="text-base font-extrabold text-white">60 lei</div>
+                        <div class="svc-check w-5 h-5 rounded-full border border-gray-600 flex items-center justify-center mt-1 ml-auto">
+                            <i data-lucide="check" class="w-3.5 h-3.5 opacity-0"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: Date & Time Picker -->
+        <section id="step-3" class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Pasul 3: Alege Ziua & Intervalul</h2>
+            <div class="ios-card p-5 space-y-4">
+                <!-- Date selector pills -->
+                <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                    <button onclick="pickDate(this, '2026-09-21', 'Luni, 21 Sep')" class="date-btn px-4 py-2.5 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white shrink-0">
+                        Luni • 21 Sep
+                    </button>
+                    <button onclick="pickDate(this, '2026-09-22', 'Marți, 22 Sep')" class="date-btn px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">
+                        Marți • 22 Sep
+                    </button>
+                    <button onclick="pickDate(this, '2026-09-23', 'Miercuri, 23 Sep')" class="date-btn px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">
+                        Miercuri • 23 Sep
+                    </button>
+                    <button onclick="pickDate(this, '2026-09-24', 'Joi, 24 Sep')" class="date-btn px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">
+                        Joi • 24 Sep
+                    </button>
+                    <button onclick="pickDate(this, '2026-09-25', 'Vineri, 25 Sep')" class="date-btn px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0">
+                        Vineri • 25 Sep
+                    </button>
+                </div>
+
+                <!-- Time slots -->
+                <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 pt-1">
+                    <button onclick="pickTime(this, '09:30')" class="time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500">09:30</button>
+                    <button onclick="pickTime(this, '11:00')" class="time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500">11:00</button>
+                    <button onclick="pickTime(this, '13:30')" class="time-btn py-2 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white">13:30</button>
+                    <button onclick="pickTime(this, '15:00')" class="time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500">15:00</button>
+                    <button onclick="pickTime(this, '16:30')" class="time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500">16:30</button>
+                    <button onclick="pickTime(this, '18:00')" class="time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500">18:00</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: Client Info Form -->
+        <section id="step-4" class="space-y-3">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400 px-1">Pasul 4: Datele Tale de Contact</h2>
+            <div class="ios-card p-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Nume & Prenume</label>
+                    <input type="text" id="client-name" required placeholder="ex. Cristian Radu" value="Cristian Radu" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-green-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Număr de Telefon (pentru confirmare WhatsApp)</label>
+                    <input type="tel" id="client-phone" required placeholder="ex. 0722 123 456" value="0722123456" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-green-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Notițe sau Cerințe Speciale (Opțional)</label>
+                    <input type="text" id="client-notes" placeholder="ex. Prefer fade mai jos pe ceafă" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-green-500">
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Summary & Multi-Action CTA -->
+        <div class="ios-card p-6 space-y-5 border-2 border-green-500/40">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                    <div class="text-xs text-gray-400 uppercase tracking-wider">Rezumat Programare</div>
+                    <div id="sum-specialist" class="text-sm font-bold text-white mt-0.5">Andrei V. • Master Barber</div>
+                    <div id="sum-datetime" class="text-xs text-green-400 font-semibold">Luni, 21 Sep la ora 13:30</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-gray-400 uppercase tracking-wider">Total Estimat</div>
+                    <div id="sum-total" class="text-2xl font-black text-white">90 lei</div>
+                    <div id="sum-duration" class="text-[11px] text-gray-400">Durată: 45 min</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <!-- Primary Action: WhatsApp Instant Booking -->
+                <button onclick="submitBookingWhatsApp()" class="ios-btn bg-green-500 hover:bg-green-600 text-white py-3.5 text-xs sm:text-sm font-bold shadow-lg shadow-green-500/25">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> Trimite pe WhatsApp
+                </button>
+
+                <!-- Secondary Action: Save in iOS Apple Calendar -->
+                <button onclick="downloadICalendarEvent()" class="ios-btn bg-white/10 hover:bg-white/20 text-white py-3.5 text-xs sm:text-sm border border-white/15">
+                    <i data-lucide="calendar-plus" class="w-4 h-4 text-blue-400"></i> Salvează în Calendar iOS (.ics)
+                </button>
+            </div>
+
+            <!-- Third Action: Google Calendar Direct Link -->
+            <div class="text-center pt-1">
+                <button onclick="openGoogleCalendar()" class="text-xs text-gray-400 hover:text-white flex items-center justify-center gap-1.5 mx-auto">
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Sau adaugă direct în Google Calendar (1-Click)
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- VIEW 2: SALON ADMIN & CLIENT CRM COCKPIT (Baza de Date)       -->
+    <!-- ============================================================ -->
+    <main id="view-admin" class="max-w-5xl mx-auto px-4 pt-6 space-y-6 hidden">
+
+        <!-- Stats Overview Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="ios-card p-4">
+                <div class="text-xs text-gray-400 uppercase font-semibold">Programări Azi</div>
+                <div class="text-2xl font-extrabold text-white mt-1" id="stat-today-count">8</div>
+                <div class="text-[11px] text-green-400 mt-1 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span> Toate confirmate
+                </div>
+            </div>
+
+            <div class="ios-card p-4">
+                <div class="text-xs text-gray-400 uppercase font-semibold">Încasări Estimate</div>
+                <div class="text-2xl font-extrabold text-white mt-1" id="stat-revenue">720 lei</div>
+                <div class="text-[11px] text-blue-400 mt-1">Valoare medie 90 lei</div>
+            </div>
+
+            <div class="ios-card p-4">
+                <div class="text-xs text-gray-400 uppercase font-semibold">Clienți în Baza de Date</div>
+                <div class="text-2xl font-extrabold text-white mt-1" id="stat-clients-count">142</div>
+                <div class="text-[11px] text-purple-400 mt-1">+12 clienți noi luna asta</div>
+            </div>
+
+            <div class="ios-card p-4">
+                <div class="text-xs text-gray-400 uppercase font-semibold">Rată de Retenție</div>
+                <div class="text-2xl font-extrabold text-white mt-1">84%</div>
+                <div class="text-[11px] text-emerald-400 mt-1">Revin la 3-4 săptămâni</div>
+            </div>
+        </div>
+
+        <!-- CRM Controls & Search Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 ios-card p-4">
+            <div class="relative w-full sm:w-80">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-3"></i>
+                <input type="text" id="crm-search" oninput="filterCRMTable()" placeholder="Caută după nume sau telefon..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+            </div>
+
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button onclick="openAddClientModal()" class="flex-1 sm:flex-initial ios-btn bg-green-500 text-white px-4 py-2 text-xs font-bold">
+                    <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> Adaugă Client
+                </button>
+                <button onclick="exportCRMToCSV()" class="ios-btn bg-white/10 hover:bg-white/20 text-white px-3 py-2 text-xs border border-white/15" title="Export Excel / CSV">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- CRM Clients & Appointments Table -->
+        <div class="ios-card overflow-hidden">
+            <div class="p-4 border-b border-white/10 flex items-center justify-between">
+                <div class="text-xs font-bold text-white uppercase tracking-wider">
+                    Registru Programări & Bază de Date Clienți
+                </div>
+                <span class="text-[11px] text-gray-400">Salvat local & sincronizat în timp real</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300">
+                    <thead class="bg-white/5 uppercase text-[10px] text-gray-400 tracking-wider">
+                        <tr>
+                            <th class="p-3.5">Client</th>
+                            <th class="p-3.5">Telefon</th>
+                            <th class="p-3.5">Specialist</th>
+                            <th class="p-3.5">Servicii</th>
+                            <th class="p-3.5">Dată & Oră</th>
+                            <th class="p-3.5">Preț</th>
+                            <th class="p-3.5">Status</th>
+                            <th class="p-3.5 text-right">Acțiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crm-table-body" class="divide-y divide-white/5">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal for Adding New Client Manual in CRM -->
+    <div id="add-client-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="w-full max-w-md bg-[#1C1C1E] border border-white/15 rounded-3xl p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-bold text-white">Adaugă Client & Programare Nouă</h3>
+                <button onclick="closeAddClientModal()" class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-gray-400">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <form onsubmit="handleManualClientAdd(event)" class="space-y-3">
+                <div>
+                    <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Nume & Prenume</label>
+                    <input type="text" id="m-name" required placeholder="Ion Popescu" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Telefon</label>
+                    <input type="tel" id="m-phone" required placeholder="07xxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Serviciu</label>
+                    <input type="text" id="m-svc" value="Tuns Signature & Styling" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Dată & Oră</label>
+                        <input type="text" id="m-date" value="21 Sep • 15:30" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Preț (lei)</label>
+                        <input type="number" id="m-price" value="90" class="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-green-500">
+                    </div>
+                </div>
+                <button type="submit" class="w-full ios-btn bg-green-500 hover:bg-green-600 text-white py-3 font-bold text-xs shadow-lg mt-2">
+                    Salvează în CRM
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // 1. Booking State
+        let currentSpecialist = 'Andrei V. • Master Barber';
+        let currentSelectedServices = [
+            { name: 'Tuns Signature + Spălat & Styling', price: 90, duration: 45 }
+        ];
+        let currentDateISO = '2026-09-21';
+        let currentDateDisplay = 'Luni, 21 Sep';
+        let currentTime = '13:30';
+
+        // Pre-seeded CRM Appointments
+        let salonDatabase = JSON.parse(localStorage.getItem('salon_os_crm')) || [
+            { id: 1, name: 'Radu Marinescu', phone: '0722334455', specialist: 'Andrei V.', services: 'Tuns Fade + Barbă', date: '21 Sep 10:00', price: 145, status: 'Confirmat' },
+            { id: 2, name: 'Alexandru Nistor', phone: '0733250220', specialist: 'Elena M.', services: 'Styling & Colorat', date: '21 Sep 11:30', price: 190, status: 'Confirmat' },
+            { id: 3, name: 'Bogdan Teodorescu', phone: '0744112233', specialist: 'Andrei V.', services: 'Tuns Signature', date: '21 Sep 13:30', price: 90, status: 'În așteptare' },
+            { id: 4, name: 'Dan Popa', phone: '0755998877', specialist: 'Mihai R.', services: 'Pachet VIP', date: '21 Sep 16:00', price: 135, status: 'Confirmat' },
+            { id: 5, name: 'Cosmin Enache', phone: '0766123456', specialist: 'Elena M.', services: 'Tratament Mască', date: '22 Sep 12:00', price: 60, status: 'Confirmat' }
+        ];
+
+        function saveCRM() {
+            localStorage.setItem('salon_os_crm', JSON.stringify(salonDatabase));
+            renderCRMTable();
+        }
+
+        // Mode Switcher
+        function setAppMode(mode) {
+            if (mode === 'client') {
+                document.getElementById('view-client').classList.remove('hidden');
+                document.getElementById('view-admin').classList.add('hidden');
+                document.getElementById('btn-mode-client').className = 'px-3 py-1.5 text-xs font-semibold rounded-lg active';
+                document.getElementById('btn-mode-admin').className = 'px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-400';
+            } else {
+                document.getElementById('view-client').classList.add('hidden');
+                document.getElementById('view-admin').classList.remove('hidden');
+                document.getElementById('btn-mode-admin').className = 'px-3 py-1.5 text-xs font-semibold rounded-lg active';
+                document.getElementById('btn-mode-client').className = 'px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-400';
+                renderCRMTable();
+            }
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function selectSpecialist(name, spec, el) {
+            currentSpecialist = name;
+            document.querySelectorAll('.spec-card').forEach(c => {
+                c.className = 'spec-card ios-card p-4 text-center cursor-pointer border border-white/10 hover:border-white/30 active:scale-95 transition-all';
+            });
+            el.className = 'spec-card ios-card p-4 text-center cursor-pointer border-2 border-green-500 bg-green-500/10 active:scale-95 transition-all';
+            document.getElementById('sum-specialist').innerText = name;
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function toggleService(name, price, duration, el) {
+            const idx = currentSelectedServices.findIndex(s => s.name === name);
+            const check = el.querySelector('.svc-check');
+            const icon = check.querySelector('svg');
+
+            if (idx > -1) {
+                currentSelectedServices.splice(idx, 1);
+                el.classList.remove('border-green-500', 'bg-green-500/10');
+                el.classList.add('border-white/10');
+                check.className = 'svc-check w-5 h-5 rounded-full border border-gray-600 flex items-center justify-center mt-1 ml-auto';
+                if (icon) icon.classList.add('opacity-0');
+            } else {
+                currentSelectedServices.push({ name, price, duration });
+                el.classList.add('border-green-500', 'bg-green-500/10');
+                el.classList.remove('border-white/10');
+                check.className = 'svc-check w-5 h-5 rounded-full bg-green-500 text-black flex items-center justify-center mt-1 ml-auto';
+                if (icon) icon.classList.remove('opacity-0');
+            }
+
+            updateSummary();
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function pickDate(btn, iso, display) {
+            currentDateISO = iso;
+            currentDateDisplay = display;
+            document.querySelectorAll('.date-btn').forEach(b => {
+                b.className = 'date-btn px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 shrink-0';
+            });
+            btn.className = 'date-btn px-4 py-2.5 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white shrink-0';
+            updateSummary();
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function pickTime(btn, time) {
+            currentTime = time;
+            document.querySelectorAll('.time-btn').forEach(b => {
+                b.className = 'time-btn py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-medium text-gray-300 hover:border-green-500';
+            });
+            btn.className = 'time-btn py-2 rounded-xl border border-green-500 bg-green-500/20 text-xs font-bold text-white';
+            updateSummary();
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function updateSummary() {
+            const totalPrice = currentSelectedServices.reduce((sum, s) => sum + s.price, 0);
+            const totalDuration = currentSelectedServices.reduce((sum, s) => sum + s.duration, 0);
+            document.getElementById('sum-total').innerText = `${totalPrice} lei`;
+            document.getElementById('sum-duration').innerText = `Durată: ${totalDuration} min`;
+            document.getElementById('sum-datetime').innerText = `${currentDateDisplay} la ora ${currentTime}`;
+        }
+
+        // ========================================================
+        // 1. WhatsApp Instant Booking & CRM Auto-Save
+        // ========================================================
+        function submitBookingWhatsApp() {
+            if (currentSelectedServices.length === 0) {
+                alert('Vă rugăm să selectați cel puțin un serviciu!');
+                return;
+            }
+            const name = document.getElementById('client-name').value || 'Client';
+            const phone = document.getElementById('client-phone').value || '';
+            const notes = document.getElementById('client-notes').value || 'Fără mențiuni';
+            const svcNames = currentSelectedServices.map(s => s.name).join(', ');
+            const total = currentSelectedServices.reduce((acc, s) => acc + s.price, 0);
+
+            // Auto-save to Salon CRM database
+            salonDatabase.unshift({
+                id: Date.now(),
+                name,
+                phone,
+                specialist: currentSpecialist.split(' • ')[0],
+                services: svcNames,
+                date: `${currentDateDisplay} ${currentTime}`,
+                price: total,
+                status: 'Confirmat'
+            });
+            saveCRM();
+
+            const msg = `✂ *PROGRAMARE NOUĂ SALON*\n` +
+                        `👤 Client: *${name}*\n` +
+                        `📞 Telefon: ${phone}\n` +
+                        `💈 Specialist: *${currentSpecialist}*\n` +
+                        `✨ Servicii: ${svcNames}\n` +
+                        `📅 Dată: *${currentDateDisplay}*\n` +
+                        `⏰ Oră: *${currentTime}*\n` +
+                        `💵 Total: *${total} lei*\n` +
+                        `📝 Mențiuni: ${notes}\n\n` +
+                        `_Generat automat prin Salon & Barber OS_`;
+
+            window.open(`https://wa.me/40733250220?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ========================================================
+        // 2. Apple Calendar / iOS .ICS Exporter
+        // ========================================================
+        function downloadICalendarEvent() {
+            const name = document.getElementById('client-name').value || 'Client';
+            const svcNames = currentSelectedServices.map(s => s.name).join(', ');
+            const total = currentSelectedServices.reduce((acc, s) => acc + s.price, 0);
+
+            // Calculate start and end times in UTC ISO
+            const [hours, mins] = currentTime.split(':');
+            const startYear = currentDateISO.split('-')[0];
+            const startMonth = currentDateISO.split('-')[1];
+            const startDay = currentDateISO.split('-')[2];
+
+            const startFormatted = `${startYear}${startMonth}${startDay}T${hours.padStart(2, '0')}${mins.padStart(2, '0')}00`;
+            const endHour = String(parseInt(hours) + 1).padStart(2, '0');
+            const endFormatted = `${startYear}${startMonth}${startDay}T${endHour}${mins.padStart(2, '0')}00`;
+
+            const icsContent = [
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:-//Atelier Cupertino//Salon OS//RO",
+                "CALSCALE:GREGORIAN",
+                "METHOD:PUBLISH",
+                "BEGIN:VEVENT",
+                `UID:${Date.now()}@ateliercupertino.ro`,
+                `DTSTAMP:${startFormatted}Z`,
+                `DTSTART:${startFormatted}`,
+                `DTEND:${endFormatted}`,
+                `SUMMARY:Programare Salon: ${svcNames}`,
+                `DESCRIPTION:Specialist: ${currentSpecialist}\\nClient: ${name}\\nPret: ${total} lei`,
+                "LOCATION:Atelier Cupertino, Calea Victoriei nr. 120, București",
+                "STATUS:CONFIRMED",
+                "BEGIN:VALARM",
+                "TRIGGER:-PT60M",
+                "ACTION:DISPLAY",
+                "DESCRIPTION:Reminder: Programare salon peste 1 oră!",
+                "END:VALARM",
+                "END:VEVENT",
+                "END:VCALENDAR"
+            ].join("\r\n");
+
+            const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `programare-salon-${currentDateISO}.ics`;
+            link.click();
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+
+        // ========================================================
+        // 3. Google Calendar 1-Click Link
+        // ========================================================
+        function openGoogleCalendar() {
+            const name = document.getElementById('client-name').value || 'Client';
+            const svcNames = currentSelectedServices.map(s => s.name).join(', ');
+            const total = currentSelectedServices.reduce((acc, s) => acc + s.price, 0);
+
+            const [hours, mins] = currentTime.split(':');
+            const cleanDate = currentDateISO.replace(/-/g, '');
+            const startFormatted = `${cleanDate}T${hours.padStart(2, '0')}${mins.padStart(2, '0')}00`;
+            const endHour = String(parseInt(hours) + 1).padStart(2, '0');
+            const endFormatted = `${cleanDate}T${endHour}${mins.padStart(2, '0')}00`;
+
+            const title = `Programare Salon: ${svcNames}`;
+            const details = `Specialist: ${currentSpecialist}\nClient: ${name}\nPreț: ${total} lei\nLocație: Atelier Cupertino București`;
+            const location = "Atelier Cupertino, București";
+
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startFormatted}/${endFormatted}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
+            window.open(url, '_blank');
+        }
+
+        // ========================================================
+        // 4. CRM Table Rendering & Management
+        // ========================================================
+        function renderCRMTable() {
+            const tbody = document.getElementById('crm-table-body');
+            tbody.innerHTML = '';
+
+            let totalRev = 0;
+            salonDatabase.forEach(item => {
+                totalRev += item.price;
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-white/5 transition-colors';
+
+                const statusColor = item.status === 'Confirmat' ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
+
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-white">${item.name}</td>
+                    <td class="p-3.5 font-mono text-gray-400">${item.phone}</td>
+                    <td class="p-3.5">${item.specialist}</td>
+                    <td class="p-3.5">${item.services}</td>
+                    <td class="p-3.5 font-semibold text-white">${item.date}</td>
+                    <td class="p-3.5 font-black text-green-400">${item.price} lei</td>
+                    <td class="p-3.5"><span class="badge-pill border ${statusColor}">${item.status}</span></td>
+                    <td class="p-3.5 text-right space-x-2">
+                        <a href="https://wa.me/4${item.phone}" target="_blank" class="text-green-400 hover:text-green-300 inline-block" title="WhatsApp"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+                        <button onclick="deleteCRMRow(${item.id})" class="text-red-400 hover:text-red-300" title="Șterge"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('stat-today-count').innerText = salonDatabase.length;
+            document.getElementById('stat-revenue').innerText = `${totalRev} lei`;
+            document.getElementById('stat-clients-count').innerText = salonDatabase.length * 15 + 22;
+            lucide.createIcons();
+        }
+
+        function deleteCRMRow(id) {
+            salonDatabase = salonDatabase.filter(i => i.id !== id);
+            saveCRM();
+        }
+
+        function filterCRMTable() {
+            const query = document.getElementById('crm-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#crm-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function openAddClientModal() {
+            document.getElementById('add-client-modal').classList.remove('hidden');
+            document.getElementById('add-client-modal').classList.add('flex');
+        }
+
+        function closeAddClientModal() {
+            document.getElementById('add-client-modal').classList.add('hidden');
+            document.getElementById('add-client-modal').classList.remove('flex');
+        }
+
+        function handleManualClientAdd(e) {
+            e.preventDefault();
+            const name = document.getElementById('m-name').value;
+            const phone = document.getElementById('m-phone').value;
+            const services = document.getElementById('m-svc').value;
+            const date = document.getElementById('m-date').value;
+            const price = parseInt(document.getElementById('m-price').value) || 90;
+
+            salonDatabase.unshift({
+                id: Date.now(),
+                name,
+                phone,
+                specialist: 'Andrei V.',
+                services,
+                date,
+                price,
+                status: 'Confirmat'
+            });
+            saveCRM();
+            closeAddClientModal();
+        }
+
+        function exportCRMToCSV() {
+            let csv = "ID,Nume,Telefon,Specialist,Servicii,Data,Pret,Status\n";
+            salonDatabase.forEach(item => {
+                csv += `"${item.id}","${item.name}","${item.phone}","${item.specialist}","${item.services}","${item.date}","${item.price}","${item.status}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `baza-date-salon-${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+        }
+
+        // Initialize table on load
+        renderCRMTable();
+    </script>
+</body>
+</html>

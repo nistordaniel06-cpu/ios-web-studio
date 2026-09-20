@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>iOS Web Studio Pro • Creare Website-uri Profesionale Apple HIG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ios: {
+                            blue: '#007AFF',
+                            green: '#34C759',
+                            indigo: '#5856D6',
+                            purple: '#AF52DE',
+                            orange: '#FF9500',
+                            red: '#FF3B30',
+                            yellow: '#FFCC00',
+                            gold: '#D4AF37',
+                            bgDark: '#050608',
+                            surfaceDark: '#121318',
+                            cardDark: 'rgba(24, 25, 32, 0.75)',
+                            cardLight: 'rgba(255, 255, 255, 0.85)',
+                            borderDark: 'rgba(255, 255, 255, 0.12)',
+                        }
+                    },
+                    fontFamily: {
+                        sf: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent-color: #007AFF;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            background-color: #050608;
+            color: #F5F5F7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        html:not(.dark) body {
+            background-color: #F2F2F7;
+            color: #1C1C1E;
+        }
+        html:not(.dark) .ios-glass {
+            background: rgba(255, 255, 255, 0.82);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        html:not(.dark) .ios-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #1C1C1E;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Frosted Glass Effect */
+        .ios-glass {
+            background: rgba(16, 17, 22, 0.78);
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+        .ios-card {
+            background: rgba(24, 25, 32, 0.68);
+            backdrop-filter: blur(24px) saturate(170%);
+            -webkit-backdrop-filter: blur(24px) saturate(170%);
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 26px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .ios-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        /* iOS Buttons with Spring */
+        .ios-btn {
+            border-radius: 999px;
+            font-weight: 600;
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .ios-btn:active {
+            transform: scale(0.95);
+            opacity: 0.88;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Cupertino Toggle Switch */
+        .ios-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 31px;
+            flex-shrink: 0;
+        }
+        .ios-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .ios-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background-color: #39393D;
+            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 34px;
+        }
+        .ios-slider:before {
+            position: absolute;
+            content: "";
+            height: 27px;
+            width: 27px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        input:checked + .ios-slider {
+            background-color: var(--accent-color);
+        }
+        input:checked + .ios-slider:before {
+            transform: translateX(21px);
+        }
+
+        /* Cupertino Segmented Control */
+        .segmented-wrap {
+            background: rgba(118, 118, 128, 0.24);
+            border-radius: 14px;
+            padding: 3px;
+            display: flex;
+        }
+        .segmented-btn {
+            flex: 1;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 11px;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .segmented-btn.active {
+            background: #636366;
+            color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Floating iOS Dock Bar */
+        .ios-dock {
+            background: rgba(22, 23, 28, 0.85);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 36px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Text gradient */
+        .text-apple-gradient {
+            background: linear-gradient(180deg, #FFFFFF 15%, #A6A6AC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .badge-pill {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-600 selection:text-white pb-36">
+
+    <!-- Top Dynamic Island Interactive Notification -->
+    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
+        <div id="dynamic-island" onclick="expandIsland()" class="dynamic-island cursor-pointer px-4 py-2 flex items-center gap-3 shadow-2xl hover:border-blue-500/60 transition-all">
+            <div id="island-dot" class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></div>
+            <span id="island-text" class="text-xs font-semibold tracking-wide text-white">iOS Web Studio Pro • Online</span>
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 ios-glass px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/25">
+                    <i data-lucide="apple" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                        iOS Web Studio Pro
+                        <span class="badge-pill bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px]">v2.5 HIG</span>
+                    </h1>
+                    <p class="text-[11px] text-gray-400">Arhitectură Profesională Apple pe Web</p>
+                </div>
+            </div>
+
+            <!-- Quick Navigation & Theme -->
+            <div class="flex items-center gap-3">
+                <!-- Color Theme Selector -->
+                <div class="hidden sm:flex items-center gap-1.5 p-1 bg-white/5 rounded-full border border-white/10">
+                    <button onclick="setThemeAccent('#007AFF')" class="w-5 h-5 rounded-full bg-[#007AFF] transition-transform hover:scale-110" title="System Blue"></button>
+                    <button onclick="setThemeAccent('#34C759')" class="w-5 h-5 rounded-full bg-[#34C759] transition-transform hover:scale-110" title="System Green"></button>
+                    <button onclick="setThemeAccent('#D4AF37')" class="w-5 h-5 rounded-full bg-[#D4AF37] transition-transform hover:scale-110" title="Venetian Gold"></button>
+                    <button onclick="setThemeAccent('#5856D6')" class="w-5 h-5 rounded-full bg-[#5856D6] transition-transform hover:scale-110" title="System Indigo"></button>
+                    <button onclick="setThemeAccent('#FF9500')" class="w-5 h-5 rounded-full bg-[#FF9500] transition-transform hover:scale-110" title="System Orange"></button>
+                </div>
+
+                <!-- Dark / Light Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-200 active:scale-95 transition-all">
+                    <i id="theme-icon" data-lucide="sun" class="w-4 h-4"></i>
+                </button>
+
+                <a href="#flagship" class="ios-btn bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 text-xs shadow-lg shadow-blue-500/25">
+                    <i data-lucide="layout" class="w-3.5 h-3.5"></i> Vezi Șabloanele
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Hero Banner -->
+    <section class="max-w-5xl mx-auto px-6 pt-16 pb-14 text-center space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-amber-500/10 border border-white/15 text-gray-200 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span>
+            <span>Generația Următoare de Website-uri Interactive • Apple Design</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-apple-gradient leading-[1.1]">
+            Website-uri Profesionale.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-amber-300">Design iOS Fluid, Tactil & Curat.</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Suită completă de soluții gata de producție: sistem complet de programări pentru saloane și frizerii cu sincronizare în Calendar iOS & Google Calendar, site de prezentare lux pentru mobilier la comandă, laborator de componente și generator 1-click.
+        </p>
+
+        <!-- Flagship Quick Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-3">
+            <a href="./purestone.html" target="_blank" class="ios-btn bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 text-black px-7 py-3.5 text-sm font-bold shadow-xl shadow-amber-500/30 flex items-center gap-2">
+                <i data-lucide="gem" class="w-4 h-4 text-black"></i> PureStone • Atelier Cuarț & Ceramică
+            </a>
+            <a href="./templates/salon-booking-os.html" target="_blank" class="ios-btn bg-green-500 hover:bg-green-600 text-white px-6 py-3.5 text-sm font-bold shadow-xl shadow-green-500/25">
+                <i data-lucide="scissors" class="w-4 h-4"></i> Salon & Barber OS
+            </a>
+            <a href="./templates/mobila-luxury.html" target="_blank" class="ios-btn bg-white/10 text-white px-6 py-3.5 text-sm border border-white/15 hover:bg-white/15">
+                <i data-lucide="box" class="w-4 h-4 text-amber-400"></i> Atelier Nobil • Mobilă
+            </a>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 1: THE TWO NEW FLAGSHIP EXPERIENCES (Saloane & Mobilă)    -->
+    <!-- ================================================================= -->
+    <section id="flagship" class="max-w-6xl mx-auto px-6 py-10 space-y-8">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-green-400">Noi Lansări Profesionale</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Sisteme Complete de Nivel Înalt</h2>
+            </div>
+            <span class="text-xs text-gray-400">Gata de rulare pe telefon & desktop</span>
+        </div>
+
+        <!-- PREMIER FLAGSHIP: PURESTONE -->
+        <div class="ios-card overflow-hidden border-2 border-amber-500/40 relative group">
+            <div class="p-8 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 bg-gradient-to-r from-stone-950 via-zinc-950 to-amber-950/40">
+                <div class="space-y-4 flex-1">
+                    <div class="flex items-center gap-3">
+                        <span class="badge-pill bg-amber-500/25 text-amber-300 border border-amber-500/40 uppercase">
+                            FLAGSHIP CUARȚ & CERAMICĂ LUX
+                        </span>
+                        <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Cu Noul Logo PureStone
+                        </span>
+                    </div>
+
+                    <h3 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                        PureStone • Atelier de Cuarț & Piatră
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-2xl">
+                        Succesorul modern și complet interactiv al platformei top-blat.ro. Include catalogul complet de materiale (Technistone, Silestone, Atlas Plan, Laminam, Coante), simulator interactiv de bucătărie cu randare fotorealistă în timp real, configurator de devize cu trimitere WhatsApp și comandă gratuită de cutie cu mostre acasă.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="text-[11px] bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-amber-200">Simulator 3D Bucătărie</span>
+                        <span class="text-[11px] bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-amber-200">Configurator Preț cu Chiuvetă Monolit</span>
+                        <span class="text-[11px] bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-amber-200">Măsurători Laser 3D</span>
+                        <span class="text-[11px] bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-amber-200">Duritate 7 Mohs & 0% Absorbție</span>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap items-center gap-3">
+                        <a href="./purestone.html" target="_blank" class="ios-btn bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 text-black px-8 py-3.5 text-xs font-bold shadow-xl shadow-amber-500/25 flex items-center gap-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> Deschide Website-ul PureStone
+                        </a>
+                        <button onclick="downloadDirect('./purestone.html', 'purestone.html')" class="ios-btn bg-white/10 hover:bg-white/20 text-white px-4 py-3.5 text-xs border border-white/15" title="Descarcă codul sursă">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-72 h-56 rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="PureStone Bucătărie">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-left">
+                        <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Calacatta Gold</div>
+                        <div class="text-xs font-bold text-white">Insulă Cascadă Waterfall</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- FLAGSHIP 1: SALON & BARBER BOOKING OS -->
+            <div class="ios-card overflow-hidden flex flex-col justify-between border-2 border-green-500/30 group">
+                <div class="h-64 bg-gradient-to-tr from-emerald-950 via-slate-900 to-black relative p-6 flex flex-col justify-between border-b border-white/10">
+                    <div class="flex items-center justify-between">
+                        <span class="badge-pill bg-green-500/30 text-green-300 border border-green-400/40">
+                            SISTEM COMPLET SALOANE & FRIZERII
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+                            Programare WhatsApp în 4 Pași
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-blue-400"></i>
+                            Salvare Automată în Calendar iOS (.ics) & Google Calendar
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-purple-400"></i>
+                            Panou Administrare & Bază de Date Clienți (CRM cu Export CSV)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="scissors" class="w-5 h-5 text-green-400"></i>
+                        <h3 class="text-xl font-bold text-white">Salon & Barber OS</h3>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Soluție completă pentru frizerii, barbershop-uri și saloane de înfrumusețare. Clientul selectează specialistul, serviciile, data și ora, iar programarea se transmite preformatată pe WhatsApp și se salvează direct în calendarul telefonului. Include și cockpit de administrare pentru patron cu baza de date a clienților.
+                    </p>
+
+                    <div class="pt-2 flex items-center gap-3">
+                        <a href="./templates/salon-booking-os.html" target="_blank" class="flex-1 ios-btn bg-green-500 hover:bg-green-600 text-white py-3.5 text-xs font-bold shadow-lg shadow-green-500/25">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> Deschide Sistemul Live
+                        </a>
+                        <button onclick="downloadDirect('./templates/salon-booking-os.html', 'salon-booking-os.html')" class="ios-btn bg-white/10 hover:bg-white/20 text-white px-4 py-3.5 text-xs border border-white/15" title="Descarcă codul sursă">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FLAGSHIP 2: ATELIER NOBIL - LUXURY FURNITURE SHOWCASE -->
+            <div class="ios-card overflow-hidden flex flex-col justify-between border-2 border-amber-500/30 group">
+                <div class="h-64 bg-gradient-to-tr from-amber-950 via-slate-900 to-black relative p-6 flex flex-col justify-between border-b border-white/10" style="background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">
+                    <div class="absolute inset-0 bg-black/75 backdrop-blur-[2px]"></div>
+                    <div class="relative z-10 flex items-center justify-between">
+                        <span class="badge-pill bg-amber-500/40 text-amber-200 border border-amber-400/50">
+                            MOBILĂ LA COMANDĂ & ARHITECTURĂ INTERIOR
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i data-lucide="box" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400"></i>
+                            Selector Finisaje Interactive (Nuc, Stejar, Marmură, Lemn Masiv)
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400"></i>
+                            Calculator Deviz Estimativ în Timp Real cu Feronerie Blum
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400"></i>
+                            Programare Directă Măsurători 3D Gratuite pe WhatsApp
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="home" class="w-5 h-5 text-amber-400"></i>
+                        <h3 class="text-xl font-bold text-white">Atelier Nobil • Mobilier Custom</h3>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Website ultra-luxury dedicat atelierelor de mobilă la comandă, designerilor de interior și caselor de arhitectură. Conține galieră interactivă de spații (bucătării monolitice, dressinguri cu sticlă fumé, biblioteci suspendate) și configurator de devize cu trimitere automată.
+                    </p>
+
+                    <div class="pt-2 flex items-center gap-3">
+                        <a href="./templates/mobila-luxury.html" target="_blank" class="flex-1 ios-btn bg-amber-500 hover:bg-amber-600 text-black py-3.5 text-xs font-bold shadow-lg shadow-amber-500/25">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> Deschide Prezentarea Live
+                        </a>
+                        <button onclick="downloadDirect('./templates/mobila-luxury.html', 'mobila-luxury.html')" class="ios-btn bg-white/10 hover:bg-white/20 text-white px-4 py-3.5 text-xs border border-white/15" title="Descarcă codul sursă">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 2: OTHER TEMPLATES (SaaS App & Control Center Portfolio)  -->
+    <!-- ================================================================= -->
+    <section class="max-w-6xl mx-auto px-6 py-8 space-y-6">
+        <h3 class="text-lg font-bold text-white">Alte Șabloane Disponibile</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Template: App Landing -->
+            <div class="ios-card p-6 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm">FocusFlow • Aplicație iOS & SaaS</h4>
+                        <p class="text-xs text-gray-400">Mockup iPhone 16 interactiv, badge App Store și recenzii.</p>
+                    </div>
+                </div>
+                <a href="./templates/app-landing.html" target="_blank" class="ios-btn bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-2.5 border border-white/10 shrink-0">
+                    Live Demo <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+
+            <!-- Template: Control Center Portfolio -->
+            <div class="ios-card p-6 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Control Center Portfolio & Hub</h4>
+                        <p class="text-xs text-gray-400">Portofoliu personal cu widget-uri tactile și ceas live.</p>
+                    </div>
+                </div>
+                <a href="./templates/ios-portfolio.html" target="_blank" class="ios-btn bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-2.5 border border-white/10 shrink-0">
+                    Live Demo <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: COMPONENT PLAYGROUND & INTERACTIVE INSPECTION          -->
+    <!-- ================================================================= -->
+    <section id="playground" class="max-w-6xl mx-auto px-6 py-14 space-y-8">
+        <div class="border-b border-white/10 pb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400">Componente Reutilizabile</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Laboratorul de Componente Interactive</h2>
+            <p class="text-xs sm:text-sm text-gray-400">Fiecare componentă este testată, tactilă și include buton de copiere cod curat.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Card 1: Toggle Switch -->
+            <div class="ios-card p-6 space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-gray-400 uppercase">Cupertino Switch</span>
+                        <span id="demo-sw-status" class="text-xs text-blue-400 font-bold">ACTIV</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Comutator cu arc fizic identic cu cel din meniul de configurare iOS.</p>
+                </div>
+                <div class="flex items-center justify-between p-3.5 bg-white/5 rounded-2xl border border-white/10">
+                    <span class="text-xs font-semibold text-white">Sincronizare iCloud</span>
+                    <label class="ios-switch">
+                        <input type="checkbox" checked onchange="handleSwDemo(this)">
+                        <span class="ios-slider"></span>
+                    </label>
+                </div>
+                <button onclick="inspectCode('switch')" class="ios-btn w-full bg-white/10 hover:bg-white/20 text-xs py-2 text-gray-200 border border-white/10">
+                    <i data-lucide="code" class="w-3.5 h-3.5"></i> Copiază Codul
+                </button>
+            </div>
+
+            <!-- Card 2: Segmented Control -->
+            <div class="ios-card p-6 space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-gray-400 uppercase">Segmented Pill</span>
+                        <span class="text-xs text-green-400 font-bold">3 Opțiuni</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Selector orizontal cu indicator magnetic și umbră tridimensională.</p>
+                </div>
+                <div class="segmented-wrap">
+                    <button onclick="selectSeg(this)" class="segmented-btn active">Zilnic</button>
+                    <button onclick="selectSeg(this)" class="segmented-btn text-gray-400">Săptămână</button>
+                    <button onclick="selectSeg(this)" class="segmented-btn text-gray-400">Lună</button>
+                </div>
+                <button onclick="inspectCode('segmented')" class="ios-btn w-full bg-white/10 hover:bg-white/20 text-xs py-2 text-gray-200 border border-white/10">
+                    <i data-lucide="code" class="w-3.5 h-3.5"></i> Copiază Codul
+                </button>
+            </div>
+
+            <!-- Card 3: Frosted Glass Material -->
+            <div class="ios-card p-6 space-y-4 flex flex-col justify-between" id="blur-box-demo">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-gray-400 uppercase">Liquid Glass</span>
+                        <span id="blur-text-demo" class="text-xs text-purple-400 font-bold">Blur: 24px</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Sticlă mată reglabilă prin <code class="text-blue-300">backdrop-filter</code>.</p>
+                </div>
+                <input type="range" min="4" max="40" value="24" oninput="changeBlurDemo(this.value)" class="w-full accent-purple-500 cursor-pointer">
+                <button onclick="inspectCode('glass')" class="ios-btn w-full bg-white/10 hover:bg-white/20 text-xs py-2 text-gray-200 border border-white/10">
+                    <i data-lucide="code" class="w-3.5 h-3.5"></i> Copiază Codul
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 4: 1-CLICK INSTANT SITE GENERATOR                         -->
+    <!-- ================================================================= -->
+    <section id="generator" class="max-w-4xl mx-auto px-6 py-14">
+        <div class="ios-card p-8 sm:p-12 space-y-8 border-2 border-blue-500/30">
+            <div class="text-center space-y-2">
+                <span class="badge-pill bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">Generator Automat</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Construiește & Descarcă Website-ul Tău</h2>
+                <p class="text-xs sm:text-sm text-gray-400 max-w-lg mx-auto">
+                    Alege șablonul preferat, completează datele și obții instantaneu codul HTML complet gata de găzduit sau deschis în browser.
+                </p>
+            </div>
+
+            <form onsubmit="generateSiteAction(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Nume Brand / Afacere</label>
+                        <input type="text" id="g-brand" required value="Barber Elite Studio" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Slogan / Descriere Scurtă</label>
+                        <input type="text" id="g-slogan" required value="Frizerie & Styling Modern în București" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Selectează Șablonul</label>
+                        <select id="g-template" class="w-full px-4 py-3 rounded-xl bg-[#1C1C1E] border border-white/10 text-white text-xs focus:outline-none focus:border-blue-500">
+                            <option value="purestone" selected>PureStone (Atelier Cuarț, Simulator & Configurator Preț)</option>
+                            <option value="salon-booking-os">Salon & Barber OS (cu CRM, WhatsApp & Calendar)</option>
+                            <option value="mobila-luxury">Atelier Nobil (Mobilă la Comandă & Calculator Deviz)</option>
+                            <option value="app-landing">FocusFlow (SaaS & Mobile App Landing)</option>
+                            <option value="ios-portfolio">iOS Control Center (Portfolio & Link-in-Bio)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Număr WhatsApp pentru Programări</label>
+                        <input type="tel" id="g-phone" value="40733250220" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full ios-btn bg-blue-600 hover:bg-blue-500 text-white py-4 font-bold text-sm shadow-xl shadow-blue-500/25 mt-2">
+                    <i data-lucide="download-cloud" class="w-4 h-4"></i> Generează & Descarcă Website-ul (1-Click)
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating Dock Bar -->
+    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40">
+        <div class="ios-dock px-6 py-3 flex items-center gap-7">
+            <a href="#flagship" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="star" class="w-5 h-5 text-amber-400"></i>
+                <span class="text-[10px] font-medium">Lansări</span>
+            </a>
+            <a href="#playground" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="sliders" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Laborator</span>
+            </a>
+            <a href="#generator" class="flex flex-col items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold">Generator</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Code Inspection Bottom Sheet Modal -->
+    <div id="code-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="w-full max-w-2xl bg-[#1C1C1E] border-t sm:border border-white/15 rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 space-y-4 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto sm:hidden cursor-pointer" onclick="closeCodeModal()"></div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 id="code-title" class="text-lg font-bold text-white">Cod Sursă Componentă</h3>
+                    <p class="text-xs text-gray-400">Gata de inserat în orice pagină web.</p>
+                </div>
+                <button onclick="closeCodeModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:bg-white/20">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto rounded-xl bg-black/70 border border-white/10 p-4 font-mono text-xs text-blue-300 whitespace-pre leading-relaxed select-all" id="code-box"></div>
+            <div class="flex items-center justify-between pt-2">
+                <span id="copied-badge" class="text-xs text-green-400 font-bold opacity-0 transition-opacity">✔ Copiat în clipboard!</span>
+                <button onclick="copyCurrentSnippet()" class="ios-btn bg-blue-600 text-white px-6 py-2.5 text-xs font-bold shadow-lg">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiază Codul
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function setThemeAccent(hex) {
+            document.documentElement.style.setProperty('--accent-color', hex);
+            document.getElementById('island-dot').style.backgroundColor = hex;
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.add('dark');
+                icon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function expandIsland() {
+            const island = document.getElementById('dynamic-island');
+            const text = document.getElementById('island-text');
+            if (island.classList.contains('px-8')) {
+                island.classList.remove('px-8', 'py-3.5');
+                island.classList.add('px-4', 'py-2');
+                text.innerText = 'iOS Web Studio Pro • Online';
+            } else {
+                island.classList.remove('px-4', 'py-2');
+                island.classList.add('px-8', 'py-3.5');
+                text.innerText = '✨ 4 Sisteme Profesionale Active pe Localhost!';
+            }
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function handleSwDemo(el) {
+            const lbl = document.getElementById('demo-sw-status');
+            lbl.innerText = el.checked ? 'ACTIV' : 'INACTIV';
+            lbl.className = el.checked ? 'text-xs text-blue-400 font-bold' : 'text-xs text-gray-500 font-bold';
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function selectSeg(btn) {
+            btn.parentElement.querySelectorAll('.segmented-btn').forEach(b => {
+                b.className = 'segmented-btn text-gray-400';
+            });
+            btn.className = 'segmented-btn active';
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function changeBlurDemo(val) {
+            document.getElementById('blur-text-demo').innerText = `Blur: ${val}px`;
+            document.getElementById('blur-box-demo').style.backdropFilter = `blur(${val}px) saturate(170%)`;
+        }
+
+        const snippets = {
+            switch: `<label class="ios-switch">
+  <input type="checkbox" checked>
+  <span class="ios-slider"></span>
+</label>
+
+<style>
+.ios-switch { position: relative; display: inline-block; width: 51px; height: 31px; }
+.ios-switch input { opacity: 0; width: 0; height: 0; }
+.ios-slider {
+  position: absolute; inset: 0; cursor: pointer;
+  background-color: #39393D; border-radius: 34px;
+  transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ios-slider:before {
+  position: absolute; content: ""; height: 27px; width: 27px; left: 2px; bottom: 2px;
+  background-color: white; border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+input:checked + .ios-slider { background-color: #007AFF; }
+input:checked + .ios-slider:before { transform: translateX(20px); }
+</style>`,
+            segmented: `<div class="ios-segmented">
+  <button class="active">Zilnic</button>
+  <button>Săptămână</button>
+  <button>Lună</button>
+</div>
+
+<style>
+.ios-segmented {
+  background: rgba(118, 118, 128, 0.24); border-radius: 14px; padding: 3px; display: flex;
+}
+.ios-segmented button {
+  flex: 1; padding: 7px 12px; font-size: 13px; font-weight: 600;
+  border-radius: 11px; border: none; background: transparent; color: #999;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ios-segmented button.active {
+  background: #636366; color: white; box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+</style>`,
+            glass: `<div class="ios-glass-card">
+  <h3>Card Liquid Glass</h3>
+  <p>Efect nativ cu saturație ridicată și blur de fundal.</p>
+</div>
+
+<style>
+.ios-glass-card {
+  background: rgba(24, 25, 32, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px; padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+</style>`
+        };
+
+        function inspectCode(type) {
+            document.getElementById('code-box').innerText = snippets[type] || 'Cod indisponibil.';
+            document.getElementById('code-modal').classList.remove('hidden');
+            document.getElementById('code-modal').classList.add('flex');
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        function closeCodeModal() {
+            document.getElementById('code-modal').classList.add('hidden');
+            document.getElementById('code-modal').classList.remove('flex');
+        }
+
+        function copyCurrentSnippet() {
+            const text = document.getElementById('code-box').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const badge = document.getElementById('copied-badge');
+                badge.classList.remove('opacity-0');
+                if (navigator.vibrate) navigator.vibrate(10);
+                setTimeout(() => badge.classList.add('opacity-0'), 2500);
+            });
+        }
+
+        function downloadDirect(url, name) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            a.click();
+        }
+
+        function generateSiteAction(e) {
+            e.preventDefault();
+            const brand = document.getElementById('g-brand').value;
+            const slogan = document.getElementById('g-slogan').value;
+            const tpl = document.getElementById('g-template').value;
+            const phone = document.getElementById('g-phone').value;
+
+            fetch('./templates/' + tpl + '.html')
+                .then(res => res.text())
+                .then(html => {
+                    let customized = html
+                        .replace(/Atelier Barber & Salon OS|Atelier Nobil|FocusFlow|Alexandru/g, brand)
+                        .replace(/Programări WhatsApp • CRM Clienți|Sculptat pentru generații|Organizează-ți ziua/g, slogan)
+                        .replace(/40733250220/g, phone);
+
+                    const blob = new Blob([customized], { type: 'text/html' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = brand.toLowerCase().replace(/\s+/g, '-') + '.html';
+                    a.click();
+
+                    const island = document.getElementById('dynamic-island');
+                    const text = document.getElementById('island-text');
+                    island.classList.add('px-8', 'py-3.5', 'border-green-500');
+                    text.innerText = `🎉 Site-ul "${brand}" a fost descărcat cu succes!`;
+                    if (navigator.vibrate) navigator.vibrate(10);
+                    setTimeout(() => {
+                        island.classList.remove('px-8', 'py-3.5', 'border-green-500');
+                        island.classList.add('px-4', 'py-2');
+                        text.innerText = 'iOS Web Studio Pro • Online';
+                    }, 4000);
+                });
+        }
+    </script>
+</body>
+</html>

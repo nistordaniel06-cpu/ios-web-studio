@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Titanium Pro • Experiență Apple iOS</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ios: {
+                            blue: '#007AFF',
+                            green: '#34C759',
+                            indigo: '#5856D6',
+                            purple: '#AF52DE',
+                            orange: '#FF9500',
+                            red: '#FF3B30',
+                            bgDark: '#000000',
+                            cardDark: 'rgba(28, 28, 30, 0.75)',
+                            cardLight: 'rgba(255, 255, 255, 0.82)',
+                            surfaceDark: '#1C1C1E',
+                            borderDark: 'rgba(255, 255, 255, 0.12)',
+                            borderLight: 'rgba(0, 0, 0, 0.08)'
+                        }
+                    },
+                    fontFamily: {
+                        sf: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            background-color: #000000;
+            color: #F5F5F7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .ios-glass {
+            background: rgba(22, 22, 24, 0.72);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .ios-card {
+            background: rgba(28, 28, 30, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .ios-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        .ios-btn-primary {
+            background: #007AFF;
+            color: #FFFFFF;
+            border-radius: 999px;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-btn-primary:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+        .ios-btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            color: #FFFFFF;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .ios-btn-secondary:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-blue {
+            background: linear-gradient(135deg, #2997FF 0%, #90BFFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Dynamic Island */
+        .dynamic-island {
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-600 selection:text-white pb-32">
+
+    <!-- Dynamic Island Header Top Notification -->
+    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
+        <div id="island" onclick="toggleIsland()" class="dynamic-island cursor-pointer px-4 py-2 flex items-center gap-3 shadow-2xl hover:border-blue-500/50">
+            <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+            <span id="island-text" class="text-xs font-medium tracking-wide">Titanium Pro • Lansare Oficială</span>
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 ios-glass py-3.5 px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="apple" class="w-6 h-6 text-white"></i>
+                <span class="font-bold tracking-tight text-lg">Titanium Pro</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm text-gray-300">
+                <a href="#overview" class="hover:text-white transition-colors">Privire de ansamblu</a>
+                <a href="#specs" class="hover:text-white transition-colors">Performanță</a>
+                <a href="#design" class="hover:text-white transition-colors">Design</a>
+                <a href="#pricing" class="hover:text-white transition-colors">Comandă</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openModal()" class="ios-btn-primary px-5 py-2 text-xs font-semibold tracking-wide">
+                    Precomandă
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-24 pb-20 px-6 text-center overflow-hidden">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <span class="text-xs font-semibold tracking-widest uppercase text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full border border-blue-500/20">
+                Generația Următoare
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-gradient">
+                Titanium Pro.<br>
+                Forjat în perfecțiune.
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                Design monolitic din titan de grad aerospațial, ecran Super Retina XDR de 120Hz și putere fără precedent.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                <button onclick="openModal()" class="ios-btn-primary px-8 py-3.5 text-sm font-semibold shadow-lg shadow-blue-500/25">
+                    Configurează acum
+                </button>
+                <a href="#specs" class="ios-btn-secondary px-8 py-3.5 text-sm font-semibold flex items-center gap-2">
+                    Vezi specificațiile <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Interactive Color Finish Showcase -->
+        <div class="mt-16 max-w-3xl mx-auto ios-card p-6 sm:p-10 relative">
+            <div class="flex flex-col items-center">
+                <div class="w-full h-64 sm:h-80 rounded-2xl relative flex items-center justify-center overflow-hidden transition-all duration-500" id="showcase-bg">
+                    <div id="device-mock" class="w-44 h-72 sm:w-52 sm:h-80 rounded-[40px] border-4 border-gray-600 bg-gradient-to-b from-gray-800 to-black shadow-2xl relative flex flex-col items-center justify-between p-3 transition-all duration-500">
+                        <div class="w-20 h-4 bg-black rounded-full border border-white/10 mt-1"></div>
+                        <div class="text-center space-y-1">
+                            <i data-lucide="cpu" class="w-8 h-8 mx-auto text-blue-400 mb-1"></i>
+                            <div class="text-xs font-bold" id="mock-title">Titan Natural</div>
+                            <div class="text-[10px] text-gray-400">A18 Pro Bionic</div>
+                        </div>
+                        <div class="w-16 h-1 bg-white/40 rounded-full mb-1"></div>
+                    </div>
+                </div>
+
+                <!-- Color Swatches -->
+                <div class="flex items-center gap-4 mt-6">
+                    <button onclick="setColor('natural', '#8A857D', 'Titan Natural')" class="color-dot w-7 h-7 rounded-full bg-[#8A857D] ring-2 ring-white ring-offset-2 ring-offset-black transition-all" title="Titan Natural"></button>
+                    <button onclick="setColor('blue', '#2A3644', 'Titan Albastru')" class="color-dot w-7 h-7 rounded-full bg-[#2A3644] transition-all" title="Titan Albastru"></button>
+                    <button onclick="setColor('white', '#E3E4E5', 'Titan Alb')" class="color-dot w-7 h-7 rounded-full bg-[#E3E4E5] transition-all" title="Titan Alb"></button>
+                    <button onclick="setColor('black', '#242527', 'Titan Negru')" class="color-dot w-7 h-7 rounded-full bg-[#242527] transition-all" title="Titan Negru"></button>
+                </div>
+                <div class="text-xs text-gray-400 mt-2 font-medium" id="color-label">Culoare: Titan Natural</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Key Features Grid -->
+    <section id="specs" class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="text-center space-y-3 mb-14">
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-gradient">
+                Inovații la superlativ.
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+                Fiecare detaliu a fost recalibrat pentru a oferi cea mai fluidă interacțiune posibilă.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Feature 1 -->
+            <div class="ios-card p-8 space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                    <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold">A18 Pro Chip</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Arhitectură pe 3nm de generație nouă. Ray-tracing hardware accelerat pentru jocuri consolă-level direct pe telefon.
+                </p>
+                <div class="text-2xl font-black text-blue-400 pt-2">+25% mai rapid</div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="ios-card p-8 space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-green-500/15 border border-green-500/30 flex items-center justify-center text-green-400">
+                    <i data-lucide="camera" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold">Cameră Fusion 48MP</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Senzor quad-pixel de mari dimensiuni cu stabilizare optică pe senzor de generația a 2-a și zoom optic 5x periscopic.
+                </p>
+                <div class="text-2xl font-black text-green-400 pt-2">Zoom 5x Optic</div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="ios-card p-8 space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                    <i data-lucide="battery-charging" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold">Autonomie Extinsă</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Până la 29 de ore de redare video continuă cu încărcare rapidă MagSafe la 25W și conector USB-C cu viteze de 10Gbps.
+                </p>
+                <div class="text-2xl font-black text-purple-400 pt-2">29 Ore Video</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Pricing & Configurator -->
+    <section id="pricing" class="py-16 px-6 max-w-4xl mx-auto">
+        <div class="ios-card p-8 sm:p-12 space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+                <div>
+                    <h3 class="text-2xl font-bold">Personalizează comanda</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Livrare gratuită și retur în 14 zile.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Preț Total</div>
+                    <div id="final-price" class="text-3xl font-extrabold text-blue-400">1.199 €</div>
+                </div>
+            </div>
+
+            <!-- Storage Selection Pills -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">Capacitate de Stocare</label>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="setStorage(128, 1199)" id="btn-128" class="storage-btn py-3 px-4 rounded-xl border border-blue-500 bg-blue-500/20 text-center transition-all">
+                        <div class="font-bold text-sm">128 GB</div>
+                        <div class="text-xs text-gray-400">Inclus</div>
+                    </button>
+                    <button onclick="setStorage(256, 1329)" id="btn-256" class="storage-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 text-center transition-all">
+                        <div class="font-bold text-sm">256 GB</div>
+                        <div class="text-xs text-gray-400">+130 €</div>
+                    </button>
+                    <button onclick="setStorage(512, 1599)" id="btn-512" class="storage-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 text-center transition-all">
+                        <div class="font-bold text-sm">512 GB</div>
+                        <div class="text-xs text-gray-400">+400 €</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AppleCare Option Toggle -->
+            <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
+                    <div>
+                        <div class="text-sm font-semibold">Garanție AppleCare+ (2 ani)</div>
+                        <div class="text-xs text-gray-400">Protecție completă împotriva daunelor accidentale.</div>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="applecare-toggle" onchange="toggleCare()" class="sr-only peer">
+                    <div class="w-12 h-7 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500"></div>
+                </label>
+            </div>
+
+            <!-- CTA Order Button -->
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                <button onclick="openModal()" class="flex-1 ios-btn-primary py-4 text-center font-bold text-sm">
+                    Finalizează Precomanda
+                </button>
+                <button onclick="openWhatsApp()" class="ios-btn-secondary px-6 py-4 flex items-center justify-center gap-2 text-sm font-medium">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-green-400"></i> WhatsApp Asistență
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Modal Sheet (iOS Style) -->
+    <div id="ios-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="w-full max-w-lg bg-[#1C1C1E] border-t sm:border border-white/15 rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl animate-in slide-in-from-bottom duration-300">
+            <!-- Drag Handle for Mobile -->
+            <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto sm:hidden cursor-pointer" onclick="closeModal()"></div>
+            
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold">Confirmare Precomandă</h3>
+                    <p class="text-xs text-gray-400">Rezervă-ți dispozitivul în câteva secunde.</p>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-300">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleOrderSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Nume & Prenume</label>
+                    <input type="text" required placeholder="ex. Alex Popescu" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Număr de Telefon</label>
+                    <input type="tel" required placeholder="ex. 0722 000 000" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Oraș / Adresă</label>
+                    <input type="text" required placeholder="ex. București, Sector 1" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300 flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i> Plată ramburs la livrare sau online cu cardul.
+                </div>
+
+                <button type="submit" class="w-full ios-btn-primary py-3.5 font-bold text-sm tracking-wide shadow-lg shadow-blue-500/20">
+                    Trimite Rezervarea Gratuită
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        let basePrice = 1199;
+        let carePrice = 0;
+        let selectedStorage = 128;
+        let selectedColorName = 'Titan Natural';
+
+        function updatePrice() {
+            const total = basePrice + carePrice;
+            document.getElementById('final-price').innerText = total.toLocaleString('ro-RO') + ' €';
+        }
+
+        function setStorage(gb, price) {
+            selectedStorage = gb;
+            basePrice = price;
+            ['128', '256', '512'].forEach(s => {
+                const btn = document.getElementById('btn-' + s);
+                if (s == gb) {
+                    btn.className = 'storage-btn py-3 px-4 rounded-xl border border-blue-500 bg-blue-500/20 text-center transition-all';
+                } else {
+                    btn.className = 'storage-btn py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-white/30 text-center transition-all';
+                }
+            });
+            updatePrice();
+            triggerHaptic();
+        }
+
+        function toggleCare() {
+            const isChecked = document.getElementById('applecare-toggle').checked;
+            carePrice = isChecked ? 199 : 0;
+            updatePrice();
+            triggerHaptic();
+        }
+
+        function setColor(code, hex, name) {
+            selectedColorName = name;
+            document.getElementById('color-label').innerText = 'Culoare: ' + name;
+            document.getElementById('mock-title').innerText = name;
+            document.getElementById('device-mock').style.borderColor = hex;
+            triggerHaptic();
+        }
+
+        function toggleIsland() {
+            const island = document.getElementById('island');
+            const text = document.getElementById('island-text');
+            if (island.classList.contains('px-8')) {
+                island.classList.remove('px-8', 'py-3.5', 'border-blue-500');
+                island.classList.add('px-4', 'py-2');
+                text.innerText = 'Titanium Pro • Lansare Oficială';
+            } else {
+                island.classList.remove('px-4', 'py-2');
+                island.classList.add('px-8', 'py-3.5', 'border-blue-500');
+                text.innerText = '✨ Precomenzile se livrează în 48 de ore!';
+            }
+            triggerHaptic();
+        }
+
+        function openModal() {
+            const modal = document.getElementById('ios-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            triggerHaptic();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('ios-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            const island = document.getElementById('island');
+            const text = document.getElementById('island-text');
+            island.classList.add('px-8', 'py-3.5', 'border-green-500');
+            text.innerText = '🎉 Rezervare Confirmată cu Succes!';
+            triggerHaptic();
+            setTimeout(() => {
+                island.classList.remove('px-8', 'py-3.5', 'border-green-500');
+                island.classList.add('px-4', 'py-2');
+                text.innerText = 'Titanium Pro • Lansare Oficială';
+            }, 4000);
+        }
+
+        function openWhatsApp() {
+            const msg = `Bună ziua! Doresc detalii despre comanda Titanium Pro (${selectedColorName}, ${selectedStorage}GB).`;
+            window.open(`https://wa.me/40733250220?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function triggerHaptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(10);
+            }
+        }
+    </script>
+</body>
+</html>
