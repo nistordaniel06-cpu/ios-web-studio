@@ -6,6 +6,7 @@ Allow: /ios-web-studio/quote.html
 Allow: /ios-web-studio/privacy.html
 Allow: /ios-web-studio/terms.html
 Disallow: /ios-web-studio/purestone-admin.html
+Disallow: /ios-web-studio/purestone-content-admin-auth.html
 Disallow: /ios-web-studio/purestone-dashboard.html
 Disallow: /ios-web-studio/purestone-products-admin.html
 Disallow: /ios-web-studio/purestone-leads.html
