@@ -18,18 +18,26 @@ for(const vp of viewports){
         if(n<1)failures.push(`${vp.name} compare: no cards`);
       }
       if(route==='/kitchen-visualizer.html'){
-        if(!(await page.locator('#base').count())) failures.push(`${vp.name} visualizer: canvas missing`);
+        if(!(await page.locator('#viewer').count())) failures.push(`${vp.name} visualizer: viewer missing`);
         if(!(await page.locator('#demo').count())) failures.push(`${vp.name} visualizer: demo missing`);
-        else {
+        if(!(await page.locator('#compare').count())) failures.push(`${vp.name} visualizer: compare control missing`);
+        if(await page.locator('#demo').count()){
           await page.locator('#demo').click();
-          await page.waitForFunction(()=>document.querySelector('#wrap')?.dataset.ready==='1',{timeout:5000});
+          try{
+            await page.waitForFunction(()=>/Demo real încărcat/i.test(document.querySelector('#status')?.textContent||''),{timeout:9000});
+          }catch{
+            const status=(await page.locator('#status').textContent())?.trim()||'';
+            failures.push(`${vp.name} visualizer: real demo not ready (${status})`);
+          }
           const state=(await page.locator('#pointState').textContent())?.trim();
           if(state!=='4 / 4 puncte') failures.push(`${vp.name} visualizer: demo did not mark surface (${state})`);
-          const status=(await page.locator('#status').textContent())?.trim()||'';
-          if(!/Demo pregătit/i.test(status)) failures.push(`${vp.name} visualizer: demo status not ready (${status})`);
           await page.locator('#compare').evaluate(el=>{el.value='75';el.dispatchEvent(new Event('input',{bubbles:true}))});
-          const clip=await page.locator('#result').evaluate(el=>getComputedStyle(el).clipPath);
-          if(!clip||clip==='none') failures.push(`${vp.name} visualizer: compare slider inactive`);
+          const width=await page.locator('#mask').evaluate(el=>getComputedStyle(el).width);
+          const viewerWidth=await page.locator('#viewer').evaluate(el=>getComputedStyle(el).width);
+          const ratio=parseFloat(width)/parseFloat(viewerWidth);
+          if(!Number.isFinite(ratio)||Math.abs(ratio-.75)>.04) failures.push(`${vp.name} visualizer: compare slider inactive (${ratio})`);
+          const left=await page.locator('#handle').evaluate(el=>el.style.left);
+          if(left!=='75%') failures.push(`${vp.name} visualizer: drag handle not synced (${left})`);
         }
       }
       if(route==='/booking.html'&&!(await page.locator('#form').count()))failures.push(`${vp.name} booking: form missing`);
