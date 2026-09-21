@@ -4,7 +4,6 @@
 - Site: https://nistordaniel06-cpu.github.io/ios-web-studio/purestone.html
 - Catalog: https://nistordaniel06-cpu.github.io/ios-web-studio/catalog.html
 - Compară materiale: https://nistordaniel06-cpu.github.io/ios-web-studio/compare.html
-- Vezi în bucătăria mea: https://nistordaniel06-cpu.github.io/ios-web-studio/kitchen-visualizer.html
 - Programări: https://nistordaniel06-cpu.github.io/ios-web-studio/booking.html
 - Cerere ofertă / favorite: https://nistordaniel06-cpu.github.io/ios-web-studio/quote.html
 - Portal B2B arhitecți/designeri: https://nistordaniel06-cpu.github.io/ios-web-studio/b2b.html
@@ -30,7 +29,6 @@ Paginile private nu sunt linkuite în site-ul public și sunt excluse din robots
 - Image gateway/cache PureStone pentru imaginile externe.
 - Simulator homepage cu maparea corectată pentru Desert Silver și Arte Black.
 - Comparare simultană pentru până la trei materiale.
-- „Vezi în bucătăria mea”: fotografia este procesată local; utilizatorul marchează cele patru colțuri ale blatului, iar materialul este proiectat pe suprafață în canvas. Include intensitate, before/after și export imagine.
 - Favorite → o singură cerere pentru mai multe materiale.
 - Upload PDF / fotografie în cererea de ofertă.
 - Programări pentru showroom, măsurători și consultație de design.
@@ -56,18 +54,17 @@ Paginile private nu sunt linkuite în site-ul public și sunt excluse din robots
 - Dacă accesul la cont se pierde, recuperarea trebuie făcută prin fluxul Supabase Auth, nu prin cheia veche.
 
 ## Demo recomandat
-1. Homepage → zona Instrumente PureStone.
-2. „Vezi în bucătăria mea”: folosește imagine demo, marchează cele 4 colțuri, schimbă materialul și glisează comparația Original / Material.
-3. Compară trei materiale.
-4. Catalog → produs → favorite → ofertă.
-5. Trimite o programare de test.
-6. Trimite un lead cu plan/fotografie.
-7. Dashboard → Lead CRM.
-8. Offer Builder → generează oferta → deschide linkul client → Print/PDF → Accept oferta.
-9. Portal B2B: creează cont, proiect, adaugă materiale, solicită mostră și încarcă un fișier.
-10. Dashboard → B2B & programări: gestionează contul, mostra și programarea.
-11. Content CMS / Product Admin → modifică un câmp și arată publicarea.
-12. Analytics.
+1. Homepage → colecții / selecție / simulator.
+2. Compară trei materiale.
+3. Catalog → produs → favorite → ofertă.
+4. Trimite o programare de test.
+5. Trimite un lead cu plan/fotografie.
+6. Dashboard → Lead CRM.
+7. Offer Builder → generează oferta → deschide linkul client → Print/PDF → Accept oferta.
+8. Portal B2B: creează cont, proiect, adaugă materiale, solicită mostră și încarcă un fișier.
+9. Dashboard → B2B & programări: gestionează contul, mostra și programarea.
+10. Content CMS / Product Admin → modifică un câmp și arată publicarea.
+11. Analytics.
 
 ## Date reale de completat înainte de lansarea comercială definitivă
 - Numele, rolurile, telefoanele și fotografiile reale ale echipei.
@@ -83,7 +80,7 @@ Generatorul produce pagini statice pentru toate materialele și `sitemap.xml`.
 
 ## QA automat
 Workflow: `.github/workflows/purestone-smoke.yml`.
-Rulează Chromium pe desktop, Android-size și iPhone-size pentru homepage, catalog, comparație, visualizer, programări, B2B și o pagină SEO.
+Rulează Chromium pe desktop, Android-size și iPhone-size pentru homepage, catalog, comparație, programări, B2B și o pagină SEO.
 
 ## Backend / Storage
 - Conținut: `purestone_content`.
