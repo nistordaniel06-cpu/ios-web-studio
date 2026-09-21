@@ -73,9 +73,14 @@
           if (next !== current) node.setAttribute('src', next);
         }
         proxyImages(node);
+        node.querySelectorAll?.('a[href*="kitchen-visualizer"]').forEach(a => a.remove());
       });
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  function hideKitchenVisualizerLinks(root = document) {
+    root.querySelectorAll?.('a[href*="kitchen-visualizer"]').forEach(a => a.remove());
   }
 
   function fixVisualizerSwap() {
@@ -132,15 +137,11 @@
     const actions = document.querySelector('.actions');
     if (!slug || !actions || actions.dataset.v4Enhanced === '1') return;
     actions.dataset.v4Enhanced = '1';
-    const kitchen = document.createElement('a');
-    kitchen.className = 'btn light';
-    kitchen.href = `./kitchen-visualizer.html?slug=${encodeURIComponent(slug)}`;
-    kitchen.textContent = 'Vezi în bucătăria mea';
     const compare = document.createElement('a');
     compare.className = 'btn light';
     compare.href = `./compare.html?slugs=${encodeURIComponent(slug)}`;
     compare.textContent = 'Compară';
-    actions.append(kitchen, compare);
+    actions.append(compare);
   }
 
   function injectLegalLinks() {
@@ -169,12 +170,12 @@
   }
 
   function init() {
+    hideKitchenVisualizerLinks();
     ensureHeadAssets(); injectLegalLinks(); showConsent(false); observeImages(); fixVisualizerSwap(); enhanceProductActions(); injectStructuredData();
     document.addEventListener('click', e => {
       const settings = e.target.closest?.('[data-cookie-settings]'); if (settings) showConsent(true);
       const wa = e.target.closest?.('a[href*="wa.me"],a[href*="api.whatsapp.com"]'); if (wa) track('open_whatsapp', { text:(wa.textContent||'').trim().slice(0,100) });
       const sim = e.target.closest?.('a[href*="#visualizer"],a[href*="visualizer"]'); if (sim) track('open_simulator');
-      const kitchen = e.target.closest?.('a[href*="kitchen-visualizer"]'); if (kitchen) track('open_kitchen_visualizer');
       const compare = e.target.closest?.('a[href*="compare.html"]'); if (compare) track('open_compare');
     });
     if (analyticsAllowed()) track('page_view', { title: document.title });
