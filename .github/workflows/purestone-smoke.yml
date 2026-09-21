@@ -7,7 +7,6 @@ on:
       - 'catalog.html'
       - 'product.html'
       - 'compare.html'
-      - 'kitchen-visualizer.html'
       - 'booking.html'
       - 'b2b.html'
       - 'offer.html'
