@@ -4,13 +4,13 @@ Allow: /ios-web-studio/catalog.html
 Allow: /ios-web-studio/product.html
 Allow: /ios-web-studio/materiale/
 Allow: /ios-web-studio/compare.html
-Allow: /ios-web-studio/kitchen-visualizer.html
 Allow: /ios-web-studio/booking.html
 Allow: /ios-web-studio/b2b.html
 Allow: /ios-web-studio/quote.html
 Allow: /ios-web-studio/privacy.html
 Allow: /ios-web-studio/terms.html
 Allow: /ios-web-studio/offer.html
+Disallow: /ios-web-studio/kitchen-visualizer.html
 Disallow: /ios-web-studio/purestone-admin.html
 Disallow: /ios-web-studio/purestone-content-admin-auth.html
 Disallow: /ios-web-studio/purestone-dashboard.html
