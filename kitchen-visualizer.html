@@ -1,1 +1,167 @@
-<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Vezi în bucătăria mea • PureStone</title><meta name="description" content="Încarcă o fotografie a bucătăriei, marchează blatul și testează materialele PureStone direct în imagine."><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet"><script src="./manifest/products_manifest.js"></script><script src="./purestone-runtime.js"></script><style>:root{--bg:#f4efe7;--paper:#fbf8f3;--ink:#201d19;--muted:#7b7369;--line:rgba(32,29,25,.12);--gold:#a48058;--dark:#211e1a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:DM Sans,sans-serif}.wrap{width:min(1250px,calc(100% - 28px));margin:auto}.serif{font-family:Playfair Display,serif}.top{position:sticky;top:0;z-index:20;background:rgba(244,239,231,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-family:Playfair Display,serif;letter-spacing:.15em;text-decoration:none;color:inherit;font-weight:600}.btn{border:0;border-radius:999px;padding:11px 15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.dark{background:var(--dark);color:#fff}.light{background:#fff;color:var(--ink);border:1px solid var(--line)}.hero{padding:34px 0 20px}.hero h1{font-size:clamp(46px,7vw,78px);line-height:.93;margin:8px 0 14px}.hero p{color:var(--muted);max-width:760px;line-height:1.7}.app{display:grid;grid-template-columns:340px 1fr;gap:14px;padding-bottom:90px}.panel,.stage{background:rgba(255,255,255,.52);border:1px solid var(--line);border-radius:26px}.panel{padding:18px}.step{border-bottom:1px solid var(--line);padding:15px 0}.step:first-child{padding-top:0}.step:last-child{border-bottom:0}.step h3{font-family:Playfair Display,serif;font-size:24px;margin:0 0 8px}.step p{font-size:10px;color:var(--muted);line-height:1.55}.upload{border:1px dashed rgba(32,29,25,.25);border-radius:18px;padding:18px;text-align:center;background:#fff;display:block;cursor:pointer}.upload input{display:none}.upload b{display:block;margin-bottom:4px}.tools{display:flex;gap:7px;flex-wrap:wrap}.tools button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:700}.materials{display:flex;gap:7px;overflow:auto;padding:3px 0;scrollbar-width:none}.mat{flex:0 0 92px;border:1px solid var(--line);border-radius:15px;background:#fff;padding:6px;text-align:left}.mat.active{outline:2px solid var(--gold)}.mat img{width:100%;height:55px;object-fit:cover;border-radius:10px;background:#d7cabc}.mat b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:5px}.field{margin-top:9px}.field label{font-size:9px;color:var(--muted);display:flex;justify-content:space-between}.field input[type=range]{width:100%}.stage{padding:12px;min-width:0}.canvas-wrap{position:relative;width:100%;aspect-ratio:16/10;background:#d0c5b7;border-radius:20px;overflow:hidden;touch-action:none}.canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%}.result{clip-path:inset(0 0 0 0)}.guide{position:absolute;inset:0;pointer-events:none}.point{position:absolute;width:18px;height:18px;margin:-9px;border-radius:50%;background:#fff;border:3px solid var(--gold);box-shadow:0 3px 12px rgba(0,0,0,.25)}.hint{position:absolute;left:12px;top:12px;background:rgba(33,30,26,.86);color:#fff;border-radius:999px;padding:8px 10px;font-size:9px}.compare-line{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.16);pointer-events:none}.compare-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.2)}.compare-range{position:absolute;left:10px;right:10px;bottom:12px;width:calc(100% - 20px);z-index:4;opacity:.01}.stage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.stage-actions .btn{flex:1}.privacy{font-size:9px;color:var(--muted);margin-top:10px;text-align:center}@media(max-width:850px){.app{grid-template-columns:1fr}.panel{order:2}.stage{order:1}.canvas-wrap{aspect-ratio:4/3}.hero{padding-top:26px}.nav .light{display:none}.stage-actions .btn{min-width:calc(50% - 4px)}}@media(max-width:430px){.wrap{width:calc(100% - 18px)}.panel,.stage{border-radius:21px}.stage{padding:7px}.canvas-wrap{border-radius:16px}.hero h1{font-size:46px}}</style></head><body><header class="top"><div class="wrap nav"><a class="brand" href="./purestone.html">PURESTONE</a><div><a class="btn light" href="./compare.html">Compară</a> <a class="btn dark" href="./quote.html">Cere ofertă</a></div></div></header><main class="wrap"><section class="hero"><div style="font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-weight:700">Visualizer local • poza rămâne pe dispozitiv</div><h1 class="serif">Vezi materialul<br>în bucătăria ta.</h1><p>Încarcă fotografia, apasă pe cele patru colțuri ale blatului în ordine și testează materialele. Randarea se face în browser; fotografia nu este trimisă către PureStone.</p></section><section class="app"><aside class="panel"><div class="step"><h3>1. Încarcă fotografia</h3><label class="upload"><input id="file" type="file" accept="image/*"><b>📷 Alege poza bucătăriei</b><span style="font-size:9px;color:var(--muted)">JPG / PNG / WebP</span></label><div class="tools" style="margin-top:8px"><button id="demo">Folosește imagine demo</button><button id="resetPoints">Refă suprafața</button></div></div><div class="step"><h3>2. Marchează blatul</h3><p>Apasă pe fotografie: stânga-sus → dreapta-sus → dreapta-jos → stânga-jos. După al patrulea punct materialul se aplică automat.</p><div id="pointState" style="font-size:10px;font-weight:700;color:var(--gold)">0 / 4 puncte</div></div><div class="step"><h3>3. Alege materialul</h3><div class="materials" id="materials"></div><div class="field"><label><span>Intensitate material</span><b id="opacityLabel">78%</b></label><input id="opacity" type="range" min="35" max="100" value="78"></div></div></aside><section class="stage"><div class="canvas-wrap" id="wrap"><canvas id="base"></canvas><canvas class="result" id="result"></canvas><div class="guide" id="guide"></div><div class="hint" id="hint">Încarcă o fotografie pentru a începe</div><div class="compare-line" id="line" style="left:50%"><span class="compare-knob">↔</span></div><input class="compare-range" id="compare" type="range" min="0" max="100" value="50"></div><div class="stage-actions"><button class="btn light" id="download">Salvează imaginea</button><a class="btn light" id="compareBtn" href="./compare.html">Compară materialul</a><a class="btn dark" id="quoteBtn" href="./quote.html">Cere ofertă</a></div><div class="privacy">🔒 Fotografia este procesată local în browser și nu este stocată automat.</div></section></section></main><script>const $=s=>document.querySelector(s),baseCatalog=(typeof TOP_BLAT_CATALOG!=='undefined'&&Array.isArray(TOP_BLAT_CATALOG))?TOP_BLAT_CATALOG:[],G='https://bcedyacdepzhqwleizfl.supabase.co/functions/v1/purestone-image';let catalog=baseCatalog,current=null,points=[],photo=new Image(),texture=new Image(),ready=false;photo.crossOrigin='anonymous';texture.crossOrigin='anonymous';const bc=$('#base'),rc=$('#result'),bctx=bc.getContext('2d'),rctx=rc.getContext('2d');function fallback(name){return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#c7b49b"/><path d="M-20 600 C280 420 520 650 800 440 S1100 350 1260 430" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="8"/><text x="55" y="710" font-family="Georgia" font-size="50" fill="white">${String(name).replace(/[<>&]/g,'')}</text></svg>`)}function pimg(p){const src=p.image_url||p.remote_images?.[0]||'';return src?(PureStoneRuntime?.proxiedImage(src,p.title)||src):fallback(p.title)}function sizeCanvas(img){const max=1600,scale=Math.min(1,max/img.naturalWidth);bc.width=rc.width=Math.round(img.naturalWidth*scale);bc.height=rc.height=Math.round(img.naturalHeight*scale);drawBase()}function drawBase(){if(!photo.naturalWidth)return;bctx.clearRect(0,0,bc.width,bc.height);bctx.drawImage(photo,0,0,bc.width,bc.height);render()}function bilerp(p0,p1,p2,p3,u,v){return{x:(1-u)*(1-v)*p0.x+u*(1-v)*p1.x+u*v*p2.x+(1-u)*v*p3.x,y:(1-u)*(1-v)*p0.y+u*(1-v)*p1.y+u*v*p2.y+(1-u)*v*p3.y}}function tri(ctx,img,s0,s1,s2,d0,d1,d2){const den=s0.x*(s1.y-s2.y)+s1.x*(s2.y-s0.y)+s2.x*(s0.y-s1.y);if(Math.abs(den)<.001)return;const a=(d0.x*(s1.y-s2.y)+d1.x*(s2.y-s0.y)+d2.x*(s0.y-s1.y))/den,b=(d0.y*(s1.y-s2.y)+d1.y*(s2.y-s0.y)+d2.y*(s0.y-s1.y))/den,c=(d0.x*(s2.x-s1.x)+d1.x*(s0.x-s2.x)+d2.x*(s1.x-s0.x))/den,d=(d0.y*(s2.x-s1.x)+d1.y*(s0.x-s2.x)+d2.y*(s1.x-s0.x))/den,e=(d0.x*(s1.x*s2.y-s2.x*s1.y)+d1.x*(s2.x*s0.y-s0.x*s2.y)+d2.x*(s0.x*s1.y-s1.x*s0.y))/den,f=(d0.y*(s1.x*s2.y-s2.x*s1.y)+d1.y*(s2.x*s0.y-s0.x*s2.y)+d2.y*(s0.x*s1.y-s1.x*s0.y))/den;ctx.save();ctx.beginPath();ctx.moveTo(d0.x,d0.y);ctx.lineTo(d1.x,d1.y);ctx.lineTo(d2.x,d2.y);ctx.closePath();ctx.clip();ctx.transform(a,b,c,d,e,f);ctx.drawImage(img,0,0);ctx.restore()}function render(){if(!photo.naturalWidth)return;rctx.clearRect(0,0,rc.width,rc.height);rctx.drawImage(photo,0,0,rc.width,rc.height);if(points.length!==4||!texture.naturalWidth)return;rctx.save();rctx.globalAlpha=Number($('#opacity').value)/100;rctx.globalCompositeOperation='multiply';const cols=14,rows=8,tw=texture.naturalWidth,th=texture.naturalHeight;for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const u0=x/cols,u1=(x+1)/cols,v0=y/rows,v1=(y+1)/rows,d00=bilerp(points[0],points[1],points[2],points[3],u0,v0),d10=bilerp(points[0],points[1],points[2],points[3],u1,v0),d11=bilerp(points[0],points[1],points[2],points[3],u1,v1),d01=bilerp(points[0],points[1],points[2],points[3],u0,v1),s00={x:u0*tw,y:v0*th},s10={x:u1*tw,y:v0*th},s11={x:u1*tw,y:v1*th},s01={x:u0*tw,y:v1*th};tri(rctx,texture,s00,s10,s11,d00,d10,d11);tri(rctx,texture,s00,s11,s01,d00,d11,d01)}rctx.restore()}function guide(){const g=$('#guide');g.innerHTML=points.map(p=>`<i class="point" style="left:${p.x/bc.width*100}%;top:${p.y/bc.height*100}%"></i>`).join('');$('#pointState').textContent=points.length+' / 4 puncte';$('#hint').textContent=points.length<4?'Apasă colțul '+(points.length+1)+' din 4':'Glisează ↔ pentru Original / Material'}function setPhoto(src){photo=new Image();photo.crossOrigin='anonymous';photo.onload=()=>{ready=true;sizeCanvas(photo);points=[];guide();$('#hint').textContent='Apasă cele 4 colțuri ale blatului'};photo.onerror=()=>alert('Imaginea nu a putut fi încărcată.');photo.src=src}function setMaterial(slug){current=catalog.find(p=>p.slug===slug)||catalog[0];document.querySelectorAll('.mat').forEach(x=>x.classList.toggle('active',x.dataset.slug===current.slug));texture=new Image();texture.crossOrigin='anonymous';texture.onload=render;texture.onerror=()=>{texture.onerror=null;texture.src=fallback(current.title)};texture.src=pimg(current);$('#quoteBtn').href='./quote.html?slugs='+encodeURIComponent(current.slug);$('#compareBtn').href='./compare.html?slugs='+encodeURIComponent(current.slug);PureStoneRuntime?.track('kitchen_material',{material:current.title},current.slug)}function renderMaterials(){const preferred=['taj-mahal-ceramica-atlas-plan','desert-silver-quartz-silestone','arte-black-quartz-coante','elysee-quartz-alb-coante'];let list=preferred.map(s=>catalog.find(p=>p.slug===s)).filter(Boolean);for(const p of catalog)if(list.length<8&&!list.find(x=>x.slug===p.slug))list.push(p);$('#materials').innerHTML=list.map(p=>`<button class="mat ${current?.slug===p.slug?'active':''}" data-slug="${p.slug}"><img src="${pimg(p)}" alt="${p.title}"><b>${p.title}</b></button>`).join('');document.querySelectorAll('.mat').forEach(b=>b.onclick=()=>setMaterial(b.dataset.slug))}$('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;setPhoto(URL.createObjectURL(f));PureStoneRuntime?.track('kitchen_upload')};$('#demo').onclick=()=>setPhoto(G+'?slug=hero-kitchen');$('#resetPoints').onclick=()=>{points=[];guide();render()};$('#wrap').addEventListener('pointerdown',e=>{if(!ready||points.length>=4)return;const r=$('#wrap').getBoundingClientRect();points.push({x:(e.clientX-r.left)/r.width*bc.width,y:(e.clientY-r.top)/r.height*bc.height});guide();render();if(points.length===4)PureStoneRuntime?.track('kitchen_surface_marked')});$('#opacity').oninput=()=>{$('#opacityLabel').textContent=$('#opacity').value+'%';render()};$('#compare').oninput=()=>{const v=Number($('#compare').value);rc.style.clipPath=`inset(0 ${100-v}% 0 0)`;$('#line').style.left=v+'%'};$('#download').onclick=()=>{if(!photo.naturalWidth)return alert('Încarcă întâi o fotografie.');const a=document.createElement('a');a.download='purestone-vizualizare.jpg';a.href=rc.toDataURL('image/jpeg',.92);a.click();PureStoneRuntime?.track('kitchen_download',{material:current?.title},current?.slug)};async function init(){if(PureStoneRuntime){catalog=PureStoneRuntime.mergeCatalog(baseCatalog,await PureStoneRuntime.loadOverrides())}const slug=new URLSearchParams(location.search).get('slug');current=catalog.find(p=>p.slug===slug)||catalog.find(p=>/taj.?mahal/i.test(p.title))||catalog[0];renderMaterials();setMaterial(current.slug);$('#compare').dispatchEvent(new Event('input'))}init();</script></body></html>
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vezi în bucătăria mea • PureStone</title>
+<meta name="description" content="Încarcă o fotografie a bucătăriei, marchează blatul și testează materialele PureStone direct în imagine.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<script src="./manifest/products_manifest.js"></script>
+<script src="./purestone-runtime.js"></script>
+<style>
+:root{--bg:#f4efe7;--paper:#fbf8f3;--ink:#201d19;--muted:#7b7369;--line:rgba(32,29,25,.12);--gold:#a48058;--dark:#211e1a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:DM Sans,system-ui,sans-serif}.wrap{width:min(1250px,calc(100% - 28px));margin:auto}.serif{font-family:Playfair Display,serif}.top{position:sticky;top:0;z-index:20;background:rgba(244,239,231,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-family:Playfair Display,serif;letter-spacing:.15em;text-decoration:none;color:inherit;font-weight:600}.btn{border:0;border-radius:999px;padding:11px 15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;font-family:inherit}.dark{background:var(--dark);color:#fff}.light{background:#fff;color:var(--ink);border:1px solid var(--line)}.hero{padding:34px 0 20px}.hero h1{font-size:clamp(44px,7vw,78px);line-height:.93;margin:8px 0 14px}.hero p{color:var(--muted);max-width:760px;line-height:1.7}.app{display:grid;grid-template-columns:340px 1fr;gap:14px;padding-bottom:90px}.panel,.stage{background:rgba(255,255,255,.54);border:1px solid var(--line);border-radius:26px}.panel{padding:18px}.step{border-bottom:1px solid var(--line);padding:15px 0}.step:first-child{padding-top:0}.step:last-child{border-bottom:0}.step h3{font-family:Playfair Display,serif;font-size:24px;margin:0 0 8px}.step p{font-size:11px;color:var(--muted);line-height:1.55}.upload{border:1px dashed rgba(32,29,25,.25);border-radius:18px;padding:18px;text-align:center;background:#fff;display:block;cursor:pointer}.upload input{display:none}.upload b{display:block;margin-bottom:4px}.tools{display:flex;gap:7px;flex-wrap:wrap}.tools button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 11px;font-size:10px;font-weight:700;cursor:pointer}.materials{display:flex;gap:7px;overflow:auto;padding:3px 2px 6px;scrollbar-width:none}.mat{flex:0 0 100px;border:1px solid var(--line);border-radius:15px;background:#fff;padding:6px;text-align:left;cursor:pointer}.mat.active{outline:2px solid var(--gold);outline-offset:1px}.mat img{width:100%;height:58px;object-fit:cover;border-radius:10px;background:#d7cabc}.mat b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:5px}.field{margin-top:9px}.field label{font-size:10px;color:var(--muted);display:flex;justify-content:space-between}.field input[type=range]{width:100%}.stage{padding:12px;min-width:0}.canvas-wrap{position:relative;width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#d0c5b7,#b9aa97);border-radius:20px;overflow:hidden;touch-action:none}.canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.guide{position:absolute;inset:0;pointer-events:none}.point{position:absolute;width:20px;height:20px;margin:-10px;border-radius:50%;background:#fff;border:3px solid var(--gold);box-shadow:0 3px 12px rgba(0,0,0,.25)}.point:after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--gold)}.hint{position:absolute;left:12px;top:12px;max-width:calc(100% - 24px);background:rgba(33,30,26,.88);color:#fff;border-radius:999px;padding:8px 11px;font-size:10px;z-index:4}.compare-line{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.16);pointer-events:none;z-index:3}.compare-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:#fff;color:#2a251f;display:grid;place-items:center;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.2)}.compare-range{position:absolute;left:10px;right:10px;bottom:10px;width:calc(100% - 20px);z-index:5;opacity:.02;height:42px;cursor:ew-resize}.stage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.stage-actions .btn{flex:1}.privacy{font-size:10px;color:var(--muted);margin-top:10px;text-align:center}.status{margin-top:8px;padding:9px 11px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:10px;color:var(--muted)}.status.ok{color:#47634e;background:#f5faf6}.status.err{color:#8a3a2f;background:#fff7f5}
+@media(max-width:850px){.app{grid-template-columns:1fr}.panel{order:2}.stage{order:1}.canvas-wrap{aspect-ratio:4/3}.hero{padding-top:26px}.nav .light{display:none}.stage-actions .btn{min-width:calc(50% - 4px)}}
+@media(max-width:430px){.wrap{width:calc(100% - 18px)}.panel,.stage{border-radius:21px}.stage{padding:7px}.canvas-wrap{border-radius:16px}.hero h1{font-size:43px}.hero p{font-size:13px}.hint{font-size:9px}.stage-actions .btn{min-width:100%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav"><a class="brand" href="./purestone.html">PURESTONE</a><div><a class="btn light" href="./compare.html">Compară</a> <a class="btn dark" href="./quote.html">Cere ofertă</a></div></div></header>
+<main class="wrap">
+<section class="hero"><div style="font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-weight:700">Visualizer local • poza rămâne pe dispozitiv</div><h1 class="serif">Vezi materialul<br>în bucătăria ta.</h1><p>Încarcă fotografia, marchează cele patru colțuri ale blatului și testează materialele. Randarea se face direct în browser; fotografia nu este trimisă către PureStone.</p></section>
+<section class="app">
+<aside class="panel">
+<div class="step"><h3>1. Încarcă fotografia</h3><label class="upload"><input id="file" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif"><b>📷 Alege poza bucătăriei</b><span style="font-size:9px;color:var(--muted)">JPG / PNG / WebP • pe unele telefoane HEIC poate necesita conversie</span></label><div class="tools" style="margin-top:8px"><button id="demo" type="button">Folosește imagine demo</button><button id="resetPoints" type="button">Refă suprafața</button></div><div id="status" class="status">Alege o fotografie sau pornește demo-ul.</div></div>
+<div class="step"><h3>2. Marchează blatul</h3><p>Apasă pe fotografie în ordine: stânga-sus → dreapta-sus → dreapta-jos → stânga-jos. În demo suprafața este marcată automat.</p><div id="pointState" style="font-size:11px;font-weight:700;color:var(--gold)">0 / 4 puncte</div></div>
+<div class="step"><h3>3. Alege materialul</h3><div class="materials" id="materials"></div><div class="field"><label><span>Intensitate material</span><b id="opacityLabel">78%</b></label><input id="opacity" type="range" min="30" max="100" value="78"></div></div>
+</aside>
+<section class="stage"><div class="canvas-wrap" id="wrap" data-ready="0"><canvas id="base"></canvas><canvas id="result"></canvas><div class="guide" id="guide"></div><div class="hint" id="hint">Încarcă o fotografie pentru a începe</div><div class="compare-line" id="line" style="left:50%"><span class="compare-knob">↔</span></div><input class="compare-range" id="compare" aria-label="Compară fotografia originală cu materialul" type="range" min="0" max="100" value="50"></div><div class="stage-actions"><button class="btn light" id="download" type="button">Salvează imaginea</button><a class="btn light" id="compareBtn" href="./compare.html">Compară materialul</a><a class="btn dark" id="quoteBtn" href="./quote.html">Cere ofertă</a></div><div class="privacy">🔒 Fotografia este procesată local în browser și nu este stocată automat.</div></section>
+</section>
+</main>
+<script>
+(() => {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const runtime = window.PureStoneRuntime || null;
+  const baseCatalog = (typeof window.TOP_BLAT_CATALOG !== 'undefined' && Array.isArray(window.TOP_BLAT_CATALOG)) ? window.TOP_BLAT_CATALOG : ((typeof TOP_BLAT_CATALOG !== 'undefined' && Array.isArray(TOP_BLAT_CATALOG)) ? TOP_BLAT_CATALOG : []);
+  const FALLBACK_CATALOG = [
+    {slug:'taj-mahal-ceramica-atlas-plan',title:'Taj Mahal',brand:'Atlas Plan Italia',image_url:'https://top-blat.ro/wp-content/uploads/2025/10/TAJ-MAHAL-2-ATLAS-PLAN.webp'},
+    {slug:'desert-silver-quartz-silestone',title:'Desert Silver',brand:'Silestone Spania',image_url:'https://top-blat.ro/wp-content/uploads/2024/05/Blaturi-de-bucatarii-Blaturi-de-Baie-quartz-compozit-Blaturidebucatarii.ro-117-1024x768.avif'},
+    {slug:'arte-black-quartz-coante',title:'Arte Black',brand:'Coante Quartz',image_url:'https://top-blat.ro/wp-content/uploads/2024/05/Blaturi-de-bucatarii-Blaturi-de-Baie-quartz-compozit-Blaturidebucatarii.ro-269-1024x497.avif'},
+    {slug:'noble-botticino-technistone',title:'Noble Botticino',brand:'Technistone Cehia',image_url:''}
+  ];
+  let catalog = baseCatalog.length ? baseCatalog : FALLBACK_CATALOG;
+  let current = null, points = [], photo = new Image(), texture = new Image(), ready = false;
+  const bc = $('#base'), rc = $('#result'), wrap = $('#wrap');
+  const bctx = bc.getContext('2d'), rctx = rc.getContext('2d');
+
+  function track(name, meta = {}, slug = '') { try { runtime?.track?.(name, meta, slug); } catch (_) {} }
+  function status(text, kind = '') { const el=$('#status'); el.textContent=text; el.className='status'+(kind?' '+kind:''); }
+  function stoneFallback(name='PureStone') {
+    const safe=String(name).replace(/[<>&"']/g,'');
+    return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee4d5"/><stop offset="1" stop-color="#bba990"/></linearGradient></defs><rect width="1200" height="800" fill="url(#g)"/><path d="M-80 570 C180 390 340 590 560 450 S900 300 1280 500" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="16"/><path d="M-40 260 C240 430 390 210 690 315 S1010 470 1260 250" fill="none" stroke="#6f6256" stroke-opacity=".28" stroke-width="8"/><text x="55" y="730" font-family="Georgia" font-size="54" fill="#fff">${safe}</text></svg>`);
+  }
+  function demoKitchen() {
+    return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900"><defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f2ede5"/><stop offset="1" stop-color="#d8d0c4"/></linearGradient><linearGradient id="floor" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b99f80"/><stop offset="1" stop-color="#8f765d"/></linearGradient></defs><rect width="1400" height="900" fill="url(#wall)"/><rect y="650" width="1400" height="250" fill="url(#floor)"/><rect x="90" y="250" width="480" height="400" rx="10" fill="#c8b9a4"/><rect x="110" y="280" width="205" height="340" fill="#ece6dc"/><rect x="335" y="280" width="205" height="340" fill="#e4ddd1"/><rect x="760" y="375" width="470" height="300" rx="10" fill="#403a34"/><polygon points="700,350 1265,350 1320,430 650,430" fill="#d8c9b4"/><rect x="825" y="130" width="250" height="170" rx="6" fill="#d9d1c4"/><rect x="850" y="155" width="200" height="120" fill="#98a39f" opacity=".55"/><circle cx="955" cy="242" r="42" fill="#81715f" opacity=".32"/><rect x="615" y="140" width="12" height="210" fill="#2f2b27"/><path d="M621 143 C700 190 745 190 815 143" fill="none" stroke="#2f2b27" stroke-width="8"/><circle cx="815" cy="145" r="28" fill="#caa979"/></svg>`);
+  }
+  function productImage(p) {
+    const src = p?.image_url || p?.remote_images?.[0] || '';
+    if (!src) return stoneFallback(p?.title || 'PureStone');
+    try { return runtime?.proxiedImage ? runtime.proxiedImage(src,p?.title||'PureStone') : src; } catch (_) { return src; }
+  }
+  function fitCanvas(img) {
+    const max=1800, scale=Math.min(1,max/(img.naturalWidth||max));
+    bc.width=rc.width=Math.max(1,Math.round(img.naturalWidth*scale));
+    bc.height=rc.height=Math.max(1,Math.round(img.naturalHeight*scale));
+    drawBase();
+  }
+  function drawBase() {
+    if(!photo.naturalWidth) return;
+    bctx.clearRect(0,0,bc.width,bc.height);
+    bctx.drawImage(photo,0,0,bc.width,bc.height);
+    render();
+  }
+  function bilerp(p0,p1,p2,p3,u,v){return{x:(1-u)*(1-v)*p0.x+u*(1-v)*p1.x+u*v*p2.x+(1-u)*v*p3.x,y:(1-u)*(1-v)*p0.y+u*(1-v)*p1.y+u*v*p2.y+(1-u)*v*p3.y}}
+  function tri(ctx,img,s0,s1,s2,d0,d1,d2){
+    const den=s0.x*(s1.y-s2.y)+s1.x*(s2.y-s0.y)+s2.x*(s0.y-s1.y); if(Math.abs(den)<.001)return;
+    const a=(d0.x*(s1.y-s2.y)+d1.x*(s2.y-s0.y)+d2.x*(s0.y-s1.y))/den;
+    const b=(d0.y*(s1.y-s2.y)+d1.y*(s2.y-s0.y)+d2.y*(s0.y-s1.y))/den;
+    const c=(d0.x*(s2.x-s1.x)+d1.x*(s0.x-s2.x)+d2.x*(s1.x-s0.x))/den;
+    const d=(d0.y*(s2.x-s1.x)+d1.y*(s0.x-s2.x)+d2.y*(s1.x-s0.x))/den;
+    const e=(d0.x*(s1.x*s2.y-s2.x*s1.y)+d1.x*(s2.x*s0.y-s0.x*s2.y)+d2.x*(s0.x*s1.y-s1.x*s0.y))/den;
+    const f=(d0.y*(s1.x*s2.y-s2.x*s1.y)+d1.y*(s2.x*s0.y-s0.x*s2.y)+d2.y*(s0.x*s1.y-s1.x*s0.y))/den;
+    ctx.save();ctx.beginPath();ctx.moveTo(d0.x,d0.y);ctx.lineTo(d1.x,d1.y);ctx.lineTo(d2.x,d2.y);ctx.closePath();ctx.clip();ctx.transform(a,b,c,d,e,f);ctx.drawImage(img,0,0);ctx.restore();
+  }
+  function render() {
+    if(!photo.naturalWidth) return;
+    rctx.clearRect(0,0,rc.width,rc.height); rctx.drawImage(photo,0,0,rc.width,rc.height);
+    if(points.length!==4 || !texture.naturalWidth) return;
+    rctx.save(); rctx.globalAlpha=Number($('#opacity').value)/100; rctx.globalCompositeOperation='multiply';
+    const cols=16,rows=10,tw=texture.naturalWidth,th=texture.naturalHeight;
+    for(let y=0;y<rows;y++) for(let x=0;x<cols;x++){
+      const u0=x/cols,u1=(x+1)/cols,v0=y/rows,v1=(y+1)/rows;
+      const d00=bilerp(points[0],points[1],points[2],points[3],u0,v0),d10=bilerp(points[0],points[1],points[2],points[3],u1,v0),d11=bilerp(points[0],points[1],points[2],points[3],u1,v1),d01=bilerp(points[0],points[1],points[2],points[3],u0,v1);
+      const s00={x:u0*tw,y:v0*th},s10={x:u1*tw,y:v0*th},s11={x:u1*tw,y:v1*th},s01={x:u0*tw,y:v1*th};
+      tri(rctx,texture,s00,s10,s11,d00,d10,d11);tri(rctx,texture,s00,s11,s01,d00,d11,d01);
+    }
+    rctx.restore();
+  }
+  function drawGuide() {
+    $('#guide').innerHTML=points.map(p=>`<i class="point" style="left:${bc.width?p.x/bc.width*100:0}%;top:${bc.height?p.y/bc.height*100:0}%"></i>`).join('');
+    $('#pointState').textContent=points.length+' / 4 puncte';
+    $('#hint').textContent=!ready?'Încarcă o fotografie pentru a începe':points.length<4?'Apasă colțul '+(points.length+1)+' din 4':'Glisează ↔ pentru Original / Material';
+  }
+  function loadPhoto(src,{demo=false}={}) {
+    ready=false; wrap.dataset.ready='0'; points=[]; drawGuide(); status('Se încarcă imaginea…');
+    const img=new Image();
+    img.onload=()=>{photo=img;ready=true;wrap.dataset.ready='1';fitCanvas(photo);if(demo){points=[{x:bc.width*.47,y:bc.height*.39},{x:bc.width*.90,y:bc.height*.39},{x:bc.width*.94,y:bc.height*.48},{x:bc.width*.43,y:bc.height*.48}];drawGuide();render();status('Demo pregătit — schimbă materialul sau glisează comparația.','ok')}else{drawGuide();status('Fotografia este gata. Marchează cele 4 colțuri ale blatului.','ok')}};
+    img.onerror=()=>{ready=false;wrap.dataset.ready='0';status('Imaginea nu a putut fi deschisă. Încearcă JPG, PNG sau WebP.','err');$('#hint').textContent='Nu am putut deschide imaginea'};
+    img.src=src;
+  }
+  function loadMaterial(slug) {
+    current=catalog.find(p=>p.slug===slug)||catalog[0]||FALLBACK_CATALOG[0];
+    document.querySelectorAll('.mat').forEach(x=>x.classList.toggle('active',x.dataset.slug===current.slug));
+    const img=new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>{texture=img;render()};
+    img.onerror=()=>{const fallback=new Image();fallback.onload=()=>{texture=fallback;render()};fallback.src=stoneFallback(current.title)};
+    img.src=productImage(current);
+    $('#quoteBtn').href='./quote.html?slugs='+encodeURIComponent(current.slug);
+    $('#compareBtn').href='./compare.html?slugs='+encodeURIComponent(current.slug);
+    track('kitchen_material',{material:current.title},current.slug);
+  }
+  function renderMaterials() {
+    const preferred=['taj-mahal-ceramica-atlas-plan','desert-silver-quartz-silestone','arte-black-quartz-coante','elysee-quartz-alb-coante'];
+    let list=preferred.map(s=>catalog.find(p=>p.slug===s)).filter(Boolean);
+    for(const p of catalog){if(list.length>=8)break;if(!list.some(x=>x.slug===p.slug))list.push(p)}
+    if(!list.length) list=FALLBACK_CATALOG;
+    $('#materials').innerHTML=list.map(p=>`<button type="button" class="mat ${current?.slug===p.slug?'active':''}" data-slug="${p.slug}"><img src="${productImage(p)}" alt="${String(p.title||'PureStone').replace(/"/g,'&quot;')}"><b>${p.title||'PureStone'}</b></button>`).join('');
+    document.querySelectorAll('.mat').forEach(b=>b.addEventListener('click',()=>loadMaterial(b.dataset.slug)));
+  }
+
+  $('#file').addEventListener('change',e=>{
+    const f=e.target.files?.[0]; if(!f)return;
+    if(!/^image\//.test(f.type) && !/\.(jpe?g|png|webp|heic|heif)$/i.test(f.name)){status('Fișierul ales nu pare să fie o imagine.','err');return}
+    const reader=new FileReader();
+    reader.onload=()=>{loadPhoto(reader.result);track('kitchen_upload',{type:f.type||'unknown'})};
+    reader.onerror=()=>status('Nu am putut citi fotografia de pe dispozitiv.','err');
+    reader.readAsDataURL(f);
+  });
+  $('#demo').addEventListener('click',()=>{loadPhoto(demoKitchen(),{demo:true});track('kitchen_demo')});
+  $('#resetPoints').addEventListener('click',()=>{points=[];drawGuide();render();if(ready)status('Suprafața a fost resetată. Marchează din nou cele 4 colțuri.','ok')});
+  wrap.addEventListener('pointerdown',e=>{
+    if(e.target.id==='compare') return;
+    if(!ready || points.length>=4) return;
+    const r=wrap.getBoundingClientRect();
+    points.push({x:(e.clientX-r.left)/r.width*bc.width,y:(e.clientY-r.top)/r.height*bc.height});
+    drawGuide();render();
+    if(points.length===4){status('Suprafața este marcată. Alege orice material și glisează comparația.','ok');track('kitchen_surface_marked')}
+  });
+  $('#opacity').addEventListener('input',()=>{$('#opacityLabel').textContent=$('#opacity').value+'%';render()});
+  $('#compare').addEventListener('input',()=>{const v=Number($('#compare').value);rc.style.clipPath=`inset(0 ${100-v}% 0 0)`;$('#line').style.left=v+'%'});
+  $('#download').addEventListener('click',()=>{
+    if(!photo.naturalWidth){status('Încarcă întâi o fotografie sau folosește demo-ul.','err');return}
+    try{const a=document.createElement('a');a.download='purestone-vizualizare.jpg';a.href=rc.toDataURL('image/jpeg',.92);a.click();track('kitchen_download',{material:current?.title||''},current?.slug||'')}catch(_){status('Imaginea nu poate fi salvată din cauza unei restricții a browserului. Încearcă din Chrome/Safari actualizat.','err')}
+  });
+
+  async function init(){
+    try{if(runtime?.mergeCatalog && runtime?.loadOverrides){const merged=runtime.mergeCatalog(baseCatalog,await runtime.loadOverrides());if(Array.isArray(merged)&&merged.length)catalog=merged}}catch(_){}
+    if(!catalog.length)catalog=FALLBACK_CATALOG;
+    const slug=new URLSearchParams(location.search).get('slug');
+    current=catalog.find(p=>p.slug===slug)||catalog.find(p=>/taj.?mahal/i.test(p.title||''))||catalog[0]||FALLBACK_CATALOG[0];
+    renderMaterials();loadMaterial(current.slug);$('#compare').dispatchEvent(new Event('input'));drawGuide();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
